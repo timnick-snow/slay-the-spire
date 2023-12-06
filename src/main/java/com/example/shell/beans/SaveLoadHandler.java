@@ -1,6 +1,6 @@
 package com.example.shell.beans;
 
-import com.example.shell.temp.GameRunContext;
+import com.example.shell.temp.RunContext;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +17,8 @@ import java.util.Optional;
 public class SaveLoadHandler implements InitializingBean {
     private String dir;
 
-    public Optional<GameRunContext> tryLoadRun() {
-        //
-        return null;
+    public Optional<RunContext> tryLoadRun() {
+        return Optional.empty();
     }
 
     @Override

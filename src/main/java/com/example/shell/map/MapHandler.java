@@ -2,6 +2,8 @@ package com.example.shell.map;
 
 import com.example.shell.enums.RoomType;
 import com.example.shell.random.RandomUtil;
+import com.example.shell.tool.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Random;
@@ -12,6 +14,7 @@ import java.util.Random;
  * @author snow
  * @since 2023/12/4
  */
+@Slf4j
 public class MapHandler {
     /*
     1点：0	 0  5  40  55
@@ -58,18 +61,22 @@ public class MapHandler {
             res[i] = new FloorRooms(act * 17 + i + 1);
             if (i == res.length - 1) {
                 // 处理boss层
-                RoomNode roomNode = new RoomNode(res[i].getStair() * 10 + 1);
-                roomNode.setRoomType(RoomType.BOSS);
-                res[i].addRoom(roomNode);
+                RoomNode bossRoom = new RoomNode(res[i].getStair() * 100 + 1);
+                bossRoom.setRoomType(RoomType.BOSS);
+                res[i].addRoom(bossRoom);
+
+                for (RoomNode room : res[i - 1].getRooms()) {
+                    room.addParentNode(bossRoom);
+                }
             } else {
                 for (int j = 0; j < rooms[i]; j++) {
-                    RoomNode roomNode = new RoomNode(res[i].getStair() * 10 + j + 1);
+                    RoomNode roomNode = new RoomNode(res[i].getStair() * 100 + j + 1);
                     roomNode.setRoomType(RoomType.UNKNOWN);
                     res[i].addRoom(roomNode);
                 }
-            }
-            if (i > 0) {
-                connect(res[i - 1], res[i], mapRandom);
+                if (i > 0) {
+                    connect(res[i - 1], res[i], mapRandom);
+                }
             }
         }
 
@@ -81,7 +88,8 @@ public class MapHandler {
         int to = parent.getRooms().size();
         List<List<Integer>> strategy = WayBranch.strategy(from, to, random);
         for (int i = 0; i < strategy.size(); i++) {
-            RoomNode c = child.getRooms().get(i);
+            List<RoomNode> childRooms = child.getRooms();
+            RoomNode c = childRooms.get(i);
             List<RoomNode> rooms = parent.getRooms();
             for (Integer pid : strategy.get(i)) {
                 c.addParentNode(rooms.get(pid));
@@ -98,6 +106,31 @@ public class MapHandler {
         }
         res[res.length - 1] = 1;
         return res;
+    }
+
+    public static String format(FloorRooms floorRooms) {
+        StringBuilder buf = new StringBuilder();
+        for (RoomNode room : floorRooms.getRooms()) {
+            buf.append(room.getId()).append("  ").append(room.getRoomType().getSymbol());
+            if (!room.getNext().isEmpty()) {
+                buf.append(" -> ");
+                if (room.getNext().size() == 1) {
+                    buf.append(room.getNext().get(0).getRoomType().getSymbol());
+                } else {
+                    buf.append("(");
+                    for (RoomNode nextRoom : room.getNext()) {
+                        buf.append(nextRoom.getRoomType().getSymbol()).append(",");
+                    }
+                    buf.deleteCharAt(buf.length() - 1);
+                    buf.append(")");
+                }
+                if (!room.getNext().get(0).getPids().isEmpty()) {
+                    buf.append(" -> ...");
+                }
+            }
+            buf.append("\n");
+        }
+        return buf.toString();
     }
 
 

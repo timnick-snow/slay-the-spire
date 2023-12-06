@@ -13,7 +13,7 @@ public enum RoomType {
     /**
      * 不明
      */
-    UNKNOWN("U"),
+    UNKNOWN("?"),
     /**
      * 商店
      */

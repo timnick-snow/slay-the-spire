@@ -25,16 +25,14 @@ import java.util.Optional;
 @Slf4j
 public class GameContext implements InitializingBean {
 
-    private MainPage mainPage;
-    private Optional<GameRunContext> runContext;
+    private MainPage mainPage = MainPage.CATALOG;
+    private Optional<RunContext> runContext = Optional.empty();
     private final Terminal terminal;
     private final SaveLoadHandler saveLoadHandler;
 
     public GameContext(Terminal terminal, SaveLoadHandler saveLoadHandler) {
         this.terminal = terminal;
         this.saveLoadHandler = saveLoadHandler;
-        this.mainPage = MainPage.CATALOG;
-        this.runContext = Optional.empty();
     }
 
     /**
@@ -47,9 +45,10 @@ public class GameContext implements InitializingBean {
     /**
      * 生成一个轮回
      */
-    public void genRun() {
+    public RunContext genRun() {
         String seed = RandomManage.genSeed();
-        this.runContext = Optional.of(new GameRunContext(seed, Characters.IRONCLAD, 20));
+        this.runContext = Optional.of(new RunContext(seed, Characters.IRONCLAD, 0));
+        return runContext.get();
     }
 
     public void clearRun() {

@@ -27,12 +27,12 @@ class Way4_5 implements Way {
         BRANCHES.add(List.of(D, X, D));
         BRANCHES.add(List.of(X, D, D));
 
-        BRANCHES.add(List.of(T, S, Y));
-        BRANCHES.add(List.of(T, Y, S));
-        BRANCHES.add(List.of(Y, T, S));
-        BRANCHES.add(List.of(Y, S, T));
-        BRANCHES.add(List.of(S, Y, T));
-        BRANCHES.add(List.of(S, T, Y));
+        BRANCHES.add(List.of(T, S, X));
+        BRANCHES.add(List.of(T, X, S));
+        BRANCHES.add(List.of(X, T, S));
+        BRANCHES.add(List.of(X, S, T));
+        BRANCHES.add(List.of(S, X, T));
+        BRANCHES.add(List.of(S, T, X));
     }
 
     @Override

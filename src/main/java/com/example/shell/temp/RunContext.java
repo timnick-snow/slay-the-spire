@@ -5,9 +5,11 @@ import com.example.shell.enums.Characters;
 import com.example.shell.enums.RunPage;
 import com.example.shell.map.FloorRooms;
 import com.example.shell.map.MapHandler;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ import java.util.List;
  */
 @Setter
 @Getter
-public class GameRunContext {
+public class RunContext {
 
     /**
      * 种子编号
@@ -37,7 +39,7 @@ public class GameRunContext {
      */
     private final FloorRooms[][] map;
     /**
-     * 钥匙
+     * 钥匙 R G B
      */
     private boolean[] keys;
     /**
@@ -71,7 +73,7 @@ public class GameRunContext {
     /**
      * 卡组
      */
-    private int[] decks;
+    private List<String> decks;
 
     /*
      * 开局选项 - 捏奥
@@ -93,13 +95,26 @@ public class GameRunContext {
      */
     private String lastTips;
     private RandomManage randomManage;
+    /**
+     * 当前房间号
+     */
+    private int roomId;
 
-    public GameRunContext(String seed, Characters character, int difficulty) {
+    public RunContext(String seed, Characters character, int difficulty) {
         this.map = initRandomGetMap(seed);
         this.seed = seed;
         this.character = character;
         this.difficulty = difficulty;
         this.runPage = RunPage.START_CHOOSE;
+        this.hp = 80;
+        this.maxHp = 80;
+        this.gold = 99;
+        this.potions = new ArrayList<>();
+        this.act = 0;
+        this.stair = -1;
+        this.relics = new ArrayList<>();
+        this.decks = new ArrayList<>();
+        this.roomId = -1;
     }
 
     @SuppressWarnings("all")
@@ -110,6 +125,19 @@ public class GameRunContext {
     }
 
     public String brief() {
-        return "种子编号：%s\n角色：%s\tAct: %d\tStair: %d\n".formatted(seed, character, act, stair);
+        return "种子编号：%s\n角色：%s\tAct: %d\tStair: %d\n".formatted(seed, character, act + 1, stair + 1);
+    }
+
+    @JsonIgnore
+    public FloorRooms getCurFloor() {
+        if (stair < 0) {
+            throw new IllegalStateException("Haven't entered any rooms yet");
+        }
+        return this.map[act][stair];
+    }
+
+    @JsonIgnore
+    public FloorRooms getNextFloor() {
+        return this.map[act][stair + 1];
     }
 }

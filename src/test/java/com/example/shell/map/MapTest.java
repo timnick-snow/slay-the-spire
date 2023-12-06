@@ -1,6 +1,5 @@
 package com.example.shell.map;
 
-import com.example.shell.tool.JsonUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -12,7 +11,10 @@ import java.util.Random;
 public class MapTest {
     @Test
     public void fun1() throws Exception {
-        FloorRooms[] floorRooms = MapHandler.genActMap(0, new Random());
-        System.out.println(JsonUtil.toJsonString(floorRooms));
+        long seed = 123;
+        for (int i = 0; i < 100; i++) {
+            Random mapRandom = new Random(seed * 17 + i * 31 + 1);
+            MapHandler.genActMap(0, mapRandom);
+        }
     }
 }

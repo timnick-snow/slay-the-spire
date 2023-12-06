@@ -1,5 +1,7 @@
 package com.example.shell.map;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.Random;
  * @author snow
  * @since 2023/12/6
  */
+@Slf4j
 public class WayBranch {
 
     static Way DEAD_WAY = value -> {

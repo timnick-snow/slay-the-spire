@@ -1,7 +1,6 @@
 package com.example.shell.beans;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;

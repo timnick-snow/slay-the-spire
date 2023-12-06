@@ -1,10 +1,10 @@
 package com.example.shell.temp;
 
-import com.example.shell.beans.MapHandler;
-import com.example.shell.beans.MapNode;
 import com.example.shell.beans.RandomManage;
 import com.example.shell.enums.Characters;
 import com.example.shell.enums.RunPage;
+import com.example.shell.map.FloorRooms;
+import com.example.shell.map.MapHandler;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +35,7 @@ public class GameRunContext {
     /**
      * 地图
      */
-    private final List<MapNode>[][] map;
+    private final FloorRooms[][] map;
     /**
      * 钥匙
      */
@@ -103,9 +103,9 @@ public class GameRunContext {
     }
 
     @SuppressWarnings("all")
-    private List<MapNode>[][] initRandomGetMap(String seed) {
+    private FloorRooms[][] initRandomGetMap(String seed) {
         this.randomManage = RandomManage.fromSeed(seed);
-        List[][] maps = MapHandler.gen(randomManage.getMapRandom());
+        var maps = MapHandler.gen(randomManage.getMapRandom());
         return maps;
     }
 

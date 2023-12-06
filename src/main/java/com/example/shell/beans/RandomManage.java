@@ -53,8 +53,16 @@ public class RandomManage {
     private Random fightRandom3;
 
     public static RandomManage fromSeed(String seed) {
+        long hash = longHash(seed);
         RandomManage randomManage = new RandomManage();
-
+        randomManage.mapRandom = new Random(hash++);
+        randomManage.bossRandom = new Random(hash++);
+        randomManage.relicRandom = new Random(hash++);
+        randomManage.eventRandom = new Random(hash++);
+        randomManage.rewardRandom = new Random(hash++);
+        randomManage.fightRandom1 = new Random(hash++);
+        randomManage.fightRandom2 = new Random(hash++);
+        randomManage.fightRandom3 = new Random(hash);
         return randomManage;
     }
 
@@ -73,4 +81,12 @@ public class RandomManage {
     }
 
 
+    private static long longHash(String s) {
+        long result = 0;
+        for (int i = 0; i < s.length(); i++) {
+            result = 31 * result + s.charAt(i);
+
+        }
+        return result;
+    }
 }

@@ -25,17 +25,17 @@ public class RoomNode {
     private RoomType roomType;
     private List<Integer> pids;
     @JsonIgnore
-    private List<RoomNode> parents;
+    private List<RoomNode> next;
 
 
     public RoomNode(int id) {
         this.id = id;
-        this.parents = new ArrayList<>();
+        this.next = new ArrayList<>();
         this.pids = new ArrayList<>();
     }
 
     public void addParentNode(RoomNode n) {
-        this.parents.add(n);
+        this.next.add(n);
         this.pids.add(n.id);
     }
 

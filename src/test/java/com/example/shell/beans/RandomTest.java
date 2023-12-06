@@ -79,20 +79,7 @@ public class RandomTest implements WithAssertions {
         f2.addRoom(new RoomNode(203));
         f2.addRoom(new RoomNode(204));
 
-        connect(f2, f1);
-    }
-
-    private static void connect(FloorRooms child, FloorRooms parent) {
-        List<List<Integer>> strategy = WayBranch.strategy(4, 2, new Random());
-        for (int i = 0; i < strategy.size(); i++) {
-            RoomNode c = child.getRooms().get(i);
-            List<RoomNode> rooms = parent.getRooms();
-            for (Integer pid : strategy.get(i)) {
-                c.addParentNode(rooms.get(pid));
-            }
-        }
-        System.out.println(strategy);
-        System.out.println(JsonUtil.toJsonString(child));
+//        connect(f2, f1);
     }
 
     @Test

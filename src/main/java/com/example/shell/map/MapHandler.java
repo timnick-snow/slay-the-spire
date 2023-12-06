@@ -46,7 +46,7 @@ public class MapHandler {
     public static FloorRooms[][] gen(Random mapRandom) {
         FloorRooms[][] res = new FloorRooms[3][16];
         for (int i = 0; i < 3; i++) {
-            res[i] = genActMap(i + 1, mapRandom);
+            res[i] = genActMap(i, mapRandom);
         }
         return res;
     }
@@ -56,15 +56,37 @@ public class MapHandler {
         FloorRooms[] res = new FloorRooms[rooms.length];
         for (int i = 0; i < res.length; i++) {
             res[i] = new FloorRooms(act * 17 + i + 1);
-            for (int j = 0; j < rooms[i]; j++) {
-                RoomNode roomNode = new RoomNode(res[i].getStair() * 10 + j + 1);
-                roomNode.setRoomType(RoomType.UNKNOWN);
+            if (i == res.length - 1) {
+                // 处理boss层
+                RoomNode roomNode = new RoomNode(res[i].getStair() * 10 + 1);
+                roomNode.setRoomType(RoomType.BOSS);
                 res[i].addRoom(roomNode);
+            } else {
+                for (int j = 0; j < rooms[i]; j++) {
+                    RoomNode roomNode = new RoomNode(res[i].getStair() * 10 + j + 1);
+                    roomNode.setRoomType(RoomType.UNKNOWN);
+                    res[i].addRoom(roomNode);
+                }
+            }
+            if (i > 0) {
+                connect(res[i - 1], res[i], mapRandom);
             }
         }
-        // 处理boss房间
 
         return res;
+    }
+
+    private static void connect(FloorRooms child, FloorRooms parent, Random random) {
+        int from = child.getRooms().size();
+        int to = parent.getRooms().size();
+        List<List<Integer>> strategy = WayBranch.strategy(from, to, random);
+        for (int i = 0; i < strategy.size(); i++) {
+            RoomNode c = child.getRooms().get(i);
+            List<RoomNode> rooms = parent.getRooms();
+            for (Integer pid : strategy.get(i)) {
+                c.addParentNode(rooms.get(pid));
+            }
+        }
     }
 
     static int[] rooms(Random mapRandom) {

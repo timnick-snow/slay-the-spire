@@ -17,16 +17,17 @@ public class WayBranch {
 
     static Way[][] WAYS = {
             {DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY},
-            {DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY},
-            {DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, new Way2_4(), DEAD_WAY, DEAD_WAY},
-            {DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY},
-            {DEAD_WAY, DEAD_WAY, new Way2_4().symmetrical(), DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY},
-            {DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY},
-            {DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY}
+            {DEAD_WAY, new Way1_1(), new Way1_2(), new Way1_3(), DEAD_WAY, DEAD_WAY, DEAD_WAY},
+            {DEAD_WAY, DEAD_WAY, new Way2_2(), new Way2_3(), new Way2_4(), new Way2_5(), new Way2_6()},
+            {DEAD_WAY, DEAD_WAY, DEAD_WAY, new Way3_3(), new Way3_4(), new Way3_5(), new Way3_6()},
+            {DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, new Way4_4(), new Way4_5(), new Way4_6()},
+            {DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, new Way5_5(), new Way5_6()},
+            {DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, DEAD_WAY, new Way6_6()}
     };
 
     public static List<List<Integer>> strategy(int from, int to, Random random) {
-        List<Branch> branches = WAYS[from][to].select(random.nextInt(0, 1000));
+        Way way = from <= to ? WAYS[from][to] : WAYS[to][from].symmetrical();
+        List<Branch> branches = way.select(random.nextInt(0, 1000));
         int y = 0;
         List<List<Integer>> res = new ArrayList<>();
         for (Branch branch : branches) {

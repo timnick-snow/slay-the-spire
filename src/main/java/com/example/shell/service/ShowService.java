@@ -32,22 +32,22 @@ public class ShowService {
     }
 
     public String potions() {
-        return runSupport.getRunContext().getPotions().format() + "\n";
+        return runSupport.getRunContext().getPotionGroup().format() + "\n";
     }
 
-    public String decks() {
-        return null;
+    public String decks(boolean verbose) {
+        return runSupport.getRunContext().getDeck().format(verbose) + "\n";
     }
 
     public String position() {
-        return runSupport.position();
+        return runSupport.position() + "\n";
     }
 
     public String keys() {
         return runSupport.getRunContext().getKeys().format() + "\n";
     }
 
-    public String relics() {
-        return null;
+    public String relics(boolean verbose) {
+        return runSupport.getRunContext().getRelicGroup().format(verbose);
     }
 }

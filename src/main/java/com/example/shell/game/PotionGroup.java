@@ -1,6 +1,6 @@
 package com.example.shell.game;
 
-import com.example.shell.items.Potion;
+import com.example.shell.items.potion.Potion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,29 +13,33 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class PotionSlot {
+public class PotionGroup {
     /**
      * 容量
      */
     private int cap;
     private List<Potion> potions;
 
-    public PotionSlot(int cap) {
+    public PotionGroup(int cap) {
         this.cap = cap;
         this.potions = new ArrayList<>();
     }
 
-    public PotionSlot() {
+    public PotionGroup() {
         this.cap = 3;
         this.potions = new ArrayList<>();
     }
 
-    public void addPotion(Potion p) {
-        this.potions.add(p);
+    public boolean addPotion(Potion p) {
+        if (this.potions.size() < cap) {
+            this.potions.add(p);
+            return true;
+        }
+        return false;
     }
 
     public String formatCount() {
-        return "potions: %d/%d".formatted(potions.size(), cap);
+        return "药水: %d/%d".formatted(potions.size(), cap);
     }
 
     public String format() {

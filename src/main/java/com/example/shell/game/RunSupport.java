@@ -1,7 +1,7 @@
 package com.example.shell.game;
 
 import com.example.shell.enums.MainPage;
-import com.example.shell.items.StrengthPotion;
+import com.example.shell.items.potion.StrengthPotion;
 import com.example.shell.map.FloorRooms;
 import com.example.shell.map.MapHandler;
 import com.example.shell.temp.GameContext;
@@ -40,10 +40,10 @@ public class RunSupport {
         this.runContext = gameContext.genRun();
         gameContext.setMainPage(MainPage.GAMING);
         // todo 临时测试
-        runContext.getPotions().addPotion(new StrengthPotion("p01"));
+        runContext.getPotionGroup().addPotion(new StrengthPotion(nextItemId("p")));
 
         // tips
-        String tips = roleInfo();
+        String tips = roleInfo() + "\n";
         FloorRooms floorRooms = runContext.getNextFloor();
         tips += "前方有" + floorRooms.getRooms().size() + "个房间，请选择一个进入\n";
         tips += MapHandler.format(floorRooms);
@@ -51,12 +51,17 @@ public class RunSupport {
     }
 
     public String roleInfo() {
-        String res = "hp: %d/%d  |  gold: %d  |  %s  |  relics: %d  | decks: %d\n";
+        String res = "hp: %d/%d  |  金币: %d  |  %s  |  %s  | %s\n";
         return res.formatted(runContext.getHp(), runContext.getMaxHp(), runContext.getGold(),
-                runContext.getPotions().formatCount(), runContext.getRelics().size(), runContext.getDecks().size());
+                runContext.getPotionGroup().formatCount(), runContext.getRelicGroup().formatCount(), runContext.getDeck().formatCount());
     }
 
     public String position() {
-        return "Act: %d\tStair: %d\tRooms: %d".formatted(runContext.getAct(), runContext.getStair(), runContext.getRoomId());
+        return "幕: %d\t层: %d\t房间: %d".formatted(runContext.getAct(), runContext.getStair(), runContext.getRoomId());
+    }
+
+    public String nextItemId(String prefix) {
+        int id = runContext.incrementItemId();
+        return "%s%02d".formatted(prefix, id);
     }
 }

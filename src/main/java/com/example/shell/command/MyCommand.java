@@ -11,7 +11,7 @@ import org.springframework.shell.command.annotation.Command;
  */
 @Command(command = "foo", alias = "f")
 public class MyCommand {
-    @Command(command = "", alias = "")
+    @Command(alias = "")
 //    @Command
     public String emptySub() {
         return "empty sub";

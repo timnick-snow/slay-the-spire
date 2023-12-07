@@ -13,7 +13,7 @@ import org.springframework.shell.command.annotation.Option;
  * @since 2023/12/7
  */
 @RequiredArgsConstructor
-@Command(command = "show", alias = "sh")
+@Command(command = "show", alias = "sh", group = "Show")
 public class ShowCommand {
 
     private final ShowService showService;
@@ -24,10 +24,10 @@ public class ShowCommand {
         return """
                 show brief      ->  显示简要信息
                 show role       ->  显示角色基本信息
-                show keys       ->  显示碎片收集情况
-                show potions    ->  显示拥有的药水
-                show relics     ->  显示拥有的遗物
-                show decks      ->  显示当前的卡组
+                show key        ->  显示碎片收集情况
+                show potion     ->  显示拥有的药水
+                show relic      ->  显示拥有的遗物
+                show deck       ->  显示当前的卡组
                 show position   ->  显示当前角色位置
                 -------------------------------------
                 你可以使用 `show` 的简写命令 `sh`
@@ -46,28 +46,28 @@ public class ShowCommand {
         return showService.roleInfo();
     }
 
-    @Command(command = "keys", alias = "keys", description = "show the keys you owned.")
+    @Command(command = "key", alias = "key", description = "show the keys you owned.")
     @CommandAvailability(provider = "showAvail")
     public String showKeys() {
         return showService.keys();
     }
 
-    @Command(command = "potions", alias = "potions", description = "show the keys you owned.")
+    @Command(command = "potion", alias = "potion", description = "show the keys you owned.")
     @CommandAvailability(provider = "showAvail")
     public String showPotions() {
         return showService.potions();
     }
 
-    @Command(command = "relics", alias = "relics", description = "show the relics you owned.")
+    @Command(command = "relic", alias = "relic", description = "show the relics you owned.")
     @CommandAvailability(provider = "showAvail")
-    public String showRelics(@Option boolean verbose) {
-        return showService.relics();
+    public String showRelics(@Option(longNames = "verbose", shortNames = 'v') boolean verbose) {
+        return showService.relics(verbose);
     }
 
-    @Command(command = "decks", alias = "decks", description = "show decks.")
+    @Command(command = "deck", alias = "deck", description = "show deck.")
     @CommandAvailability(provider = "showAvail")
-    public String showDecks() {
-        return showService.decks();
+    public String showDecks(@Option(longNames = "verbose", shortNames = 'v') boolean verbose) {
+        return showService.decks(verbose);
     }
 
     @Command(command = "position", alias = "position", description = "show position.")

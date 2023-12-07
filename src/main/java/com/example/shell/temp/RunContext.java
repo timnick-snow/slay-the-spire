@@ -3,16 +3,12 @@ package com.example.shell.temp;
 import com.example.shell.beans.RandomManage;
 import com.example.shell.enums.Characters;
 import com.example.shell.enums.RunPage;
-import com.example.shell.game.KeyChip;
-import com.example.shell.game.PotionSlot;
+import com.example.shell.game.*;
 import com.example.shell.map.FloorRooms;
 import com.example.shell.map.MapHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 游戏轮回
@@ -59,7 +55,7 @@ public class RunContext {
     /**
      * 药水
      */
-    private PotionSlot potions;
+    private PotionGroup potionGroup;
     /**
      * 第几幕
      */
@@ -71,11 +67,11 @@ public class RunContext {
     /**
      * 遗物
      */
-    private List<String> relics;
+    private RelicGroup relicGroup;
     /**
      * 卡组
      */
-    private List<String> decks;
+    private Deck deck;
 
     /*
      * 开局选项 - 捏奥
@@ -102,22 +98,31 @@ public class RunContext {
      */
     private int roomId;
 
+    private int itemId;
+
     public RunContext(String seed, Characters character, int difficulty) {
         this.map = initRandomGetMap(seed);
         this.seed = seed;
         this.character = character;
         this.difficulty = difficulty;
         this.runPage = RunPage.START_CHOOSE;
-        this.hp = 80;
-        this.maxHp = 80;
-        this.gold = 99;
-        this.potions = new PotionSlot(3);
+        this.potionGroup = new PotionGroup(3);
         this.act = 0;
         this.stair = -1;
-        this.relics = new ArrayList<>();
-        this.decks = new ArrayList<>();
         this.roomId = -1;
         this.keys = new KeyChip();
+
+        StarterItem item = StarterItem.redStarter();
+        this.hp = item.hp();
+        this.maxHp = item.maxHp();
+        this.gold = item.gold();
+        // 初始遗物
+        this.relicGroup = new RelicGroup();
+        this.relicGroup.addRelic(item.relic());
+        // 初始卡牌
+        this.deck = new Deck();
+        this.deck.addAll(item.deck());
+        this.itemId += item.deck().size();
     }
 
     @SuppressWarnings("all")
@@ -128,7 +133,7 @@ public class RunContext {
     }
 
     public String brief() {
-        return "种子编号：%s\n角色：%s\tAct: %d\tStair: %d\n".formatted(seed, character, act + 1, stair + 1);
+        return "种子编号：%s\n角色：%s\t幕: %d\t层: %d\n".formatted(seed, character.getDisplayName(), act + 1, stair + 1);
     }
 
     @JsonIgnore
@@ -142,5 +147,10 @@ public class RunContext {
     @JsonIgnore
     public FloorRooms getNextFloor() {
         return this.map[act][stair + 1];
+    }
+
+    public int incrementItemId() {
+        this.itemId++;
+        return this.itemId;
     }
 }

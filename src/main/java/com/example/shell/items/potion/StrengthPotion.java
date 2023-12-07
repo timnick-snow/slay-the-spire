@@ -1,4 +1,4 @@
-package com.example.shell.items;
+package com.example.shell.items.potion;
 
 /**
  * @author snow

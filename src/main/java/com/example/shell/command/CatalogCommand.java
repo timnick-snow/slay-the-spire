@@ -12,7 +12,7 @@ import org.springframework.shell.command.annotation.CommandAvailability;
  * @since 2023/12/1
  */
 @RequiredArgsConstructor
-@Command(command = "game")
+@Command(command = "game", group = "Game")
 public class CatalogCommand {
     private final CatalogService catalogService;
 

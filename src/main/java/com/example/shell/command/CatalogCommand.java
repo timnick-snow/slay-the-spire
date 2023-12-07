@@ -1,33 +1,23 @@
 package com.example.shell.command;
 
-import com.example.shell.enums.MainPage;
-import com.example.shell.game.RunSupport;
 import com.example.shell.service.CatalogService;
-import com.example.shell.temp.GameContext;
-import com.example.shell.temp.RunContext;
-import org.springframework.shell.Availability;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
-import org.springframework.shell.standard.ShellMethodAvailability;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.shell.AvailabilityProvider;
+import org.springframework.shell.command.annotation.Command;
+import org.springframework.shell.command.annotation.CommandAvailability;
 
 /**
  * @author snow
  * @since 2023/12/1
  */
-@ShellComponent
+@RequiredArgsConstructor
+@Command(command = "game")
 public class CatalogCommand {
-    final GameContext gameContext;
-    final RunSupport runSupport;
-    final CatalogService catalogService;
+    private final CatalogService catalogService;
 
-    public CatalogCommand(GameContext gameContext, RunSupport runSupport, CatalogService catalogService) {
-        this.gameContext = gameContext;
-        this.runSupport = runSupport;
-        this.catalogService = catalogService;
-    }
-
-
-    @ShellMethod(key = {"game"}, value = "帮助")
+    @Command(description = "help")
+    @CommandAvailability(provider = "gameAvail")
     public String game() {
         return """
                 game start -> 开始游戏
@@ -37,28 +27,28 @@ public class CatalogCommand {
                 """;
     }
 
-    @ShellMethod(key = {"game start"}, value = "开始游戏")
+    @Command(command = {"start"}, description = "start to play the game.")
     public String gameStart() {
         return catalogService.start();
     }
 
-    @ShellMethod(key = {"game continue"}, value = "继续游戏")
+    @Command(command = {"continue"}, description = "start to play the game.")
     public String gameContinue() {
         return catalogService.continuation();
     }
 
-    @ShellMethod(key = {"game give up"}, value = "放弃当前游戏")
+    @Command(command = {"give", "up"}, description = "abandon the current game.")
     public String gameGiveUp() {
         return catalogService.giveUp();
     }
 
-    @ShellMethod(key = {"game history"}, value = "历史记录")
+    @Command(command = {"history"}, description = "list game history.")
     public String gameHistory() {
         return catalogService.history();
     }
 
-    @ShellMethodAvailability()
-    public Availability availability() {
-        return catalogService.availability();
+    @Bean
+    public AvailabilityProvider gameAvail() {
+        return catalogService::availability;
     }
 }

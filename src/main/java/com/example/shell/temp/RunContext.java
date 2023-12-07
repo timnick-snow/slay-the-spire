@@ -3,6 +3,8 @@ package com.example.shell.temp;
 import com.example.shell.beans.RandomManage;
 import com.example.shell.enums.Characters;
 import com.example.shell.enums.RunPage;
+import com.example.shell.game.KeyChip;
+import com.example.shell.game.PotionSlot;
 import com.example.shell.map.FloorRooms;
 import com.example.shell.map.MapHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,7 +43,7 @@ public class RunContext {
     /**
      * 钥匙 R G B
      */
-    private boolean[] keys;
+    private KeyChip keys;
     /**
      * 当前hp
      */
@@ -57,7 +59,7 @@ public class RunContext {
     /**
      * 药水
      */
-    private List<String> potions;
+    private PotionSlot potions;
     /**
      * 第几幕
      */
@@ -109,12 +111,13 @@ public class RunContext {
         this.hp = 80;
         this.maxHp = 80;
         this.gold = 99;
-        this.potions = new ArrayList<>();
+        this.potions = new PotionSlot(3);
         this.act = 0;
         this.stair = -1;
         this.relics = new ArrayList<>();
         this.decks = new ArrayList<>();
         this.roomId = -1;
+        this.keys = new KeyChip();
     }
 
     @SuppressWarnings("all")

@@ -17,5 +17,5 @@ public enum CardColor {
     COLOURLESS("无色"),
     CURSE("诅咒"),
     ;
-    private final String displayName;
+    private final String display;
 }

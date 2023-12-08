@@ -10,11 +10,12 @@ import com.example.shell.temp.RunContext;
 public class GetPotion implements Bless {
     @Override
     public String effect(RunContext ctx, FlowService flowService) {
+        // todo 药水
         return null;
     }
 
     @Override
-    public String displayName(RunContext ctx) {
+    public String display(RunContext ctx) {
         return "获得3个随机药水。";
     }
 }

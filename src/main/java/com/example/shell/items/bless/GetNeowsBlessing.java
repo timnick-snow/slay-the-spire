@@ -17,7 +17,7 @@ public class GetNeowsBlessing implements Bless {
     }
 
     @Override
-    public String displayName(RunContext ctx) {
+    public String display(RunContext ctx) {
         return "获得遗物【涅奥的悲恸】";
     }
 }

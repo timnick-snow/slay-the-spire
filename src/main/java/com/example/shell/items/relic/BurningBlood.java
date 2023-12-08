@@ -14,6 +14,6 @@ public class BurningBlood implements Relic {
 
     @Override
     public String getDescription() {
-        return "在战斗结束时，回复6点生命。";
+        return "在战斗结束时，回复 6 点生命。";
     }
 }

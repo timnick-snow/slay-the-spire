@@ -10,11 +10,12 @@ import com.example.shell.temp.RunContext;
 public class RandomRelic implements Bless {
     @Override
     public String effect(RunContext ctx, FlowService flowService) {
+        // todo 遗物
         return null;
     }
 
     @Override
-    public String displayName(RunContext ctx) {
+    public String display(RunContext ctx) {
         return "获得一个随机普通遗物。";
     }
 }

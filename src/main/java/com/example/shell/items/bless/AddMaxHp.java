@@ -9,27 +9,21 @@ import com.example.shell.temp.RunContext;
  * @author snow
  * @since 2023/12/8
  */
-public class AddMaxHp implements Bless {
+public abstract class AddMaxHp implements Bless {
+
+    protected abstract int getAddValue(RunContext ctx);
 
     @Override
     public String effect(RunContext ctx, FlowService flowService) {
-        int value = switch (ctx.getCharacter()) {
-            case IRONCLAD -> 8;
-            case SILENT -> 6;
-            case DEFECT, WATCHER -> 7;
-        };
+        int value = getAddValue(ctx);
         ctx.setMaxHp(ctx.getMaxHp() + value);
         ctx.setHp(ctx.getHp() + value);
         return "你的最大生命值增加了！";
     }
 
     @Override
-    public String displayName(RunContext ctx) {
-        int value = switch (ctx.getCharacter()) {
-            case IRONCLAD -> 8;
-            case SILENT -> 6;
-            case DEFECT, WATCHER -> 7;
-        };
+    public String display(RunContext ctx) {
+        int value = getAddValue(ctx);
         return "最大生命值+%d。".formatted(value);
     }
 }

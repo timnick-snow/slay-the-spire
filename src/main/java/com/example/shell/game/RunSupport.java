@@ -2,7 +2,7 @@ package com.example.shell.game;
 
 import com.example.shell.enums.Characters;
 import com.example.shell.enums.MainPage;
-import com.example.shell.items.bless.AddMaxHp;
+import com.example.shell.items.bless.AddSomeMaxHp;
 import com.example.shell.items.bless.Bless;
 import com.example.shell.items.bless.GetNeowsBlessing;
 import com.example.shell.items.bless.RemoveCard;
@@ -69,7 +69,7 @@ public class RunSupport {
     public List<Bless> genBless() {
 //        Random eventRandom = runContext.getRandomManage().getEventRandom();
         ArrayList<Bless> list = new ArrayList<>();
-        list.add(new AddMaxHp());
+        list.add(new AddSomeMaxHp());
         list.add(new GetNeowsBlessing());
         list.add(new RemoveCard());
         return list;

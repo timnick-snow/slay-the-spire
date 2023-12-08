@@ -18,7 +18,7 @@ public class LossGold implements Bless {
     }
 
     @Override
-    public String displayName(RunContext ctx) {
+    public String display(RunContext ctx) {
         return "失去所有的金币。";
     }
 }

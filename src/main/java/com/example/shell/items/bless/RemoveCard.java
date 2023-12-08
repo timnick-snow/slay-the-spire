@@ -15,7 +15,7 @@ public class RemoveCard implements Bless {
     }
 
     @Override
-    public String displayName(RunContext ctx) {
+    public String display(RunContext ctx) {
         return "从你的牌组内选择一张牌移除。";
     }
 }

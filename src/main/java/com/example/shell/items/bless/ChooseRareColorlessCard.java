@@ -7,15 +7,15 @@ import com.example.shell.temp.RunContext;
  * @author snow
  * @since 2023/12/8
  */
-public class UpgradeCard implements Bless {
+public class ChooseRareColorlessCard implements Bless {
     @Override
     public String effect(RunContext ctx, FlowService flowService) {
-        // todo 升级卡
+        // todo 卡牌
         return null;
     }
 
     @Override
     public String display(RunContext ctx) {
-        return "从你的牌组内选择一张牌升级。";
+        return "选择一张稀有无色卡牌加入到你的牌组中。";
     }
 }

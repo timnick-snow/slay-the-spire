@@ -7,6 +7,7 @@ import com.example.shell.game.RunSupport;
 import com.example.shell.items.bless.Bless;
 import com.example.shell.tool.Convert;
 import com.example.shell.tool.Either;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jline.terminal.Terminal;
 import org.springframework.shell.component.flow.ComponentFlow;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class FlowService {
     private final ComponentFlow.Builder componentFlowBuilder;
     private final RunSupport runSupport;
+    @Getter
     private final Terminal terminal;
 
     public Either<String, StartFlowResult> startSelect() {
@@ -74,7 +76,7 @@ public class FlowService {
     public void blessSelect(List<Bless> blesses) {
         Map<String, String> items = new HashMap<>();
         for (int i = 0; i < blesses.size(); i++) {
-            items.put(blesses.get(i).displayName(runSupport.getRunContext()), String.valueOf(i));
+            items.put(blesses.get(i).display(runSupport.getRunContext()), String.valueOf(i));
         }
         ComponentFlow flow = componentFlowBuilder.clone().reset()
                 .withSingleItemSelector("id").name("捏奥的祝福。请选择一项...")

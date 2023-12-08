@@ -10,7 +10,13 @@ import com.example.shell.temp.RunContext;
  * @since 2023/12/8
  */
 public interface Bless {
+    /**
+     * 生效
+     */
     String effect(RunContext ctx, FlowService flowService);
 
-    String displayName(RunContext ctx);
+    /**
+     * 显示信息
+     */
+    String display(RunContext ctx);
 }

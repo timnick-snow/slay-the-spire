@@ -29,5 +29,5 @@ public enum Characters {
      */
     WATCHER("观者"),
     ;
-    private final String displayName;
+    private final String display;
 }

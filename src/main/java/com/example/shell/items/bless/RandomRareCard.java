@@ -10,11 +10,12 @@ import com.example.shell.temp.RunContext;
 public class RandomRareCard implements Bless {
     @Override
     public String effect(RunContext ctx, FlowService flowService) {
+        // todo 卡牌
         return null;
     }
 
     @Override
-    public String displayName(RunContext ctx) {
+    public String display(RunContext ctx) {
         return "获得一张随机稀有卡。";
     }
 }

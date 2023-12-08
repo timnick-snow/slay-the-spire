@@ -44,15 +44,15 @@ public class Deck {
             for (Card card : cards) {
                 buf.append("|").append(center(card.id(), 6));
                 buf.append("|").append(center(card.name(), 8));
-                buf.append("|").append(center(card.color().getDisplayName(), 4));
-                buf.append("|").append(center(card.type().getDisplayName(), 4));
+                buf.append("|").append(center(card.color().getDisplay(), 4));
+                buf.append("|").append(center(card.type().getDisplay(), 4));
                 // 耗能
                 if (card instanceof PlayCard playCard) {
                     buf.append("|").append(center(String.valueOf(playCard.energy()), 6));
                 } else {
                     buf.append("|").append(center("N", 5));
                 }
-                buf.append("|").append(center(card.rarity().getDisplayName(), 6));
+                buf.append("|").append(center(card.rarity().getDisplay(), 6));
                 // 描述
                 buf.append("| ");
                 if (card.description().length() <= 32) {

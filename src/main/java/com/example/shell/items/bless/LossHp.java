@@ -13,23 +13,23 @@ public class LossHp implements Bless {
 
     @Override
     public String effect(RunContext ctx, FlowService flowService) {
-        int value = switch (ctx.getCharacter()) {
-            case IRONCLAD, DEFECT -> 18;
-            case SILENT -> 15;
-            case WATCHER -> 21;
-        };
+        int value = getValue(ctx);
         int hp = ctx.getHp();
         ctx.setHp(hp - value);
         return "你的生命值减少了，hp: %d => %d".formatted(hp, ctx.getHp());
     }
 
     @Override
-    public String displayName(RunContext ctx) {
-        int value = switch (ctx.getCharacter()) {
+    public String display(RunContext ctx) {
+        int value = getValue(ctx);
+        return "受到%d伤害。".formatted(value);
+    }
+
+    private static int getValue(RunContext ctx) {
+        return switch (ctx.getCharacter()) {
             case IRONCLAD, DEFECT -> 18;
             case SILENT -> 15;
             case WATCHER -> 21;
         };
-        return "受到%d伤害。".formatted(value);
     }
 }

@@ -1,0 +1,511 @@
+[
+  {
+    "rooms": [
+      {
+        "id": 11,
+        "roomType": "UNKNOWN",
+        "pids": [
+          21
+        ]
+      },
+      {
+        "id": 12,
+        "roomType": "UNKNOWN",
+        "pids": [
+          22,
+          23
+        ]
+      },
+      {
+        "id": 13,
+        "roomType": "UNKNOWN",
+        "pids": [
+          24
+        ]
+      }
+    ],
+    "stair": 1
+  },
+  {
+    "rooms": [
+      {
+        "id": 21,
+        "roomType": "UNKNOWN",
+        "pids": [
+          31
+        ]
+      },
+      {
+        "id": 22,
+        "roomType": "UNKNOWN",
+        "pids": [
+          32
+        ]
+      },
+      {
+        "id": 23,
+        "roomType": "UNKNOWN",
+        "pids": [
+          33
+        ]
+      },
+      {
+        "id": 24,
+        "roomType": "UNKNOWN",
+        "pids": [
+          34
+        ]
+      }
+    ],
+    "stair": 2
+  },
+  {
+    "rooms": [
+      {
+        "id": 31,
+        "roomType": "UNKNOWN",
+        "pids": [
+          41
+        ]
+      },
+      {
+        "id": 32,
+        "roomType": "UNKNOWN",
+        "pids": [
+          42
+        ]
+      },
+      {
+        "id": 33,
+        "roomType": "UNKNOWN",
+        "pids": [
+          42
+        ]
+      },
+      {
+        "id": 34,
+        "roomType": "UNKNOWN",
+        "pids": [
+          43
+        ]
+      }
+    ],
+    "stair": 3
+  },
+  {
+    "rooms": [
+      {
+        "id": 41,
+        "roomType": "UNKNOWN",
+        "pids": [
+          51
+        ]
+      },
+      {
+        "id": 42,
+        "roomType": "UNKNOWN",
+        "pids": [
+          52,
+          53
+        ]
+      },
+      {
+        "id": 43,
+        "roomType": "UNKNOWN",
+        "pids": [
+          54
+        ]
+      }
+    ],
+    "stair": 4
+  },
+  {
+    "rooms": [
+      {
+        "id": 51,
+        "roomType": "UNKNOWN",
+        "pids": [
+          61
+        ]
+      },
+      {
+        "id": 52,
+        "roomType": "UNKNOWN",
+        "pids": [
+          61
+        ]
+      },
+      {
+        "id": 53,
+        "roomType": "UNKNOWN",
+        "pids": [
+          62
+        ]
+      },
+      {
+        "id": 54,
+        "roomType": "UNKNOWN",
+        "pids": [
+          63
+        ]
+      }
+    ],
+    "stair": 5
+  },
+  {
+    "rooms": [
+      {
+        "id": 61,
+        "roomType": "UNKNOWN",
+        "pids": [
+          71,
+          72
+        ]
+      },
+      {
+        "id": 62,
+        "roomType": "UNKNOWN",
+        "pids": [
+          73,
+          74
+        ]
+      },
+      {
+        "id": 63,
+        "roomType": "UNKNOWN",
+        "pids": [
+          75,
+          76
+        ]
+      }
+    ],
+    "stair": 6
+  },
+  {
+    "rooms": [
+      {
+        "id": 71,
+        "roomType": "UNKNOWN",
+        "pids": [
+          81
+        ]
+      },
+      {
+        "id": 72,
+        "roomType": "UNKNOWN",
+        "pids": [
+          82
+        ]
+      },
+      {
+        "id": 73,
+        "roomType": "UNKNOWN",
+        "pids": [
+          83
+        ]
+      },
+      {
+        "id": 74,
+        "roomType": "UNKNOWN",
+        "pids": [
+          83
+        ]
+      },
+      {
+        "id": 75,
+        "roomType": "UNKNOWN",
+        "pids": [
+          84
+        ]
+      },
+      {
+        "id": 76,
+        "roomType": "UNKNOWN",
+        "pids": [
+          85
+        ]
+      }
+    ],
+    "stair": 7
+  },
+  {
+    "rooms": [
+      {
+        "id": 81,
+        "roomType": "UNKNOWN",
+        "pids": [
+          91
+        ]
+      },
+      {
+        "id": 82,
+        "roomType": "UNKNOWN",
+        "pids": [
+          92
+        ]
+      },
+      {
+        "id": 83,
+        "roomType": "UNKNOWN",
+        "pids": [
+          93
+        ]
+      },
+      {
+        "id": 84,
+        "roomType": "UNKNOWN",
+        "pids": [
+          93
+        ]
+      },
+      {
+        "id": 85,
+        "roomType": "UNKNOWN",
+        "pids": [
+          93
+        ]
+      }
+    ],
+    "stair": 8
+  },
+  {
+    "rooms": [
+      {
+        "id": 91,
+        "roomType": "UNKNOWN",
+        "pids": [
+          101
+        ]
+      },
+      {
+        "id": 92,
+        "roomType": "UNKNOWN",
+        "pids": [
+          102
+        ]
+      },
+      {
+        "id": 93,
+        "roomType": "UNKNOWN",
+        "pids": [
+          103,
+          104
+        ]
+      }
+    ],
+    "stair": 9
+  },
+  {
+    "rooms": [
+      {
+        "id": 101,
+        "roomType": "UNKNOWN",
+        "pids": [
+          111,
+          112
+        ]
+      },
+      {
+        "id": 102,
+        "roomType": "UNKNOWN",
+        "pids": [
+          113
+        ]
+      },
+      {
+        "id": 103,
+        "roomType": "UNKNOWN",
+        "pids": [
+          114
+        ]
+      },
+      {
+        "id": 104,
+        "roomType": "UNKNOWN",
+        "pids": [
+          114
+        ]
+      }
+    ],
+    "stair": 10
+  },
+  {
+    "rooms": [
+      {
+        "id": 111,
+        "roomType": "UNKNOWN",
+        "pids": [
+          121
+        ]
+      },
+      {
+        "id": 112,
+        "roomType": "UNKNOWN",
+        "pids": [
+          122
+        ]
+      },
+      {
+        "id": 113,
+        "roomType": "UNKNOWN",
+        "pids": [
+          123
+        ]
+      },
+      {
+        "id": 114,
+        "roomType": "UNKNOWN",
+        "pids": [
+          123
+        ]
+      }
+    ],
+    "stair": 11
+  },
+  {
+    "rooms": [
+      {
+        "id": 121,
+        "roomType": "UNKNOWN",
+        "pids": [
+          131,
+          132
+        ]
+      },
+      {
+        "id": 122,
+        "roomType": "UNKNOWN",
+        "pids": [
+          133,
+          134
+        ]
+      },
+      {
+        "id": 123,
+        "roomType": "UNKNOWN",
+        "pids": [
+          135,
+          136
+        ]
+      }
+    ],
+    "stair": 12
+  },
+  {
+    "rooms": [
+      {
+        "id": 131,
+        "roomType": "UNKNOWN",
+        "pids": [
+          141
+        ]
+      },
+      {
+        "id": 132,
+        "roomType": "UNKNOWN",
+        "pids": [
+          141
+        ]
+      },
+      {
+        "id": 133,
+        "roomType": "UNKNOWN",
+        "pids": [
+          142
+        ]
+      },
+      {
+        "id": 134,
+        "roomType": "UNKNOWN",
+        "pids": [
+          143
+        ]
+      },
+      {
+        "id": 135,
+        "roomType": "UNKNOWN",
+        "pids": [
+          144
+        ]
+      },
+      {
+        "id": 136,
+        "roomType": "UNKNOWN",
+        "pids": [
+          144
+        ]
+      }
+    ],
+    "stair": 13
+  },
+  {
+    "rooms": [
+      {
+        "id": 141,
+        "roomType": "UNKNOWN",
+        "pids": [
+          151,
+          152
+        ]
+      },
+      {
+        "id": 142,
+        "roomType": "UNKNOWN",
+        "pids": [
+          153
+        ]
+      },
+      {
+        "id": 143,
+        "roomType": "UNKNOWN",
+        "pids": [
+          153
+        ]
+      },
+      {
+        "id": 144,
+        "roomType": "UNKNOWN",
+        "pids": [
+          153
+        ]
+      }
+    ],
+    "stair": 14
+  },
+  {
+    "rooms": [
+      {
+        "id": 151,
+        "roomType": "UNKNOWN",
+        "pids": [
+          161
+        ]
+      },
+      {
+        "id": 152,
+        "roomType": "UNKNOWN",
+        "pids": [
+          161
+        ]
+      },
+      {
+        "id": 153,
+        "roomType": "UNKNOWN",
+        "pids": [
+          161
+        ]
+      }
+    ],
+    "stair": 15
+  },
+  {
+    "rooms": [
+      {
+        "id": 161,
+        "roomType": "BOSS",
+        "pids": []
+      }
+    ],
+    "stair": 16
+  }
+]

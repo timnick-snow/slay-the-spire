@@ -1,0 +1,12 @@
+        BRANCHES.add(List.of(X, X, T, S));
+        BRANCHES.add(List.of(X, X, S, T));
+        BRANCHES.add(List.of(X, T, X, S));
+        BRANCHES.add(List.of(X, S, X, T));
+        BRANCHES.add(List.of(X, T, S, X));
+        BRANCHES.add(List.of(X, S, T, X));
+        BRANCHES.add(List.of(T, X, S, X));
+        BRANCHES.add(List.of(S, X, T, X));
+        BRANCHES.add(List.of(T, X, X, S));
+        BRANCHES.add(List.of(S, X, X, T));
+        BRANCHES.add(List.of(T, S, X, X));
+        BRANCHES.add(List.of(S, T, X, X));

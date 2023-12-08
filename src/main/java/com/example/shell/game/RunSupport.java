@@ -5,7 +5,7 @@ import com.example.shell.enums.MainPage;
 import com.example.shell.items.bless.AddMaxHp;
 import com.example.shell.items.bless.Bless;
 import com.example.shell.items.bless.GetNeowsBlessing;
-import com.example.shell.items.bless.RemoveOne;
+import com.example.shell.items.bless.RemoveCard;
 import com.example.shell.items.map.FloorRooms;
 import com.example.shell.items.map.MapHandler;
 import com.example.shell.temp.GameContext;
@@ -14,9 +14,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author snow
@@ -73,7 +71,7 @@ public class RunSupport {
         ArrayList<Bless> list = new ArrayList<>();
         list.add(new AddMaxHp());
         list.add(new GetNeowsBlessing());
-        list.add(new RemoveOne());
+        list.add(new RemoveCard());
         return list;
     }
 

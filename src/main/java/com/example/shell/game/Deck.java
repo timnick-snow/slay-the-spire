@@ -1,9 +1,12 @@
 package com.example.shell.game;
 
 import com.example.shell.items.card.Card;
+import com.example.shell.items.card.PlayCard;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.shell.tool.FormatUtil.center;
 
 /**
  * @author snow
@@ -29,11 +32,36 @@ public class Deck {
         StringBuilder buf = new StringBuilder();
         if (verbose) {
 /*
--------------------------------------------------------
-id   |   名称   | 颜色 | 类型 | 耗能 | 描述
--------------------------------------------------------
-c101 |   打击   | 红色 | 攻击 |  1  |  造成6点伤害
+--------------------------------------------------------------------------------------------------
+|  id  |   名称   | 颜色 | 类型 | 耗能 | 稀有度 | 描述
+--------------------------------------------------------------------------------------------------
+| c101 |   打击   | 红色 | 攻击 |  1  |  初始  | 造成6点伤害。造成6点伤害。造成6点伤害。造成6点伤害。造成6点...
  */
+            String divide = "--------------------------------------------------------------------------------------------------\n";
+            buf.append(divide)
+                    .append("|  id  |   名称   | 颜色 | 类型 | 耗能 | 稀有度 | 描述\n")
+                    .append(divide);
+            for (Card card : cards) {
+                buf.append("|").append(center(card.id(), 6));
+                buf.append("|").append(center(card.name(), 8));
+                buf.append("|").append(center(card.color().getDisplayName(), 4));
+                buf.append("|").append(center(card.type().getDisplayName(), 4));
+                // 耗能
+                if (card instanceof PlayCard playCard) {
+                    buf.append("|").append(center(String.valueOf(playCard.energy()), 5));
+                } else {
+                    buf.append("|").append(center("N", 5));
+                }
+                buf.append("|").append(center(card.rarity().getDisplayName(), 5));
+                // 描述
+                buf.append("| ");
+                if (card.description().length() <= 32) {
+                    buf.append(card.description());
+                }else {
+                    buf.append(card.description(), 0, 32).append("...");
+                }
+                buf.append("\n");
+            }
         } else {
             // 简要的
             for (int i = 0; i < cards.size(); i++) {

@@ -45,9 +45,9 @@ public class GameContext implements InitializingBean {
     /**
      * 生成一个轮回
      */
-    public RunContext genRun() {
+    public RunContext genRun(Characters role, int level) {
         String seed = RandomManage.genSeed();
-        this.runContext = Optional.of(new RunContext(seed, Characters.IRONCLAD, 0));
+        this.runContext = Optional.of(new RunContext(seed, role, level));
         return runContext.get();
     }
 

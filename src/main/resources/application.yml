@@ -1,3 +1,9 @@
 spring:
   main:
     banner-mode: off
+## disable console logging
+logging:
+  pattern:
+    console:
+  file:
+    name: demo-shell.log

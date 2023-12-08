@@ -28,21 +28,25 @@ public class CatalogCommand {
     }
 
     @Command(command = {"start"}, description = "start to play the game.")
+    @CommandAvailability(provider = "gameAvail")
     public String gameStart() {
         return catalogService.start();
     }
 
     @Command(command = {"continue"}, description = "start to play the game.")
+    @CommandAvailability(provider = "gameAvail")
     public String gameContinue() {
         return catalogService.continuation();
     }
 
     @Command(command = {"give", "up"}, description = "abandon the current game.")
+    @CommandAvailability(provider = "gameAvail")
     public String gameGiveUp() {
         return catalogService.giveUp();
     }
 
     @Command(command = {"history"}, description = "list game history.")
+    @CommandAvailability(provider = "gameAvail")
     public String gameHistory() {
         return catalogService.history();
     }

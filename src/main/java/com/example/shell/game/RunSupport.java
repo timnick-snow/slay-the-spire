@@ -1,5 +1,6 @@
 package com.example.shell.game;
 
+import com.example.shell.enums.Characters;
 import com.example.shell.enums.MainPage;
 import com.example.shell.items.potion.StrengthPotion;
 import com.example.shell.map.FloorRooms;
@@ -36,8 +37,8 @@ public class RunSupport {
         return runContext.getLastTips();
     }
 
-    public void startRun() {
-        this.runContext = gameContext.genRun();
+    public void startRun(Characters role, int level) {
+        this.runContext = gameContext.genRun(role,level);
         gameContext.setMainPage(MainPage.GAMING);
         // todo 临时测试
         runContext.getPotionGroup().addPotion(new StrengthPotion(nextItemId("p")));

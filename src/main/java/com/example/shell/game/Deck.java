@@ -48,11 +48,11 @@ public class Deck {
                 buf.append("|").append(center(card.type().getDisplayName(), 4));
                 // 耗能
                 if (card instanceof PlayCard playCard) {
-                    buf.append("|").append(center(String.valueOf(playCard.energy()), 5));
+                    buf.append("|").append(center(String.valueOf(playCard.energy()), 6));
                 } else {
                     buf.append("|").append(center("N", 5));
                 }
-                buf.append("|").append(center(card.rarity().getDisplayName(), 5));
+                buf.append("|").append(center(card.rarity().getDisplayName(), 6));
                 // 描述
                 buf.append("| ");
                 if (card.description().length() <= 32) {

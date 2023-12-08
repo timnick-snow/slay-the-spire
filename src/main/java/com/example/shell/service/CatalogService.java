@@ -1,9 +1,13 @@
 package com.example.shell.service;
 
+import com.example.shell.enums.Characters;
 import com.example.shell.enums.MainPage;
 import com.example.shell.game.RunSupport;
 import com.example.shell.temp.GameContext;
+import com.example.shell.tool.Convert;
+import lombok.RequiredArgsConstructor;
 import org.springframework.shell.Availability;
+import org.springframework.shell.component.flow.ComponentFlow;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,20 +15,34 @@ import org.springframework.stereotype.Service;
  * @since 2023/12/6
  */
 @Service
+@RequiredArgsConstructor
 public class CatalogService {
     private final GameContext gameContext;
     private final RunSupport runSupport;
-
-    public CatalogService(GameContext gameContext, RunSupport runSupport) {
-        this.gameContext = gameContext;
-        this.runSupport = runSupport;
-    }
+    private final ComponentFlow.Builder componentFlowBuilder;
 
     public String start() {
         if (runSupport.exist()) {
             return "当前有正在进行中的游戏: \n%s".formatted(runSupport.brief());
         }
-        runSupport.startRun();
+        ComponentFlow flow = componentFlowBuilder.clone().reset()
+                .withSingleItemSelector("character")
+                .name("职业")
+                .selectItem("战士", "IRONCLAD")
+                .and()
+                .withStringInput("level")
+                .name("难度(0-20)")
+                .defaultValue("0")
+                .and()
+                .build();
+        ComponentFlow.ComponentFlowResult result = flow.run();
+        String role = result.getContext().get("character");
+        int level = Convert.toInt(result.getContext().get("level"), -1);
+        if (level < 0 || level > 20) {
+            return "难度(0-20)，输入错误\n";
+        }
+        runSupport.startRun(Characters.valueOf(role), level);
+
         return String.format("游戏开始...\n%s\n%s", runSupport.brief(), runSupport.tips());
     }
 

@@ -1,13 +1,12 @@
 package com.example.shell.service;
 
-import com.example.shell.enums.Characters;
+import com.example.shell.beans.StartFlowResult;
 import com.example.shell.enums.MainPage;
 import com.example.shell.game.RunSupport;
 import com.example.shell.temp.GameContext;
-import com.example.shell.tool.Convert;
 import lombok.RequiredArgsConstructor;
+import org.jline.terminal.Terminal;
 import org.springframework.shell.Availability;
-import org.springframework.shell.component.flow.ComponentFlow;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,31 +18,28 @@ import org.springframework.stereotype.Service;
 public class CatalogService {
     private final GameContext gameContext;
     private final RunSupport runSupport;
-    private final ComponentFlow.Builder componentFlowBuilder;
+    private final FlowService flowService;
+    private final Terminal terminal;
 
     public String start() {
         if (runSupport.exist()) {
             return "当前有正在进行中的游戏: \n%s".formatted(runSupport.brief());
         }
-        ComponentFlow flow = componentFlowBuilder.clone().reset()
-                .withSingleItemSelector("character")
-                .name("职业")
-                .selectItem("战士", "IRONCLAD")
-                .and()
-                .withStringInput("level")
-                .name("难度(0-20)")
-                .defaultValue("0")
-                .and()
-                .build();
-        ComponentFlow.ComponentFlowResult result = flow.run();
-        String role = result.getContext().get("character");
-        int level = Convert.toInt(result.getContext().get("level"), -1);
-        if (level < 0 || level > 20) {
-            return "难度(0-20)，输入错误\n";
+        // 职业选择
+        var select = flowService.startSelect();
+        if (select.getLeft().isPresent()) {
+            return select.getLeft().get() + "\n";
         }
-        runSupport.startRun(Characters.valueOf(role), level);
+        StartFlowResult result = select.getRight().get();
+        runSupport.startRun(result.role(), result.level());
 
-        return String.format("游戏开始...\n%s\n%s", runSupport.brief(), runSupport.tips());
+        // brief
+        terminal.writer().println("游戏开始..." + runSupport.brief());
+        terminal.flush();
+        // 祝福
+        flowService.blessSelect(runSupport.genBless());
+        runSupport.goHint();
+        return runSupport.tips() + "\n";
     }
 
     public String continuation() {

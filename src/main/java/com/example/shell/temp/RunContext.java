@@ -1,11 +1,10 @@
 package com.example.shell.temp;
 
-import com.example.shell.beans.RandomManage;
 import com.example.shell.enums.Characters;
 import com.example.shell.enums.RunPage;
 import com.example.shell.game.*;
-import com.example.shell.map.FloorRooms;
-import com.example.shell.map.MapHandler;
+import com.example.shell.items.map.FloorRooms;
+import com.example.shell.items.map.MapHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;

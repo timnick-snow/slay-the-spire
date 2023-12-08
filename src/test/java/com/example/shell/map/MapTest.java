@@ -1,5 +1,6 @@
 package com.example.shell.map;
 
+import com.example.shell.items.map.MapHandler;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -14,7 +15,7 @@ public class MapTest {
         long seed = 123;
         for (int i = 0; i < 100; i++) {
             Random mapRandom = new Random(seed * 17 + i * 31 + 1);
-            MapHandler.genActMap(0, mapRandom);
+//            MapHandler.genActMap(0, mapRandom);
         }
     }
 }

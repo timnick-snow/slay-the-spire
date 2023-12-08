@@ -57,7 +57,7 @@ public class Deck {
                 buf.append("| ");
                 if (card.description().length() <= 32) {
                     buf.append(card.description());
-                }else {
+                } else {
                     buf.append(card.description(), 0, 32).append("...");
                 }
                 buf.append("\n");
@@ -79,5 +79,24 @@ public class Deck {
         buf.append("\n");
         res += buf;
         return res;
+    }
+
+    public boolean contains(String cardId) {
+        return cards.stream().anyMatch(c -> c.id().equals(cardId));
+    }
+
+    public boolean remove(String cardId) {
+        int idx = -1;
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).id().equals(cardId)) {
+                idx = i;
+                break;
+            }
+        }
+        if (idx >= 0) {
+            cards.remove(idx);
+            return true;
+        }
+        return false;
     }
 }

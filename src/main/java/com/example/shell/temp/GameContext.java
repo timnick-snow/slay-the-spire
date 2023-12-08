@@ -1,7 +1,5 @@
 package com.example.shell.temp;
 
-import com.example.shell.beans.RandomManage;
-import com.example.shell.beans.SaveLoadHandler;
 import com.example.shell.enums.Characters;
 import com.example.shell.enums.MainPage;
 import lombok.Getter;

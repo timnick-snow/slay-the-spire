@@ -1,8 +1,8 @@
 package com.example.shell.beans;
 
-import com.example.shell.map.FloorRooms;
-import com.example.shell.map.RoomNode;
-import com.example.shell.map.WayBranch;
+import com.example.shell.items.map.FloorRooms;
+import com.example.shell.items.map.RoomNode;
+import com.example.shell.temp.RandomManage;
 import com.example.shell.tool.JsonUtil;
 import org.apache.commons.io.IOUtils;
 import org.assertj.core.api.WithAssertions;
@@ -12,7 +12,6 @@ import org.springframework.core.io.Resource;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author snow

@@ -9,9 +9,8 @@ import com.example.shell.temp.RunContext;
  */
 public class TransformTwoCard implements Bless {
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
+    public void run(RunContext ctx, FlowService flowService) {
         // todo 变化卡
-        return null;
     }
 
     @Override

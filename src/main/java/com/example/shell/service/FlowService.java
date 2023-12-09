@@ -7,7 +7,6 @@ import com.example.shell.game.RunSupport;
 import com.example.shell.items.bless.Bless;
 import com.example.shell.tool.Convert;
 import com.example.shell.tool.Either;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jline.terminal.Terminal;
 import org.springframework.shell.component.flow.ComponentFlow;
@@ -26,7 +25,6 @@ import java.util.Map;
 public class FlowService {
     private final ComponentFlow.Builder componentFlowBuilder;
     private final RunSupport runSupport;
-    @Getter
     private final Terminal terminal;
 
     public Either<String, StartFlowResult> startSelect() {
@@ -55,8 +53,7 @@ public class FlowService {
     public String removeCard() {
         Deck deck = runSupport.getRunContext().getDeck();
         String cardInfo = deck.format(true) + "\n";
-        terminal.writer().println(cardInfo);
-        terminal.flush();
+        write(cardInfo);
 
         String cardId;
         while (true) {
@@ -65,10 +62,10 @@ public class FlowService {
                     .and().build();
             cardId = flow.run().getContext().get("cardId");
             if (deck.remove(cardId)) {
+                write("一张卡牌被移除(%s)。".formatted(cardId));
                 break;
             }
-            terminal.writer().println("无效的卡id。\n");
-            terminal.flush();
+            write("无效的卡id。\n");
         }
         return cardId;
     }
@@ -84,8 +81,11 @@ public class FlowService {
                 .and().build();
         var result = flow.run();
         int idx = Convert.toInt(result.getContext().get("id"), 0);
-        String effect = blesses.get(idx).effect(runSupport.getRunContext(), this);
-        terminal.writer().println(effect);
+        blesses.get(idx).run(runSupport.getRunContext(), this);
+    }
+
+    public void write(String content) {
+        terminal.writer().println(content);
         terminal.flush();
     }
 }

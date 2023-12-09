@@ -11,9 +11,9 @@ import com.example.shell.temp.RunContext;
 public class GetNeowsBlessing implements Bless {
 
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
+    public void run(RunContext ctx, FlowService flowService) {
         ctx.getRelicGroup().addRelic(new NeowsBlessing());
-        return "你获得了【涅奥的悲恸】！";
+        flowService.write("你获得了【涅奥的悲恸】！");
     }
 
     @Override

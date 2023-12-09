@@ -5,7 +5,7 @@ import com.example.shell.enums.MainPage;
 import com.example.shell.items.bless.AddSomeMaxHp;
 import com.example.shell.items.bless.Bless;
 import com.example.shell.items.bless.GetNeowsBlessing;
-import com.example.shell.items.bless.RemoveCard;
+import com.example.shell.items.bless.RemoveOneCard;
 import com.example.shell.items.map.FloorRooms;
 import com.example.shell.items.map.MapHandler;
 import com.example.shell.temp.GameContext;
@@ -71,7 +71,7 @@ public class RunSupport {
         ArrayList<Bless> list = new ArrayList<>();
         list.add(new AddSomeMaxHp());
         list.add(new GetNeowsBlessing());
-        list.add(new RemoveCard());
+        list.add(new RemoveOneCard());
         return list;
     }
 

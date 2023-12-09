@@ -7,15 +7,14 @@ import com.example.shell.temp.RunContext;
  * @author snow
  * @since 2023/12/8
  */
-public class GetCurse implements Bless {
+public class TransformOneCard implements Bless {
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
-        // todo 诅咒卡
-        return null;
+    public void run(RunContext ctx, FlowService flowService) {
+        // todo 变化卡
     }
 
     @Override
     public String display(RunContext ctx) {
-        return "得一张随机诅咒牌。";
+        return "从你的牌组内选择一张牌变化。";
     }
 }

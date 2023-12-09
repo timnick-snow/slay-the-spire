@@ -12,11 +12,17 @@ import com.example.shell.temp.RunContext;
 public class LossMaxHp implements Bless {
 
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
+    public void run(RunContext ctx, FlowService flowService) {
         int value = getValue(ctx);
-        ctx.setMaxHp(ctx.getMaxHp() - value);
-        ctx.setHp(ctx.getHp() - value);
-        return "你的最大生命值减少了！";
+        int maxHp = ctx.getMaxHp();
+        ctx.setMaxHp(maxHp - value);
+        flowService.write("你的最大生命值减少了：%d -> %d".formatted(maxHp, ctx.getMaxHp()));
+
+        int hp = ctx.getHp();
+        if (hp < ctx.getMaxHp()) {
+            ctx.setHp(ctx.getMaxHp());
+            flowService.write("你的生命值减少了：%d -> %d".formatted(hp, ctx.getHp()));
+        }
     }
 
     @Override

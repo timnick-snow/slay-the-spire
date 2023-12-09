@@ -14,11 +14,14 @@ public abstract class AddMaxHp implements Bless {
     protected abstract int getAddValue(RunContext ctx);
 
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
-        int value = getAddValue(ctx);
-        ctx.setMaxHp(ctx.getMaxHp() + value);
-        ctx.setHp(ctx.getHp() + value);
-        return "你的最大生命值增加了！";
+    public void run(RunContext ctx, FlowService flowService) {
+        int addValue = getAddValue(ctx);
+        int maxHp = ctx.getMaxHp();
+        int hp = ctx.getHp();
+        ctx.setMaxHp(maxHp + addValue);
+        ctx.setHp(hp + addValue);
+        String content = "你的最大生命值增加了：%d -> %d\n你的生命值增加了：%d -> %d".formatted(maxHp, ctx.getMaxHp(), hp, ctx.getHp());
+        flowService.write(content);
     }
 
     @Override

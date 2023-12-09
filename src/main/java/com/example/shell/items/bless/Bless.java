@@ -13,7 +13,7 @@ public interface Bless {
     /**
      * 生效
      */
-    String effect(RunContext ctx, FlowService flowService);
+    void run(RunContext ctx, FlowService flowService);
 
     /**
      * 显示信息

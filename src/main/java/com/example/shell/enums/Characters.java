@@ -30,4 +30,13 @@ public enum Characters {
     WATCHER("观者"),
     ;
     private final String display;
+
+    public CardColor color() {
+        return switch (this) {
+            case IRONCLAD -> CardColor.RED;
+            case SILENT -> CardColor.GREEN;
+            case DEFECT -> CardColor.BLUE;
+            case WATCHER -> CardColor.PURPLE;
+        };
+    }
 }

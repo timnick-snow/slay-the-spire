@@ -12,10 +12,10 @@ public abstract class GetGold implements Bless {
     protected abstract int getGoldAdd();
 
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
+    public void run(RunContext ctx, FlowService flowService) {
         int gold = ctx.getGold();
         ctx.setGold(gold + getGoldAdd());
-        return "你的金币增加了：%d -> %d".formatted(gold, ctx.getGold());
+        flowService.write("你的金币增加了：%d -> %d".formatted(gold, ctx.getGold()));
     }
 
     @Override

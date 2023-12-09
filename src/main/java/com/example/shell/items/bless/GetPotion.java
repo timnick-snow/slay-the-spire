@@ -9,9 +9,8 @@ import com.example.shell.temp.RunContext;
  */
 public class GetPotion implements Bless {
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
+    public void run(RunContext ctx, FlowService flowService) {
         // todo 药水
-        return null;
     }
 
     @Override

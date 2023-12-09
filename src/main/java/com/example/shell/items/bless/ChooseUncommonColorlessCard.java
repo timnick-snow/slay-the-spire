@@ -1,21 +1,24 @@
 package com.example.shell.items.bless;
 
-import com.example.shell.service.FlowService;
+import com.example.shell.enums.CardColor;
+import com.example.shell.enums.CardRarity;
+import com.example.shell.items.card.Card;
 import com.example.shell.temp.RunContext;
+
+import java.util.function.Predicate;
 
 /**
  * @author snow
  * @since 2023/12/8
  */
-public class ChooseUncommonColorlessCard implements Bless {
+public class ChooseUncommonColorlessCard extends ChooseCard {
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
-        // todo 卡牌
-        return null;
+    public String trait() {
+        return "罕见无色";
     }
 
     @Override
-    public String display(RunContext ctx) {
-        return "选择一张牌加入到你的牌组中。";
+    public Predicate<Card> filter(RunContext ctx) {
+        return card -> card.rarity() == CardRarity.UNCOMMON && card.color() == CardColor.COLOURLESS;
     }
 }

@@ -9,9 +9,8 @@ import com.example.shell.temp.RunContext;
  */
 public class ExchangeBossRelic implements Bless {
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
+    public void run(RunContext ctx, FlowService flowService) {
         // todo boss 遗物
-        return null;
     }
 
     @Override

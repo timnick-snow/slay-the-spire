@@ -12,11 +12,11 @@ import com.example.shell.temp.RunContext;
 public class LossHp implements Bless {
 
     @Override
-    public String effect(RunContext ctx, FlowService flowService) {
+    public void run(RunContext ctx, FlowService flowService) {
         int value = getValue(ctx);
         int hp = ctx.getHp();
         ctx.setHp(hp - value);
-        return "你的生命值减少了，hp: %d => %d".formatted(hp, ctx.getHp());
+        flowService.write("你的生命值减少了，hp: %d => %d".formatted(hp, ctx.getHp()));
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.example.shell.items.relic;
 
+import com.example.shell.enums.Characters;
+import com.example.shell.enums.RelicRarity;
+
 /**
  * 遗物
  *
@@ -10,10 +13,22 @@ public interface Relic {
     /**
      * 名称
      */
-    String getName();
+    String name();
 
     /**
      * 介绍
      */
-    String getDescription();
+    String description();
+
+    /**
+     * 稀有度
+     */
+    RelicRarity rarity();
+
+    /**
+     * 特属于某职业的遗物
+     */
+    default Characters classSpecific() {
+        return null;
+    }
 }

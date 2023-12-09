@@ -1,13 +1,18 @@
 package com.example.shell.items.relic;
 
-public class BronzeScales implements Relic{
+/**
+ * @author snow
+ * @since 2023/12/9
+ */
+public class BronzeScales extends CommonRelic {
     @Override
-    public String getName() {
+    public String name() {
         return "铜制鳞片";
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "在每场战斗开始时，获得 3点 荆棘";
     }
+
 }

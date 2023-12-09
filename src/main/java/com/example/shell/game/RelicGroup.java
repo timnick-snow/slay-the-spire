@@ -30,15 +30,15 @@ public class RelicGroup {
         if (verbose) {
             // 详细的
             for (Relic relic : relics) {
-                buf.append(relic.getName())
+                buf.append(relic.name())
                         .append(": ")
-                        .append(relic.getDescription())
+                        .append(relic.description())
                         .append("\n");
             }
         } else {
             // 简要的
             for (int i = 0; i < relics.size(); i++) {
-                buf.append(relics.get(i).getName());
+                buf.append(relics.get(i).name());
                 if (i == relics.size() - 1) {
                     break;
                 }

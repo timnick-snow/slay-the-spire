@@ -1,13 +1,18 @@
 package com.example.shell.items.relic;
 
-public class BloodVial implements Relic{
+/**
+ * @author snow
+ * @since 2023/12/9
+ */
+public class BloodVial extends CommonRelic {
     @Override
-    public String getName() {
+    public String name() {
         return "小血瓶";
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         return "在每场战斗开始时，回复 2 点生命。";
     }
+
 }

@@ -29,8 +29,8 @@ extra["springShellVersion"] = "3.2.0-RC1"
 
 dependencies {
     implementation("org.springframework.shell:spring-shell-starter")
+    implementation("org.springframework.shell:spring-shell-starter-jna")
     implementation("org.springframework.boot:spring-boot-starter-json")
-    implementation("org.jline:jline-terminal-jna:3.24.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

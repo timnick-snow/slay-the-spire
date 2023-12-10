@@ -1,0 +1,17 @@
+package io.github.snow.spire.items.relic;
+
+/**
+ * @author snow
+ * @since 2023-12-10
+ */
+public class ToughBandages extends RareRelic {
+    @Override
+    public String name() {
+        return "结实绷带";
+    }
+
+    @Override
+    public String description() {
+        return "你每在你的回合丢弃一张牌，就获得 3点 【格挡】 。";
+    }
+}

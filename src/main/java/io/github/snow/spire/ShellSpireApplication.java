@@ -5,6 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.shell.command.annotation.CommandScan;
 
+/**
+ * @author snow
+ * @since 2023/12/4
+ */
 @SpringBootApplication
 @CommandScan
 public class ShellSpireApplication {

@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.RunContext;
 
@@ -19,4 +20,6 @@ public interface Bless {
      * 显示信息
      */
     String display(RunContext ctx);
+
+    BlessLevel level();
 }

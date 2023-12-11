@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.RunContext;
 
@@ -16,5 +17,10 @@ public class ExchangeBossRelic implements Bless {
     @Override
     public String display(RunContext ctx) {
         return "失去初始遗物，获得一件随机的Boss遗物。";
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.SPECIAL;
     }
 }

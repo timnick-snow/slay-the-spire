@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.RunContext;
 
@@ -16,5 +17,10 @@ public class GetPotion implements Bless {
     @Override
     public String display(RunContext ctx) {
         return "获得3个随机药水。";
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.NON_CARD_RELATED;
     }
 }

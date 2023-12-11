@@ -52,21 +52,6 @@ public class RandomTest implements WithAssertions {
     }
 
     @Test
-    public void fun5() throws Exception {
-        Resource resource = new DefaultResourceLoader().getResource("temp.txt");
-        List<String> lines = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);
-
-        int[][] arr = new int[7][7];
-        for (String line : lines) {
-            String[] split = line.split(" ");
-            for (int i = 1; i < split.length; i++) {
-                arr[Integer.parseInt(split[i - 1])][Integer.parseInt(split[i])] += 1;
-            }
-        }
-        System.out.println(JsonUtil.toJsonString(arr));
-    }
-
-    @Test
     public void fun7() throws Exception {
 
     }

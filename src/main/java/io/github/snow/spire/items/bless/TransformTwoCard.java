@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.RunContext;
 
@@ -15,6 +16,11 @@ public class TransformTwoCard implements Bless {
 
     @Override
     public String display(RunContext ctx) {
-        return "从你的牌组内选择一张牌变化。";
+        return "从你的牌组内选择两张牌变化。";
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.BETTER_REWARD;
     }
 }

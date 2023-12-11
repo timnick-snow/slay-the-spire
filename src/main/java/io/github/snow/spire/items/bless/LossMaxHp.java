@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.RunContext;
 
@@ -19,7 +20,7 @@ public class LossMaxHp implements Bless {
         flowService.write("你的最大生命值减少了：%d -> %d".formatted(maxHp, ctx.getMaxHp()));
 
         int hp = ctx.getHp();
-        if (hp < ctx.getMaxHp()) {
+        if (hp > ctx.getMaxHp()) {
             ctx.setHp(ctx.getMaxHp());
             flowService.write("你的生命值减少了：%d -> %d".formatted(hp, ctx.getHp()));
         }
@@ -37,5 +38,10 @@ public class LossMaxHp implements Bless {
             case SILENT -> 6;
             case DEFECT, WATCHER -> 7;
         };
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.DISADVANTAGE;
     }
 }

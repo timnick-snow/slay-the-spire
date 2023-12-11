@@ -1,15 +1,26 @@
-3 4 4 4 4 4 5 6 4 4 4 3 4 4 5
-3 4 3 4 4 5 4 5 3 5 3 4 5 4 4
-5 5 4 4 3 5 4 5 5 4 3 3 4 4 5
-2 5 4 3 3 4 6 5 3 5 5 4 5 4 3
-3 4 5 6 3 4 6 5 4 3 3 4 4 4 4
-4 4 5 5 3 2 3 4 5 4 3 3 4 4 4
-4 6 4 3 4 4 4 4 5 3 4 4 5 2 4
-3 4 3 4 3 4 4 3 5 3 5 4 4 4 5
-4 5 5 4 5 4 6 4 5 4 3 3 3 4 3
-3 5 3 3 4 3 3 3 4 3 5 5 3 4 4
-3 3 3 4 4 4 4 5 2 4 5 4 5 4 4
-3 4 4 4 4 5 3 3 4 4 4 4 5 5 5
-3 4 3 4 3 3 3 5 5 4 4 4 4 5 4
-3 3 4 5 4 2 4 4 5 4 2 4 4 4 4
-4 5 4 4 4 5 4 3 4 4 4 3 4 5 3
+register(new AddSomeMaxHp());
+
+
+register(new AddMoreMaxHp());
+register(new AddSomeMaxHp());
+register(new ChooseClassCard());
+register(new ChooseRareCard());
+register(new ChooseRareColorlessCard());
+register(new ChooseUncommonColorlessCard());
+register(new ExchangeBossRelic());
+register(new GetGold100());
+register(new GetGold250());
+register(new GetNeowsBlessing());
+register(new GetPotion());
+register(new LossGold());
+register(new LossHp());
+register(new LossMaxHp());
+register(new RandomCommonRelic());
+register(new RandomCurse());
+register(new RandomRareCard());
+register(new RandomRareRelic());
+register(new RemoveOneCard());
+register(new RemoveTwoCard());
+register(new TransformOneCard());
+register(new TransformTwoCard());
+register(new UpgradeCard());

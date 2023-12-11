@@ -1,6 +1,6 @@
 package io.github.snow.spire.service;
 
-import io.github.snow.spire.beans.StartFlowResult;
+import io.github.snow.spire.beans.pojo.StartFlowResult;
 import io.github.snow.spire.enums.MainPage;
 import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.GameContext;

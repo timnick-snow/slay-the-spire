@@ -1,6 +1,8 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.temp.RunContext;
+import org.springframework.stereotype.Component;
 
 /**
  * 增加最大生命
@@ -17,5 +19,10 @@ public class AddMoreMaxHp extends AddMaxHp {
             case SILENT -> 12;
             case DEFECT, WATCHER -> 14;
         };
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.BETTER_REWARD;
     }
 }

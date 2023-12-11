@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.RunContext;
 
@@ -17,5 +18,10 @@ public class RemoveTwoCard implements Bless {
     @Override
     public String display(RunContext ctx) {
         return "从你的牌组内选择2张牌移除。";
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.BETTER_REWARD;
     }
 }

@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.RunContext;
 
@@ -31,5 +32,10 @@ public class LossHp implements Bless {
             case SILENT -> 15;
             case WATCHER -> 21;
         };
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.DISADVANTAGE;
     }
 }

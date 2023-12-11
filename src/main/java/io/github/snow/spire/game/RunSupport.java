@@ -1,35 +1,41 @@
 package io.github.snow.spire.game;
 
+import io.github.snow.spire.beans.context.GameStartEvent;
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.MainPage;
-import io.github.snow.spire.items.bless.AddSomeMaxHp;
+import io.github.snow.spire.items.BlessManager;
+import io.github.snow.spire.items.RelicManager;
 import io.github.snow.spire.items.bless.Bless;
-import io.github.snow.spire.items.bless.GetNeowsBlessing;
-import io.github.snow.spire.items.bless.RemoveOneCard;
+import io.github.snow.spire.items.bless.ExchangeBossRelic;
 import io.github.snow.spire.items.map.FloorRooms;
 import io.github.snow.spire.items.map.MapHandler;
 import io.github.snow.spire.temp.GameContext;
 import io.github.snow.spire.temp.RunContext;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author snow
  * @since 2023/12/6
  */
 @Component
+@RequiredArgsConstructor
 public class RunSupport {
 
     private final GameContext gameContext;
+    private final BlessManager blessManager;
+    private final RelicManager relicManager;
+    private final ApplicationContext applicationContext;
+
     @Getter
     private RunContext runContext;
-
-    public RunSupport(GameContext gameContext) {
-        this.gameContext = gameContext;
-    }
 
     public boolean exist() {
         return gameContext.isRunning();
@@ -49,6 +55,7 @@ public class RunSupport {
     public void startRun(Characters role, int level) {
         this.runContext = gameContext.genRun(role, level);
         gameContext.setMainPage(MainPage.GAMING);
+        applicationContext.publishEvent(new GameStartEvent(runContext));
     }
 
     public String roleInfo() {
@@ -67,11 +74,18 @@ public class RunSupport {
     }
 
     public List<Bless> genBless() {
-//        Random eventRandom = runContext.getRandomManage().getEventRandom();
+        Random eventRandom = runContext.getRandomManage().getEventRandom();
         ArrayList<Bless> list = new ArrayList<>();
-        list.add(new AddSomeMaxHp());
-        list.add(new GetNeowsBlessing());
-        list.add(new RemoveOneCard());
+        // 前2个祝福
+        list.add(blessManager.randomBless(BlessLevel.CARD_RELATED, eventRandom.nextInt(0, 1000)));
+        list.add(blessManager.randomBless(BlessLevel.NON_CARD_RELATED, eventRandom.nextInt(0, 1000)));
+        // 代价+更好的祝福
+        int a = eventRandom.nextInt(0, 1000);
+        int b = eventRandom.nextInt(0, 1000);
+        int c = eventRandom.nextInt(0, 1000);
+        list.add(blessManager.complexBless(a, b, c));
+        // 换4
+        list.add(new ExchangeBossRelic());
         return list;
     }
 

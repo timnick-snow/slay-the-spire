@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.temp.RunContext;
 
 /**
@@ -17,5 +18,10 @@ public class AddSomeMaxHp extends AddMaxHp {
             case SILENT -> 6;
             case DEFECT, WATCHER -> 7;
         };
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.NON_CARD_RELATED;
     }
 }

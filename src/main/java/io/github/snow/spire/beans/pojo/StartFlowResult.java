@@ -1,4 +1,4 @@
-package io.github.snow.spire.beans;
+package io.github.snow.spire.beans.pojo;
 
 import io.github.snow.spire.enums.Characters;
 

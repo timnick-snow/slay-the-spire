@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.enums.CardColor;
 import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.temp.RunContext;
@@ -19,5 +20,10 @@ public class RandomCurse extends RandomCard {
     @Override
     public Predicate<Card> filter(RunContext ctx) {
         return card -> card.color() == CardColor.CURSE;
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.DISADVANTAGE;
     }
 }

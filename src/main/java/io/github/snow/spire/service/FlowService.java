@@ -1,6 +1,6 @@
 package io.github.snow.spire.service;
 
-import io.github.snow.spire.beans.StartFlowResult;
+import io.github.snow.spire.beans.pojo.StartFlowResult;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.game.Deck;
 import io.github.snow.spire.game.RunSupport;
@@ -9,12 +9,14 @@ import io.github.snow.spire.tool.Convert;
 import io.github.snow.spire.tool.Either;
 import lombok.RequiredArgsConstructor;
 import org.jline.terminal.Terminal;
+import org.springframework.shell.component.SingleItemSelector;
 import org.springframework.shell.component.flow.ComponentFlow;
+import org.springframework.shell.component.support.SelectorItem;
+import org.springframework.shell.standard.AbstractShellComponent;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author snow
@@ -22,7 +24,7 @@ import java.util.Map;
  */
 @Service
 @RequiredArgsConstructor
-public class FlowService {
+public class FlowService extends AbstractShellComponent {
     private final ComponentFlow.Builder componentFlowBuilder;
     private final RunSupport runSupport;
     private final Terminal terminal;
@@ -50,7 +52,7 @@ public class FlowService {
     /**
      * 删卡
      */
-    public String removeCard() {
+    public void removeCard() {
         Deck deck = runSupport.getRunContext().getDeck();
         String cardInfo = deck.format(true) + "\n";
         write(cardInfo);
@@ -67,20 +69,21 @@ public class FlowService {
             }
             write("无效的卡id。\n");
         }
-        return cardId;
     }
 
     public void blessSelect(List<Bless> blesses) {
-        Map<String, String> items = new HashMap<>();
+        List<SelectorItem<String>> items = new ArrayList<>();
         for (int i = 0; i < blesses.size(); i++) {
-            items.put(blesses.get(i).display(runSupport.getRunContext()), String.valueOf(i));
+            items.add(SelectorItem.of(blesses.get(i).display(runSupport.getRunContext()), String.valueOf(i)));
         }
-        ComponentFlow flow = componentFlowBuilder.clone().reset()
-                .withSingleItemSelector("id").name("捏奥的祝福。请选择一项...")
-                .selectItems(items)
-                .and().build();
-        var result = flow.run();
-        int idx = Convert.toInt(result.getContext().get("id"), 0);
+        // 交互选择
+        SingleItemSelector<String, SelectorItem<String>> component = new SingleItemSelector<>(getTerminal(),
+                items, "捏奥的祝福。请选择一项...", null);
+        component.setResourceLoader(getResourceLoader());
+        component.setTemplateExecutor(getTemplateExecutor());
+        String result = component.run(SingleItemSelector.SingleItemSelectorContext.empty()).getValue().get();
+        int idx = Convert.toInt(result, 0);
+        // 触发祝福
         blesses.get(idx).run(runSupport.getRunContext(), this);
     }
 

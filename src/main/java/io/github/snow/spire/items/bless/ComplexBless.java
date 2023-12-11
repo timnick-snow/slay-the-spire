@@ -1,29 +1,36 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.items.relic.NeowsBlessing;
 import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.RunContext;
+import lombok.RequiredArgsConstructor;
 
 /**
+ * 复合祝福
+ *
  * @author snow
- * @since 2023/12/8
+ * @since 2023/12/11
  */
-public class GetNeowsBlessing implements Bless {
+@RequiredArgsConstructor
+public class ComplexBless implements Bless {
+
+    private final Bless negative;
+    private final Bless positive;
+
 
     @Override
     public void run(RunContext ctx, FlowService flowService) {
-        ctx.getRelicGroup().addRelic(new NeowsBlessing());
-        flowService.write("你获得了【涅奥的悲恸】！");
+        negative.run(ctx, flowService);
+        positive.run(ctx, flowService);
     }
 
     @Override
     public String display(RunContext ctx) {
-        return "获得遗物【涅奥的悲恸】";
+        return negative.display(ctx) + positive.display(ctx);
     }
 
     @Override
     public BlessLevel level() {
-        return BlessLevel.NON_CARD_RELATED;
+        return BlessLevel.SPECIAL;
     }
 }

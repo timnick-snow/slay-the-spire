@@ -1,6 +1,5 @@
 package io.github.snow.spire.temp;
 
-import io.github.snow.spire.temp.RunContext;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 

@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.enums.CardColor;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.items.card.Card;
@@ -20,5 +21,10 @@ public class ChooseRareColorlessCard extends ChooseCard {
     @Override
     public Predicate<Card> filter(RunContext ctx) {
         return card -> card.rarity() == CardRarity.RARE && card.color() == CardColor.COLOURLESS;
+    }
+
+    @Override
+    public BlessLevel level() {
+        return BlessLevel.BETTER_REWARD;
     }
 }

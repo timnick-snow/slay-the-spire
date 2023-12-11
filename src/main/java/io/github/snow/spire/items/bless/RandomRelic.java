@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.RelicRarity;
-import io.github.snow.spire.service.FlowService;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 
 /**
@@ -10,8 +10,8 @@ import io.github.snow.spire.temp.RunContext;
  */
 public abstract class RandomRelic implements Bless {
     @Override
-    public void run(RunContext ctx, FlowService flowService) {
-        // todo 获得随机遗物
+    public void run(RunContext ctx, RunSupport support) {
+        support.addRandomRelic(rarity());
     }
 
     @Override

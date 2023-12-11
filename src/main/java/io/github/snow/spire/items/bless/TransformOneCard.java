@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.service.FlowService;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 
 /**
@@ -10,7 +10,7 @@ import io.github.snow.spire.temp.RunContext;
  */
 public class TransformOneCard implements Bless {
     @Override
-    public void run(RunContext ctx, FlowService flowService) {
+    public void run(RunContext ctx, RunSupport support) {
         // todo 变化卡
     }
 

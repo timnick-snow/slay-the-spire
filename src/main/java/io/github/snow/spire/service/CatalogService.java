@@ -37,7 +37,7 @@ public class CatalogService {
         terminal.writer().println("游戏开始..." + runSupport.brief());
         terminal.flush();
         // 祝福
-        flowService.blessSelect(runSupport.genBless());
+        runSupport.takeBless();
         runSupport.goHint();
         return runSupport.tips() + "\n";
     }

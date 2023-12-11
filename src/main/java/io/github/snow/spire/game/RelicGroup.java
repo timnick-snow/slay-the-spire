@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author snow
@@ -18,6 +19,17 @@ public class RelicGroup {
 
     public void addRelic(Relic relic) {
         relics.add(relic);
+    }
+
+    public List<Relic> lossRelic(Predicate<Relic> predicate) {
+        List<Relic> loss = new ArrayList<>();
+        for (Relic relic : relics) {
+            if (predicate.test(relic)) {
+                loss.add(relic);
+            }
+        }
+        relics.removeIf(predicate);
+        return loss;
     }
 
     public String formatCount() {

@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.service.FlowService;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 
 /**
@@ -13,11 +13,8 @@ import io.github.snow.spire.temp.RunContext;
 public class LossHp implements Bless {
 
     @Override
-    public void run(RunContext ctx, FlowService flowService) {
-        int value = getValue(ctx);
-        int hp = ctx.getHp();
-        ctx.setHp(hp - value);
-        flowService.write("你的生命值减少了，hp: %d => %d".formatted(hp, ctx.getHp()));
+    public void run(RunContext ctx, RunSupport support) {
+        support.addHp(-getValue(ctx));
     }
 
     @Override
@@ -26,7 +23,7 @@ public class LossHp implements Bless {
         return "受到%d伤害。".formatted(value);
     }
 
-    private static int getValue(RunContext ctx) {
+    private int getValue(RunContext ctx) {
         return switch (ctx.getCharacter()) {
             case IRONCLAD, DEFECT -> 18;
             case SILENT -> 15;

@@ -24,6 +24,7 @@ import java.util.Optional;
 public class GameContext implements InitializingBean {
 
     private MainPage mainPage = MainPage.CATALOG;
+    @Getter
     private Optional<RunContext> runContext = Optional.empty();
     private final Terminal terminal;
     private final SaveLoadHandler saveLoadHandler;

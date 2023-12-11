@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.service.FlowService;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 import lombok.RequiredArgsConstructor;
 
@@ -19,9 +19,9 @@ public class ComplexBless implements Bless {
 
 
     @Override
-    public void run(RunContext ctx, FlowService flowService) {
-        negative.run(ctx, flowService);
-        positive.run(ctx, flowService);
+    public void run(RunContext ctx, RunSupport support) {
+        negative.run(ctx, support);
+        positive.run(ctx, support);
     }
 
     @Override

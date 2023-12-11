@@ -3,13 +3,11 @@ package io.github.snow.spire.items;
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.items.bless.*;
+import io.github.snow.spire.temp.RunContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author snow
@@ -18,12 +16,14 @@ import java.util.Map;
 @Component
 public class BlessManager {
     private final Map<BlessLevel, List<Bless>> blessMap = new HashMap<>();
+    private Random blessRandom;
 
 
     /**
      * 随机一个祝福
      */
-    public Bless randomBless(BlessLevel blessLevel, int randomValue) {
+    public Bless randomBless(BlessLevel blessLevel) {
+        int randomValue = blessRandom.nextInt(0, 1000);
         List<Bless> list = blessMap.get(blessLevel);
         return list.get(randomValue % list.size());
     }
@@ -32,7 +32,11 @@ public class BlessManager {
     /**
      * 根据随机数生成一个复合祝福
      */
-    public ComplexBless complexBless(int a, int b, int c) {
+    public ComplexBless complexBless() {
+        int a = blessRandom.nextInt(0, 1000);
+        int b = blessRandom.nextInt(0, 1000);
+        int c = blessRandom.nextInt(0, 1000);
+
         List<Bless> negativeList = blessMap.get(BlessLevel.DISADVANTAGE);
         List<Bless> positiveList = blessMap.get(BlessLevel.BETTER_REWARD);
         Bless negative = negativeList.get(a % negativeList.size());
@@ -59,7 +63,9 @@ public class BlessManager {
 
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
-        blessMap.clear();
+        RunContext source = (RunContext) event.getSource();
+        this.blessRandom = source.getRandomManage().getOtherRandom();
+        this.blessMap.clear();
 
         register(new AddMoreMaxHp());
         register(new AddSomeMaxHp());

@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.service.FlowService;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 
 /**
@@ -10,8 +10,8 @@ import io.github.snow.spire.temp.RunContext;
  */
 public class ExchangeBossRelic implements Bless {
     @Override
-    public void run(RunContext ctx, FlowService flowService) {
-        // todo boss 遗物
+    public void run(RunContext ctx, RunSupport support) {
+        support.exchangeBossRelic();
     }
 
     @Override

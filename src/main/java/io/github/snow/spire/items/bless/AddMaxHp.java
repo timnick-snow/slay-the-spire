@@ -1,6 +1,6 @@
 package io.github.snow.spire.items.bless;
 
-import io.github.snow.spire.service.FlowService;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 
 /**
@@ -14,14 +14,8 @@ public abstract class AddMaxHp implements Bless {
     protected abstract int getAddValue(RunContext ctx);
 
     @Override
-    public void run(RunContext ctx, FlowService flowService) {
-        int addValue = getAddValue(ctx);
-        int maxHp = ctx.getMaxHp();
-        int hp = ctx.getHp();
-        ctx.setMaxHp(maxHp + addValue);
-        ctx.setHp(hp + addValue);
-        String content = "你的最大生命值增加了：%d -> %d\n你的生命值增加了：%d -> %d".formatted(maxHp, ctx.getMaxHp(), hp, ctx.getHp());
-        flowService.write(content);
+    public void run(RunContext ctx, RunSupport support) {
+        support.addMaxHp(getAddValue(ctx));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.service.FlowService;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 
 /**
@@ -10,9 +10,9 @@ import io.github.snow.spire.temp.RunContext;
  */
 public class RemoveTwoCard implements Bless {
     @Override
-    public void run(RunContext ctx, FlowService flowService) {
-        flowService.removeCard();
-        flowService.removeCard();
+    public void run(RunContext ctx, RunSupport support) {
+        support.removeCard();
+        support.removeCard();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.bless;
 
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.card.Card;
-import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.RunContext;
 
 import java.util.function.Predicate;
@@ -12,7 +12,7 @@ import java.util.function.Predicate;
  */
 public abstract class RandomCard implements Bless {
     @Override
-    public void run(RunContext ctx, FlowService flowService) {
+    public void run(RunContext ctx, RunSupport support) {
         // todo 获得随机卡
     }
 

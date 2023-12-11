@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.service.FlowService;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 
 /**
@@ -13,9 +13,8 @@ import io.github.snow.spire.temp.RunContext;
 public class LossGold implements Bless {
 
     @Override
-    public void run(RunContext ctx, FlowService flowService) {
-        ctx.setGold(0);
-        flowService.write("你的金币清零了");
+    public void run(RunContext ctx, RunSupport support) {
+        support.addGold(-ctx.getGold());
     }
 
     @Override

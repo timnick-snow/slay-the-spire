@@ -4,7 +4,7 @@ package io.github.snow.spire.items.relic;
  * @author snow
  * @since 2023-12-10
  */
-public class SnakeHead extends EventRelic {
+public class SneckoHead extends EventRelic {
     @Override
     public String name() {
         return "蛇的头";

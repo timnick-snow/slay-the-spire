@@ -3,8 +3,8 @@ package io.github.snow.spire.service;
 import io.github.snow.spire.beans.pojo.StartFlowResult;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.game.Deck;
-import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.bless.Bless;
+import io.github.snow.spire.temp.RunContext;
 import io.github.snow.spire.tool.Convert;
 import io.github.snow.spire.tool.Either;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FlowService extends AbstractShellComponent {
     private final ComponentFlow.Builder componentFlowBuilder;
-    private final RunSupport runSupport;
     private final Terminal terminal;
+
 
     public Either<String, StartFlowResult> startSelect() {
         ComponentFlow flow = componentFlowBuilder.clone().reset()
@@ -52,8 +52,7 @@ public class FlowService extends AbstractShellComponent {
     /**
      * 删卡
      */
-    public void removeCard() {
-        Deck deck = runSupport.getRunContext().getDeck();
+    public void removeCard(Deck deck) {
         String cardInfo = deck.format(true) + "\n";
         write(cardInfo);
 
@@ -71,10 +70,10 @@ public class FlowService extends AbstractShellComponent {
         }
     }
 
-    public void blessSelect(List<Bless> blesses) {
+    public Bless blessSelect(List<Bless> blesses, RunContext runContext) {
         List<SelectorItem<String>> items = new ArrayList<>();
         for (int i = 0; i < blesses.size(); i++) {
-            items.add(SelectorItem.of(blesses.get(i).display(runSupport.getRunContext()), String.valueOf(i)));
+            items.add(SelectorItem.of(blesses.get(i).display(runContext), String.valueOf(i)));
         }
         // 交互选择
         SingleItemSelector<String, SelectorItem<String>> component = new SingleItemSelector<>(getTerminal(),
@@ -83,8 +82,7 @@ public class FlowService extends AbstractShellComponent {
         component.setTemplateExecutor(getTemplateExecutor());
         String result = component.run(SingleItemSelector.SingleItemSelectorContext.empty()).getValue().get();
         int idx = Convert.toInt(result, 0);
-        // 触发祝福
-        blesses.get(idx).run(runSupport.getRunContext(), this);
+        return blesses.get(idx);
     }
 
     public void write(String content) {

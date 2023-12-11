@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.service.FlowService;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 
 /**
@@ -14,7 +14,7 @@ public interface Bless {
     /**
      * 生效
      */
-    void run(RunContext ctx, FlowService flowService);
+    void run(RunContext ctx, RunSupport support);
 
     /**
      * 显示信息

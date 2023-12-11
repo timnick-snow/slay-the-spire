@@ -12,8 +12,9 @@ public abstract class GetGold implements Bless {
     protected abstract int getGoldAdd();
 
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         support.addGold(getGoldAdd());
+        return true;
     }
 
     @Override

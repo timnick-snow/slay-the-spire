@@ -35,7 +35,7 @@ public class RandomManage {
     private Random eventRandom;
 
     /**
-     * 奖励随机数 - 普通/精英战斗奖励随机数 (卡牌，药水，金币)
+     * 奖励随机数 - 普通/精英战斗奖励随机数 (卡牌，金币)
      */
     private Random rewardRandom;
 
@@ -52,6 +52,10 @@ public class RandomManage {
      */
     private Random fightRandom3;
     /**
+     * 药水
+     */
+    private Random potionRandom;
+    /**
      * 其它
      */
     private Random otherRandom;
@@ -67,6 +71,7 @@ public class RandomManage {
         randomManage.fightRandom1 = new Random(hash++);
         randomManage.fightRandom2 = new Random(hash++);
         randomManage.fightRandom3 = new Random(hash++);
+        randomManage.potionRandom = new Random(hash++);
         randomManage.otherRandom = new Random(hash);
         return randomManage;
     }

@@ -1,13 +1,17 @@
 package io.github.snow.spire.temp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.RunPage;
 import io.github.snow.spire.game.*;
 import io.github.snow.spire.items.map.FloorRooms;
 import io.github.snow.spire.items.map.MapHandler;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.snow.spire.items.reward.Reward;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 游戏轮回
@@ -98,6 +102,7 @@ public class RunContext {
     private int roomId;
 
     private int itemId;
+    private List<Reward> rewards;
 
     public RunContext(String seed, Characters character, int difficulty) {
         this.map = initRandomGetMap(seed);
@@ -122,6 +127,7 @@ public class RunContext {
         this.deck = new Deck();
         this.deck.addAll(item.deck());
         this.itemId += item.deck().size();
+        this.rewards = Collections.emptyList();
     }
 
     @SuppressWarnings("all")

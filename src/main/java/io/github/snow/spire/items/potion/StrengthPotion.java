@@ -2,18 +2,11 @@ package io.github.snow.spire.items.potion;
 
 /**
  * @author snow
- * @since 2023/12/7
+ * @since 2023-12-11
  */
-public class StrengthPotion implements Potion {
-    private final String id;
-
+public class StrengthPotion extends CommonPotion {
     public StrengthPotion(String id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getId() {
-        return id;
+        super(id);
     }
 
     @Override
@@ -23,6 +16,6 @@ public class StrengthPotion implements Potion {
 
     @Override
     public String getDescription() {
-        return "获得 2 点力量。";
+        return "获得 2 点 力量 。";
     }
 }

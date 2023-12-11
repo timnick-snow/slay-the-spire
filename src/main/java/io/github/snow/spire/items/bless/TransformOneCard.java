@@ -10,8 +10,9 @@ import io.github.snow.spire.temp.RunContext;
  */
 public class TransformOneCard implements Bless {
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         // todo 变化卡
+        return false;
     }
 
     @Override

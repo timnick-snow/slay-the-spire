@@ -10,9 +10,10 @@ import io.github.snow.spire.temp.RunContext;
  */
 public class RemoveTwoCard implements Bless {
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         support.removeCard();
         support.removeCard();
+        return true;
     }
 
     @Override

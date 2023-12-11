@@ -14,8 +14,9 @@ public abstract class AddMaxHp implements Bless {
     protected abstract int getAddValue(RunContext ctx);
 
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         support.addMaxHp(getAddValue(ctx));
+        return true;
     }
 
     @Override

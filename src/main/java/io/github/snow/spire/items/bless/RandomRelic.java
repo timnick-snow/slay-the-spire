@@ -10,8 +10,9 @@ import io.github.snow.spire.temp.RunContext;
  */
 public abstract class RandomRelic implements Bless {
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         support.addRandomRelic(rarity());
+        return true;
     }
 
     @Override

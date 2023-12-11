@@ -73,7 +73,7 @@ public class FlowService extends AbstractShellComponent {
     public Bless blessSelect(List<Bless> blesses, RunContext runContext) {
         List<SelectorItem<String>> items = new ArrayList<>();
         for (int i = 0; i < blesses.size(); i++) {
-            items.add(SelectorItem.of(blesses.get(i).display(runContext), String.valueOf(i)));
+            items.add(SelectorItem.of(blesses.get(i).display(runContext), String.valueOf(i + 1)));
         }
         // 交互选择
         SingleItemSelector<String, SelectorItem<String>> component = new SingleItemSelector<>(getTerminal(),
@@ -82,7 +82,7 @@ public class FlowService extends AbstractShellComponent {
         component.setTemplateExecutor(getTemplateExecutor());
         String result = component.run(SingleItemSelector.SingleItemSelectorContext.empty()).getValue().get();
         int idx = Convert.toInt(result, 0);
-        return blesses.get(idx);
+        return blesses.get(idx - 1);
     }
 
     public void write(String content) {

@@ -37,9 +37,11 @@ public class CatalogService {
         terminal.writer().println("游戏开始..." + runSupport.brief());
         terminal.flush();
         // 祝福
-        runSupport.takeBless();
-        runSupport.goHint();
-        return runSupport.tips() + "\n";
+        if (runSupport.takeBless()) {
+            runSupport.goHint();
+            return runSupport.tips() + "\n";
+        }
+        return null;
     }
 
     public String continuation() {

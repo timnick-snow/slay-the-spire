@@ -13,8 +13,9 @@ import io.github.snow.spire.temp.RunContext;
 public class LossGold implements Bless {
 
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         support.addGold(-ctx.getGold());
+        return true;
     }
 
     @Override

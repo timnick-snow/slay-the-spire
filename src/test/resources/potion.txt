@@ -1,0 +1,50 @@
+==CommonPotion==
+ AttackPotion  ||  攻击药水    || 从 3 张随机攻击牌中选择 1 张加入你的手牌。这张牌在本回合耗能变为 0 。
+ BlessingOfTheForge  ||  熔炉的祝福    || 在本场战斗中升级手牌中的所有牌。
+ BottledMiracle  ||  瓶装奇迹    || 增加 2 张 奇迹 到你的手牌。
+  BloodPotion  ||  鲜血药水    || 回复最大生命值的 20% 。
+  BlockPotion  ||  格挡药水    || 获得 12 点 格挡 。
+  ColorlessPotion  ||  无色药水   || 从 3 张随机 无色 牌中选择 1 张加入你的手牌。这张牌在本回合耗能变为 0 。
+  DexterityPotion  ||  敏捷药水   || 	获得 2 点 敏捷 。
+  EnergyPotion  ||  能量药水   || 获得 2 点能量。
+  FocusPotion  ||  集中药水   || 	获得 2 点 集中 。
+  FearPotion  ||  恐惧药水   || 	给予 3 层 易伤 。
+  Fire_Potion  ||  火焰药水   || 	造成 20 点伤害。
+  Poison_Potion  ||  毒药水   || 给予 5 层 中毒 。
+  PowerPotion  ||  能力药水   || 从 3 张随机能力牌中选择 1 张加入你的手牌。这张牌在本回合耗能变为 0 。
+  SkillPotion  ||  技能药水   || 从 3 张随机技能牌中选择 1 张加入你的手牌。这张牌在本回合耗能变为 0 。
+  SpeedPotion  ||  速度药水  || 获得 5 点 敏捷 。在你的回合结束时，失去 5 点 敏捷 。
+  Strength_Potion  ||  力量药水  || 获得 2 点 力量 。
+  SteroidPotion  ||  类固醇药水  || 获得 5 点 力量 。在你的回合结束时，失去 5 点 力量 。
+  Swift_Potion  ||  迅捷药水  || 抽 3 张牌。
+  Weak_Potion  ||  虚弱药水  || 给予 3 层 虚弱 。
+
+
+==UncommonPotion==
+Ancient_Potion  ||  先古药水    || 获得 1 层 人工制品 。
+DistilledChaos  ||  精炼混沌    || 打出你抽牌堆顶部的 3 张牌。
+CunningPotion  ||  狡诈药水    || 增加 3 张 小刀+ 到你的手牌。
+DuplicationPotion  ||  复制药水    || 本回合你的下一张牌将被打出两次。
+ElixirPotion  ||  万灵药水    ||  	消耗 任意张手牌。
+EssenceOfSteel  ||  钢之精华    ||  获得 4 层 多层护甲 。
+ GamblersBrew  ||  赌徒特酿    ||  丢弃任意张牌，然后抽相同数量的牌。
+ LiquidBronze  ||  流动铜液    ||  获得 3 点 荆棘 。
+ PotionOfCapacity  ||  扩容药水    ||  获得 2 个充能球栏位。
+ Regen_Potion  ||  再生药水    ||  	获得 5 层 再生 。
+ LiquidMemories  ||  液态记忆    ||  	选择弃牌堆中的一张牌放入你的手牌。这张牌在本回合的耗能变为 0 。
+ StancePotion  ||  姿态药水    ||  	进入 平静 或 愤怒 。
+ StancePotion  ||  姿态药水    ||  	进入 平静 或 愤怒 。
+
+
+==RarePotion==
+Ambrosia  ||  仙馔密酒    ||  	进入 神格 姿态 。
+CultistPotion  ||  邪教徒药水    ||  		获得 1 层 仪式 。
+EntropicBrew  ||  混沌药水    ||  		在所有空药水栏位中获得随机药水。
+EssenceOfDarkness  ||  暗之精华    ||  		每个充能球栏位 生成 1 个 黑暗 充能球。
+FairyPotion  ||  瓶中精灵    ||  	当你要被杀死时，免死并回复到最大生命值的 30% ，丢弃这瓶药水。
+Fruit_Juice  ||  果汁    ||  	获得 5 点最大生命。
+GhostInAJar  ||  罐装幽灵    ||  获得 1 层 无实体 。
+HeartOfIron  ||  铁之心    ||  获得 6 层 金属化 。
+SneckoOil  ||  异蛇之油    ||  抽 5 张牌。随机化你手牌的耗能。
+SmokeBomb  ||  烟雾弹    ||  	从一场非Boss战斗中逃离，不获得任何奖励。
+SmokeBomb  ||  烟雾弹    ||  	从一场非Boss战斗中逃离，不获得任何奖励。

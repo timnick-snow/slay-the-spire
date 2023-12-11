@@ -13,8 +13,10 @@ import io.github.snow.spire.temp.RunContext;
 public interface Bless {
     /**
      * 生效
+     *
+     * @return completed take bless
      */
-    void run(RunContext ctx, RunSupport support);
+    boolean run(RunContext ctx, RunSupport support);
 
     /**
      * 显示信息

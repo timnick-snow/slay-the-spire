@@ -12,8 +12,9 @@ import java.util.function.Predicate;
  */
 public abstract class ChooseCard implements Bless {
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         // todo 选择卡
+        return true;
     }
 
     @Override

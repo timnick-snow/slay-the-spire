@@ -12,8 +12,9 @@ import io.github.snow.spire.temp.RunContext;
 public class GetNeowsBlessing implements Bless {
 
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         support.addRelic(new NeowsBlessing());
+        return true;
     }
 
     @Override

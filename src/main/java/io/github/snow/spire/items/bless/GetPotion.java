@@ -10,8 +10,9 @@ import io.github.snow.spire.temp.RunContext;
  */
 public class GetPotion implements Bless {
     @Override
-    public void run(RunContext ctx, RunSupport support) {
-        // todo 药水
+    public boolean run(RunContext ctx, RunSupport support) {
+        support.rewardPotion(3);
+        return false;
     }
 
     @Override

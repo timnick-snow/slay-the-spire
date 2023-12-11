@@ -1,5 +1,8 @@
 package io.github.snow.spire.items.potion;
 
+import io.github.snow.spire.enums.Characters;
+import io.github.snow.spire.enums.PotionRarity;
+
 import java.io.Serializable;
 
 /**
@@ -21,4 +24,15 @@ public interface Potion extends Serializable {
      * 介绍
      */
     String getDescription();
+
+    PotionRarity getRarity();
+
+    /**
+     * 特属于某职业
+     */
+    default Characters classSpecific() {
+        return null;
+    }
+
+    Potion copy(String id);
 }

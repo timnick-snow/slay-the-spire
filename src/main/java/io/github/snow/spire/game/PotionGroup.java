@@ -51,6 +51,7 @@ public class PotionGroup {
             for (Potion p : potions) {
                 buf.append(p.getId()).append("\t\t").append(p.getName())
                         .append(": ").append(p.getDescription());
+                buf.append("\n");
             }
             res += buf.toString();
         }

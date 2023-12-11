@@ -12,8 +12,9 @@ import java.util.function.Predicate;
  */
 public abstract class RandomCard implements Bless {
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         // todo 获得随机卡
+        return true;
     }
 
     @Override

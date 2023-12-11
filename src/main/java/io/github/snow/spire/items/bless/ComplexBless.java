@@ -19,9 +19,9 @@ public class ComplexBless implements Bless {
 
 
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         negative.run(ctx, support);
-        positive.run(ctx, support);
+        return positive.run(ctx, support);
     }
 
     @Override

@@ -26,7 +26,7 @@ public interface Relic {
     RelicRarity rarity();
 
     /**
-     * 特属于某职业的遗物
+     * 特属于某职业
      */
     default Characters classSpecific() {
         return null;

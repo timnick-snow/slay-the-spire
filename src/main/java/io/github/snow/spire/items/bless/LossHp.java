@@ -13,8 +13,9 @@ import io.github.snow.spire.temp.RunContext;
 public class LossHp implements Bless {
 
     @Override
-    public void run(RunContext ctx, RunSupport support) {
+    public boolean run(RunContext ctx, RunSupport support) {
         support.addHp(-getValue(ctx));
+        return true;
     }
 
     @Override

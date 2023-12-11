@@ -6,12 +6,18 @@ import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.MainPage;
 import io.github.snow.spire.enums.RelicRarity;
 import io.github.snow.spire.items.BlessManager;
+import io.github.snow.spire.items.PotionManager;
 import io.github.snow.spire.items.RelicManager;
+import io.github.snow.spire.items.RewardManager;
 import io.github.snow.spire.items.bless.Bless;
 import io.github.snow.spire.items.bless.ExchangeBossRelic;
+import io.github.snow.spire.items.bless.GetPotion;
 import io.github.snow.spire.items.map.FloorRooms;
 import io.github.snow.spire.items.map.MapHandler;
+import io.github.snow.spire.items.potion.Potion;
 import io.github.snow.spire.items.relic.Relic;
+import io.github.snow.spire.items.reward.PotionReward;
+import io.github.snow.spire.items.reward.Reward;
 import io.github.snow.spire.service.FlowService;
 import io.github.snow.spire.temp.GameContext;
 import io.github.snow.spire.temp.RunContext;
@@ -22,6 +28,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -36,6 +43,8 @@ public class RunSupport {
     private final GameContext gameContext;
     private final BlessManager blessManager;
     private final RelicManager relicManager;
+    private final PotionManager potionManager;
+    private final RewardManager rewardManager;
     private final ApplicationContext applicationContext;
     private final FlowService flowService;
     private final Terminal terminal;
@@ -89,9 +98,9 @@ public class RunSupport {
         runContext.setLastTips(tips);
     }
 
-    public void takeBless() {
+    public boolean takeBless() {
         Bless bless = flowService.blessSelect(genBless(), runContext);
-        bless.run(runContext, this);
+        return bless.run(runContext, this);
     }
 
     public void removeCard() {
@@ -105,16 +114,16 @@ public class RunSupport {
         String action = addValue > 0 ? "增加" : "减少";
         int maxHp = runContext.getMaxHp();
         runContext.setMaxHp(maxHp + addValue);
-        write("你的最大生命值%s了：%d -> %d".formatted(action, maxHp, runContext.getMaxHp()));
+        writeAndFlush("你的最大生命值%s了：%d -> %d".formatted(action, maxHp, runContext.getMaxHp()));
 
         // 处理hp
         int hp = runContext.getHp();
         if (addValue > 0) {
             runContext.setHp(hp + addValue);
-            write("你的生命值增加了：%d -> %d".formatted(hp, runContext.getHp()));
+            writeAndFlush("你的生命值增加了：%d -> %d".formatted(hp, runContext.getHp()));
         } else if (hp > runContext.getMaxHp()) {
             runContext.setHp(runContext.getMaxHp());
-            write("你的生命值减少了：%d -> %d".formatted(hp, runContext.getHp()));
+            writeAndFlush("你的生命值减少了：%d -> %d".formatted(hp, runContext.getHp()));
         }
     }
 
@@ -125,7 +134,7 @@ public class RunSupport {
         String action = addValue > 0 ? "增加" : "减少";
         int hp = runContext.getHp();
         runContext.setHp(hp + addValue);
-        write("你的生命值%s了，hp: %d => %d".formatted(action, hp, runContext.getHp()));
+        writeAndFlush("你的生命值%s了，hp: %d => %d".formatted(action, hp, runContext.getHp()));
     }
 
     public void addGold(int addValue) {
@@ -135,12 +144,12 @@ public class RunSupport {
         String action = addValue > 0 ? "增加" : "减少";
         int gold = runContext.getGold();
         runContext.setGold(gold + addValue);
-        write("你的金币%s了：%d -> %d".formatted(action, gold, runContext.getGold()));
+        writeAndFlush("你的金币%s了：%d -> %d".formatted(action, gold, runContext.getGold()));
     }
 
     public void addRelic(Relic relic) {
         runContext.getRelicGroup().addRelic(relic);
-        write("你获得了【%s】！".formatted(relic.name()));
+        writeAndFlush("你获得了【%s】！".formatted(relic.name()));
     }
 
     public void addRandomRelic(RelicRarity rarity) {
@@ -151,13 +160,47 @@ public class RunSupport {
     public void lossRelic(Predicate<Relic> predicate) {
         List<Relic> loss = runContext.getRelicGroup().lossRelic(predicate);
         if (!loss.isEmpty()) {
-            write("你失去了【%s】！".formatted(loss.getFirst().name()));
+            writeAndFlush("你失去了【%s】！".formatted(loss.getFirst().name()));
         }
     }
 
     public void exchangeBossRelic() {
         lossRelic(relic -> relic.rarity() == RelicRarity.STARTER);
         addRandomRelic(RelicRarity.BOSS);
+    }
+
+    public void showRewards(List<Reward> rewards) {
+        runContext.setRewards(rewards);
+        write("请领取你的奖励！");
+        write(rewardManager.format(rewards, false));
+        flush();
+    }
+
+    /**
+     * 药水奖励
+     */
+    public void rewardPotion(int num) {
+        List<Reward> list = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            Potion potion = potionManager.getPotion(nextItemId("p"));
+            list.add(new PotionReward(potion));
+        }
+        showRewards(list);
+    }
+
+
+    public void addPotion(Potion potion) {
+        boolean res = runContext.getPotionGroup().addPotion(potion);
+        if (res) {
+            writeAndFlush("你获得了【%s】！".formatted(potion.getName()));
+        } else {
+            writeAndFlush("药水栏不足！");
+        }
+    }
+
+
+    public void clearRewards() {
+        runContext.setRewards(Collections.emptyList());
     }
 
     private List<Bless> genBless() {
@@ -169,11 +212,21 @@ public class RunSupport {
         list.add(blessManager.complexBless());
         // 换4
         list.add(new ExchangeBossRelic());
+        // todo temp
+        list.add(new GetPotion());
         return list;
+    }
+
+    private void writeAndFlush(String content) {
+        terminal.writer().println(content);
+        terminal.flush();
     }
 
     private void write(String content) {
         terminal.writer().println(content);
+    }
+
+    private void flush() {
         terminal.flush();
     }
 }

@@ -52,7 +52,7 @@ public class RandomManage {
      */
     private Random fightRandom3;
     /**
-     * 药水
+     * 药水随机数
      */
     private Random potionRandom;
     /**

@@ -31,7 +31,9 @@ dependencies {
     implementation("org.springframework.shell:spring-shell-starter")
     implementation("org.springframework.shell:spring-shell-starter-jna")
     implementation("org.springframework.boot:spring-boot-starter-json")
+    implementation("ch.qos.logback:logback-classic:1.4.8")
 
+    testImplementation("com.alibaba:easyexcel:3.3.3")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

@@ -2,15 +2,24 @@ package io.github.snow.spire.items.card;
 
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author snow
  * @since 2023/12/7
  */
-@RequiredArgsConstructor
 public class RedDefend extends RedCard {
-    private final String id;
+    private static final String DESC = "获得5点格挡。";
+    private static final String DESC1 = "获得8点格挡。";
+
+
+    public RedDefend(String id, int level) {
+        super(id, level);
+    }
+
+    @Override
+    public String baseName() {
+        return "防御";
+    }
 
     @Override
     public CardType type() {
@@ -23,22 +32,17 @@ public class RedDefend extends RedCard {
     }
 
     @Override
-    public String id() {
-        return id;
-    }
-
-    @Override
-    public String name() {
-        return "防御";
+    public int cost() {
+        return 1;
     }
 
     @Override
     public String description() {
-        return "获得5点格挡。";
+        return level == 0 ? DESC : DESC1;
     }
 
     @Override
-    public int energy() {
-        return 1;
+    public String upgradeDescription() {
+        return DESC1;
     }
 }

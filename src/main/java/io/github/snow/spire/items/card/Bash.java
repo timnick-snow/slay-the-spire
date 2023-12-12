@@ -1,17 +1,24 @@
 package io.github.snow.spire.items.card;
 
-import io.github.snow.spire.enums.CardColor;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author snow
- * @since 2023/12/7
+ * @since 2023/12/12
  */
-@RequiredArgsConstructor
 public class Bash extends RedCard {
-    private final String id;
+    private static final String DESC = "造成8点伤害。给予2层 【易伤】 。";
+    private static final String DESC1 = "造成10点伤害。给予3层 【易伤】 。";
+
+    public Bash(String id, int level) {
+        super(id, level);
+    }
+
+    @Override
+    public String baseName() {
+        return "痛击";
+    }
 
     @Override
     public CardType type() {
@@ -24,22 +31,17 @@ public class Bash extends RedCard {
     }
 
     @Override
-    public String id() {
-        return id;
-    }
-
-    @Override
-    public String name() {
-        return "痛击";
+    public int cost() {
+        return 2;
     }
 
     @Override
     public String description() {
-        return "造成8点伤害，并对敌人施加2层易伤。";
+        return level == 0 ? DESC : DESC1;
     }
 
     @Override
-    public int energy() {
-        return 2;
+    public String upgradeDescription() {
+        return DESC1;
     }
 }

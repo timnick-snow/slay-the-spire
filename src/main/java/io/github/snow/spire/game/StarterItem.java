@@ -1,9 +1,6 @@
 package io.github.snow.spire.game;
 
-import io.github.snow.spire.items.card.Bash;
-import io.github.snow.spire.items.card.Card;
-import io.github.snow.spire.items.card.RedDefend;
-import io.github.snow.spire.items.card.RedStrike;
+import io.github.snow.spire.items.card.*;
 import io.github.snow.spire.items.relic.BurningBlood;
 import io.github.snow.spire.items.relic.Relic;
 
@@ -50,12 +47,12 @@ public interface StarterItem {
                 List<Card> cards = new ArrayList<>();
                 int id = 0;
                 for (int i = 0; i < 5; i++) {
-                    cards.add(new RedStrike("c%02d".formatted(++id)));
+                    cards.add(new RedStrike("c%02d".formatted(++id), 0));
                 }
                 for (int i = 0; i < 4; i++) {
-                    cards.add(new RedDefend("c%02d".formatted(++id)));
+                    cards.add(new RedDefend("c%02d".formatted(++id), 0));
                 }
-                cards.add(new Bash("c%02d".formatted(++id)));
+                cards.add(new Bash("c%02d".formatted(++id), 0));
                 return cards;
             }
 

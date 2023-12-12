@@ -114,7 +114,7 @@ public class MapHandler {
             if (!room.getNext().isEmpty()) {
                 buf.append(" -> ");
                 if (room.getNext().size() == 1) {
-                    buf.append(room.getNext().get(0).getRoomType().getSymbol());
+                    buf.append(room.getNext().getFirst().getRoomType().getSymbol());
                 } else {
                     buf.append("(");
                     for (RoomNode nextRoom : room.getNext()) {
@@ -123,7 +123,7 @@ public class MapHandler {
                     buf.deleteCharAt(buf.length() - 1);
                     buf.append(")");
                 }
-                if (!room.getNext().get(0).getPids().isEmpty()) {
+                if (!room.getNext().getFirst().getPids().isEmpty()) {
                     buf.append(" -> ...");
                 }
             }

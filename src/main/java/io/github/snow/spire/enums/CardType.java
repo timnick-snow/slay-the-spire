@@ -14,6 +14,7 @@ public enum CardType {
     SKILL("技能"),
     POWER("能力"),
     CURSE("诅咒"),
+    STATUS("状态"),
     ;
     private final String display;
 

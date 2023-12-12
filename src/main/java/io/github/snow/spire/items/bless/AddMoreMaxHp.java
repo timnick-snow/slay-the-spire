@@ -2,7 +2,6 @@ package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.temp.RunContext;
-import org.springframework.stereotype.Component;
 
 /**
  * 增加最大生命

@@ -11,8 +11,8 @@ import io.github.snow.spire.temp.RunContext;
 public class UpgradeCard implements Bless {
     @Override
     public boolean run(RunContext ctx, RunSupport support) {
-        // todo 升级卡
-        return false;
+        support.upgradeCard();
+        return true;
     }
 
     @Override

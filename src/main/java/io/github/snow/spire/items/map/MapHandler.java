@@ -85,6 +85,7 @@ public class MapHandler {
     private static void connect(FloorRooms child, FloorRooms parent, Random random) {
         int from = child.getRooms().size();
         int to = parent.getRooms().size();
+        log.info("gen map strategy from {} to {}", from, to);
         List<List<Integer>> strategy = WayBranch.strategy(from, to, random);
         for (int i = 0; i < strategy.size(); i++) {
             List<RoomNode> childRooms = child.getRooms();

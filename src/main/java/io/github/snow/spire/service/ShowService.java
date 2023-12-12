@@ -1,7 +1,9 @@
 package io.github.snow.spire.service;
 
 import io.github.snow.spire.enums.MainPage;
+import io.github.snow.spire.game.Deck;
 import io.github.snow.spire.game.RunSupport;
+import io.github.snow.spire.items.CardManager;
 import io.github.snow.spire.items.RewardManager;
 import io.github.snow.spire.items.reward.Reward;
 import io.github.snow.spire.temp.GameContext;
@@ -23,6 +25,7 @@ public class ShowService {
     private final GameContext gameContext;
     private final RunSupport runSupport;
     private final RewardManager rewardManager;
+    private final CardManager cardManager;
 
     public Availability availability() {
         return gameContext.getMainPage().availability(MainPage.GAMING);
@@ -41,7 +44,8 @@ public class ShowService {
     }
 
     public String decks(boolean verbose) {
-        return runSupport.getRunContext().getDeck().format(verbose) + "\n";
+        Deck deck = runSupport.getRunContext().getDeck();
+        return cardManager.format(deck.getCards(), verbose) + "\n";
     }
 
     public String position() {

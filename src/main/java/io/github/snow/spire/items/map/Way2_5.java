@@ -15,6 +15,8 @@ class Way2_5 implements Way {
 
     static {
         BRANCHES = new ArrayList<>();
+
+        // DT
         BRANCHES.add(List.of(Branch.D, Branch.T));
         BRANCHES.add(List.of(Branch.T, Branch.D));
     }

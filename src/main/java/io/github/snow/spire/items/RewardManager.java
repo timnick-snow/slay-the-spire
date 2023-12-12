@@ -15,6 +15,7 @@ public class RewardManager {
 
     public String format(List<Reward> rewards, boolean verbose) {
         StringBuilder buf = new StringBuilder();
+        buf.append("请领取你的奖励！\n");
         for (int i = 0; i < rewards.size(); i++) {
             buf.append("  ").append(i + 1).append(" <===> ");
             if (verbose) {

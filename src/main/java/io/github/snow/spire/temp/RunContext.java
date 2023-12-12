@@ -10,7 +10,7 @@ import io.github.snow.spire.items.reward.Reward;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -127,7 +127,7 @@ public class RunContext {
         this.deck = new Deck();
         this.deck.addAll(item.deck());
         this.itemId += item.deck().size();
-        this.rewards = Collections.emptyList();
+        this.rewards = new ArrayList<>();
     }
 
     @SuppressWarnings("all")

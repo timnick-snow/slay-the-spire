@@ -1,26 +1,24 @@
 package io.github.snow.spire.items.bless;
 
 import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.items.card.Card;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
-import org.springframework.stereotype.Component;
-
-import java.util.function.Predicate;
 
 /**
  * @author snow
  * @since 2023/12/8
  */
-public class ChooseClassCard extends ChooseCard {
+public class ChooseClassCard implements Bless {
 
     @Override
-    public String trait() {
-        return "";
+    public boolean run(RunContext ctx, RunSupport support) {
+        // todo 标准选卡
+        return false;
     }
 
     @Override
-    public Predicate<Card> filter(RunContext ctx) {
-        return card -> card.color() == ctx.getCharacter().color();
+    public String display(RunContext ctx) {
+        return "选择一张卡牌加入到你的牌组中。";
     }
 
     @Override

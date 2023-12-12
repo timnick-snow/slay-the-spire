@@ -8,6 +8,7 @@ import io.github.snow.spire.enums.CardType;
  * @since 2023/12/12
  */
 public class SearingBlow extends RedCard {
+    // todo 单独处理升级问题
     private static final String DESC = "造成12点伤害。能被多次 【升级】 。";
     private static final String DESC1 = "造成16点伤害。能被多次 【升级】 。";
 
@@ -43,5 +44,10 @@ public class SearingBlow extends RedCard {
     @Override
     public String upgradeDescription() {
         return DESC1;
+    }
+
+    @Override
+    public boolean isUpgradable() {
+        return true;
     }
 }

@@ -17,8 +17,11 @@ class Way5_5 implements Way {
     static {
         // 5S 2SDX STY 2DY 2XT
         BRANCHES = new ArrayList<>();
+
+        // 5S
         BRANCHES.add(List.of(Branch.S, Branch.S, Branch.S, Branch.S, Branch.S));
 
+        // 2SDX
         BRANCHES.add(List.of(Branch.S, Branch.S, Branch.D, Branch.X));
         BRANCHES.add(List.of(Branch.S, Branch.S, Branch.X, Branch.D));
         BRANCHES.add(List.of(Branch.S, Branch.D, Branch.S, Branch.X));
@@ -32,11 +35,12 @@ class Way5_5 implements Way {
         BRANCHES.add(List.of(Branch.D, Branch.X, Branch.S, Branch.S));
         BRANCHES.add(List.of(Branch.X, Branch.D, Branch.S, Branch.S));
 
+        // STY
         BRANCHES.add(List.of(Branch.S, Branch.T, Branch.Y));
         BRANCHES.add(List.of(Branch.S, Branch.Y, Branch.T));
         BRANCHES.add(List.of(Branch.Y, Branch.T, Branch.S));
         BRANCHES.add(List.of(Branch.Y, Branch.S, Branch.T));
-        BRANCHES.add(List.of(Branch.T, Branch.S, Branch.T));
+        BRANCHES.add(List.of(Branch.T, Branch.S, Branch.Y));
         BRANCHES.add(List.of(Branch.T, Branch.Y, Branch.S));
 
         BRANCHES.add(List.of(Branch.D, Branch.D, Branch.Y));

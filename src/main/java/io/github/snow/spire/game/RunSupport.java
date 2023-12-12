@@ -5,17 +5,16 @@ import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.MainPage;
 import io.github.snow.spire.enums.RelicRarity;
-import io.github.snow.spire.items.BlessManager;
-import io.github.snow.spire.items.PotionManager;
-import io.github.snow.spire.items.RelicManager;
-import io.github.snow.spire.items.RewardManager;
+import io.github.snow.spire.items.*;
 import io.github.snow.spire.items.bless.Bless;
+import io.github.snow.spire.items.bless.ChooseRareCard;
 import io.github.snow.spire.items.bless.ExchangeBossRelic;
-import io.github.snow.spire.items.bless.GetPotion;
+import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.map.FloorRooms;
 import io.github.snow.spire.items.map.MapHandler;
 import io.github.snow.spire.items.potion.Potion;
 import io.github.snow.spire.items.relic.Relic;
+import io.github.snow.spire.items.reward.CardReward;
 import io.github.snow.spire.items.reward.PotionReward;
 import io.github.snow.spire.items.reward.Reward;
 import io.github.snow.spire.service.FlowService;
@@ -30,6 +29,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -45,6 +45,7 @@ public class RunSupport {
     private final RelicManager relicManager;
     private final PotionManager potionManager;
     private final RewardManager rewardManager;
+    private final CardManager cardManager;
     private final ApplicationContext applicationContext;
     private final FlowService flowService;
     private final Terminal terminal;
@@ -88,6 +89,14 @@ public class RunSupport {
         return "%s%02d".formatted(prefix, id);
     }
 
+    public List<String> nextItemIds(String prefix,int n) {
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            res.add(nextItemId(prefix));
+        }
+        return res;
+    }
+
 
     public void goHint() {
         // tips
@@ -125,6 +134,7 @@ public class RunSupport {
             runContext.setHp(runContext.getMaxHp());
             writeAndFlush("你的生命值减少了：%d -> %d".formatted(hp, runContext.getHp()));
         }
+        writeAndFlush("");
     }
 
     public void addHp(int addValue) {
@@ -134,7 +144,7 @@ public class RunSupport {
         String action = addValue > 0 ? "增加" : "减少";
         int hp = runContext.getHp();
         runContext.setHp(hp + addValue);
-        writeAndFlush("你的生命值%s了，hp: %d => %d".formatted(action, hp, runContext.getHp()));
+        writeAndFlush("你的生命值%s了，hp: %d => %d\n".formatted(action, hp, runContext.getHp()));
     }
 
     public void addGold(int addValue) {
@@ -167,13 +177,12 @@ public class RunSupport {
     public void exchangeBossRelic() {
         lossRelic(relic -> relic.rarity() == RelicRarity.STARTER);
         addRandomRelic(RelicRarity.BOSS);
+        writeAndFlush("");
     }
 
-    public void showRewards(List<Reward> rewards) {
-        runContext.setRewards(rewards);
-        write("请领取你的奖励！");
-        write(rewardManager.format(rewards, false));
-        flush();
+    public void addAndShowRewards(List<Reward> rewards) {
+        runContext.getRewards().addAll(rewards);
+        writeAndFlush(rewardManager.format(rewards, false));
     }
 
     /**
@@ -185,22 +194,60 @@ public class RunSupport {
             Potion potion = potionManager.getPotion(nextItemId("p"));
             list.add(new PotionReward(potion));
         }
-        showRewards(list);
+        addAndShowRewards(list);
     }
 
 
-    public void addPotion(Potion potion) {
+    public boolean addPotion(Potion potion) {
         boolean res = runContext.getPotionGroup().addPotion(potion);
         if (res) {
             writeAndFlush("你获得了【%s】！".formatted(potion.getName()));
         } else {
             writeAndFlush("药水栏不足！");
         }
+        return res;
     }
 
 
     public void clearRewards() {
         runContext.setRewards(Collections.emptyList());
+    }
+
+    public void addCard(Card card) {
+        runContext.getDeck().add(card);
+        writeAndFlush("你获得了卡牌【%s】！".formatted(card.name()));
+    }
+
+    public void addRandomCard(Predicate<Card> filter) {
+        Card card = cardManager.getRandom(filter, nextItemId("c"));
+        addCard(card);
+    }
+
+    public boolean rewardChooseCard(Predicate<Card> filter) {
+        List<String> ids = nextItemIds("c", 3);
+        List<Card> cards = cardManager.getRandoms(filter, ids);
+        CardReward reward = new CardReward(cards);
+        boolean taken = reward.take(this);
+        if (taken) {
+            return true;
+        }
+        addAndShowRewards(Collections.singletonList(reward));
+        return false;
+    }
+
+    public boolean chooseCard(List<Card> cards) {
+        Optional<Card> card = flowService.chooseCard(cards);
+        if (card.isPresent()) {
+            addCard(card.get());
+            return true;
+        }
+        return false;
+    }
+
+
+    public void upgradeCard() {
+        Deck deck = runContext.getDeck();
+        flowService.upgradeCard(deck);
     }
 
     private List<Bless> genBless() {
@@ -212,8 +259,6 @@ public class RunSupport {
         list.add(blessManager.complexBless());
         // 换4
         list.add(new ExchangeBossRelic());
-        // todo temp
-        list.add(new GetPotion());
         return list;
     }
 

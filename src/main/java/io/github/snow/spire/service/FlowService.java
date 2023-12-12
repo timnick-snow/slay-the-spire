@@ -1,9 +1,13 @@
 package io.github.snow.spire.service;
 
+import io.github.snow.spire.beans.Constants;
 import io.github.snow.spire.beans.pojo.StartFlowResult;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.game.Deck;
+import io.github.snow.spire.items.CardManager;
 import io.github.snow.spire.items.bless.Bless;
+import io.github.snow.spire.items.card.Card;
+import io.github.snow.spire.items.card.UpgradableCard;
 import io.github.snow.spire.temp.RunContext;
 import io.github.snow.spire.tool.Convert;
 import io.github.snow.spire.tool.Either;
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author snow
@@ -27,6 +32,7 @@ import java.util.List;
 public class FlowService extends AbstractShellComponent {
     private final ComponentFlow.Builder componentFlowBuilder;
     private final Terminal terminal;
+    private final CardManager cardManager;
 
 
     public Either<String, StartFlowResult> startSelect() {
@@ -50,11 +56,35 @@ public class FlowService extends AbstractShellComponent {
     }
 
     /**
+     * 选卡
+     */
+    public Optional<Card> chooseCard(List<Card> cards) {
+        List<SelectorItem<String>> items = new ArrayList<>();
+        for (Card card : cards) {
+            String name = "%s：%s".formatted(card.name(), card.description());
+            items.add(SelectorItem.of(name, card.name()));
+        }
+        items.add(SelectorItem.of("跳过", Constants.SKIP));
+        // 交互选择
+        SingleItemSelector<String, SelectorItem<String>> component = new SingleItemSelector<>(getTerminal(),
+                items, "选择一张牌...", null);
+        component.setResourceLoader(getResourceLoader());
+        component.setTemplateExecutor(getTemplateExecutor());
+        String result = component.run(SingleItemSelector.SingleItemSelectorContext.empty()).getValue().get();
+        if (result.equals(Constants.SKIP)) {
+            return Optional.empty();
+        }
+        Card select = cards.stream().filter(card -> card.name().equals(result)).findFirst().get();
+        return Optional.of(select);
+    }
+
+    /**
      * 删卡
      */
     public void removeCard(Deck deck) {
-        String cardInfo = deck.format(true) + "\n";
-        write(cardInfo);
+        List<Card> cards = deck.getCards().stream().filter(Card::isRemovable).toList();
+        String cardInfo = cardManager.format(cards, true) + "\n";
+        writeAndFlush(cardInfo);
 
         String cardId;
         while (true) {
@@ -63,10 +93,56 @@ public class FlowService extends AbstractShellComponent {
                     .and().build();
             cardId = flow.run().getContext().get("cardId");
             if (deck.remove(cardId)) {
-                write("一张卡牌被移除(%s)。".formatted(cardId));
+                writeAndFlush("一张卡牌被移除(%s)。".formatted(cardId));
                 break;
             }
-            write("无效的卡id。\n");
+            writeAndFlush("无效的卡id。\n");
+        }
+    }
+
+    /**
+     * 升级卡
+     */
+    public void upgradeCard(Deck deck) {
+        List<Card> list = deck.getCards().stream().filter(card -> {
+            if (card instanceof UpgradableCard up) {
+                return up.isUpgradable();
+            } else {
+                return false;
+            }
+        }).toList();
+        writeAndFlush(cardManager.format(list, true) + "\n");
+
+        String cardId;
+        while (true) {
+            ComponentFlow flow = componentFlowBuilder.clone().reset()
+                    .withStringInput("cardId").name("从卡组中选择一张牌升级，输入卡id...")
+                    .and().build();
+            cardId = flow.run().getContext().get("cardId");
+            if (!deck.contains(cardId)) {
+                writeAndFlush("无效的卡id。\n");
+                continue;
+            }
+
+            // 预览升级信息
+            String template = "%s：%s，%d E；%s\n";
+            String finalCardId = cardId;
+            UpgradableCard card = (UpgradableCard) list.stream().filter(c -> c.id().equals(finalCardId)).findFirst().get();
+            writeAndFlush(template.formatted("升级前", card.name(), card.cost(), card.description()));
+            writeAndFlush(template.formatted("升级后", card.upgradeName(), card.upgradeCost(), card.upgradeDescription()));
+
+            flow = componentFlowBuilder.clone().reset()
+                    .withConfirmationInput("confirm").name("是否确认升级")
+                    .defaultValue(true)
+                    .and().build();
+            boolean confirm = flow.run().getContext().get("confirm");
+            if (!confirm) {
+                continue;
+            }
+
+            deck.upgrade(cardId);
+            writeAndFlush("卡牌升级成功(%s)。".formatted(cardId));
+            break;
         }
     }
 
@@ -85,7 +161,7 @@ public class FlowService extends AbstractShellComponent {
         return blesses.get(idx - 1);
     }
 
-    public void write(String content) {
+    public void writeAndFlush(String content) {
         terminal.writer().println(content);
         terminal.flush();
     }

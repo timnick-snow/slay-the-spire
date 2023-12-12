@@ -16,15 +16,19 @@ class Way4_5 implements Way {
     static {
         // 3SD 2DX TSX
         BRANCHES = new ArrayList<>();
+
+        // 3SD
         BRANCHES.add(List.of(Branch.S, Branch.S, Branch.S, Branch.D));
         BRANCHES.add(List.of(Branch.S, Branch.S, Branch.D, Branch.S));
         BRANCHES.add(List.of(Branch.S, Branch.D, Branch.S, Branch.S));
         BRANCHES.add(List.of(Branch.D, Branch.S, Branch.S, Branch.S));
 
+        // 2DX
         BRANCHES.add(List.of(Branch.D, Branch.D, Branch.X));
         BRANCHES.add(List.of(Branch.D, Branch.X, Branch.D));
         BRANCHES.add(List.of(Branch.X, Branch.D, Branch.D));
 
+        // TSX
         BRANCHES.add(List.of(Branch.T, Branch.S, Branch.X));
         BRANCHES.add(List.of(Branch.T, Branch.X, Branch.S));
         BRANCHES.add(List.of(Branch.X, Branch.T, Branch.S));

@@ -13,5 +13,5 @@ public interface Reward {
         return display();
     }
 
-    void take(RunSupport runSupport);
+    boolean take(RunSupport runSupport);
 }

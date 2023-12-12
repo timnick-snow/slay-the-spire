@@ -40,8 +40,10 @@ public class RewardService {
         List<Reward> takeRewards = new ArrayList<>();
         for (int id : ids) {
             Reward reward = rewards.get(id);
-            reward.take(runSupport);
-            takeRewards.add(reward);
+            boolean taken = reward.take(runSupport);
+            if (taken) {
+                takeRewards.add(reward);
+            }
         }
         rewards.removeIf(takeRewards::contains);
         return "";

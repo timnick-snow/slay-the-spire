@@ -30,6 +30,12 @@ public interface Card {
 
     int cost();
 
+    Card copy(String id);
+
+    default boolean isRemovable() {
+        return true;
+    }
+
     default String costDisplay() {
         int cost = cost();
         if (cost == -1) {

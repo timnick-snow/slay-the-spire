@@ -15,10 +15,13 @@ class Way3_5 implements Way {
 
     static {
         BRANCHES = new ArrayList<>();
+
+        // 2ST
         BRANCHES.add(List.of(Branch.T, Branch.S, Branch.S));
         BRANCHES.add(List.of(Branch.S, Branch.T, Branch.S));
         BRANCHES.add(List.of(Branch.S, Branch.S, Branch.T));
 
+        // 2DS
         BRANCHES.add(List.of(Branch.S, Branch.D, Branch.D));
         BRANCHES.add(List.of(Branch.D, Branch.S, Branch.D));
         BRANCHES.add(List.of(Branch.D, Branch.D, Branch.S));

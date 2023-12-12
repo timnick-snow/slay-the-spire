@@ -43,7 +43,7 @@ public class BlessManager {
         Bless positive;
         int i = 0;
         while (true) {
-            int random = b + c * i + i;
+            int random = b + c * i + i + positiveList.size();
             positive = positiveList.get(random % positiveList.size());
             i++;
             if (negative instanceof LossMaxHp && positive instanceof AddMaxHp) {

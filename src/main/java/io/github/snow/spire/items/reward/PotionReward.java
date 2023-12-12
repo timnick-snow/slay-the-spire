@@ -26,7 +26,7 @@ public class PotionReward implements Reward {
     }
 
     @Override
-    public void take(RunSupport runSupport) {
-        runSupport.addPotion(potion);
+    public boolean take(RunSupport runSupport) {
+        return runSupport.addPotion(potion);
     }
 }

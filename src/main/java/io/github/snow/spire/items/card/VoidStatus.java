@@ -7,11 +7,11 @@ import io.github.snow.spire.enums.CardType;
  * @author snow
  * @since 2023/12/12
  */
-public class Void extends ColorlessCard {
+public class VoidStatus extends ColorlessCard {
     private static final String DESC = " 【不能被打出】 。抽到这张牌时失去1点能量。 【虚无】 。";
     private static final String DESC1 = "null";
 
-    public Void(String id, int level) {
+    public VoidStatus(String id, int level) {
         super(id, level);
     }
 

@@ -1,6 +1,8 @@
 package io.github.snow.spire.game;
 
+import io.github.snow.spire.items.card.BaseCard;
 import io.github.snow.spire.items.card.Card;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ import static io.github.snow.spire.tool.FormatUtil.center;
  * @author snow
  * @since 2023/12/7
  */
+@Getter
 public class Deck {
     private final List<Card> cards = new ArrayList<>();
 
@@ -25,56 +28,6 @@ public class Deck {
 
     public void addAll(List<Card> list) {
         this.cards.addAll(list);
-    }
-
-    public String format(boolean verbose) {
-        String res = formatCount() + "\n";
-        StringBuilder buf = new StringBuilder();
-        if (verbose) {
-/*
---------------------------------------------------------------------------------------------------
-|  id  |   名称   | 颜色 | 类型 | 耗能 | 稀有度 | 描述
---------------------------------------------------------------------------------------------------
-| c101 |   打击   | 红色 | 攻击 |  1  |  初始  | 造成6点伤害。造成6点伤害。造成6点伤害。造成6点伤害。造成6点...
- */
-            String divide = "--------------------------------------------------------------------------------------------------\n";
-            buf.append(divide)
-                    .append("|  id  |   名称   | 颜色 | 类型 | 耗能 | 稀有度 | 描述\n")
-                    .append(divide);
-            for (Card card : cards) {
-                buf.append("|").append(center(card.id(), 6));
-                buf.append("|").append(center(card.name(), 8));
-                buf.append("|").append(center(card.color().getDisplay(), 4));
-                buf.append("|").append(center(card.type().getDisplay(), 4));
-                // 耗能
-                buf.append("|").append(center(card.costDisplay(), 6));
-                buf.append("|").append(center(card.rarity().getDisplay(), 6));
-                // 描述
-                buf.append("| ");
-                if (card.description().length() <= 32) {
-                    buf.append(card.description());
-                } else {
-                    buf.append(card.description(), 0, 32).append("...");
-                }
-                buf.append("\n");
-            }
-        } else {
-            // 简要的
-            for (int i = 0; i < cards.size(); i++) {
-                buf.append(cards.get(i).name());
-                if (i == cards.size() - 1) {
-                    break;
-                }
-                if (i % 5 == 4) {
-                    buf.append("\n");
-                } else {
-                    buf.append("\t\t\t");
-                }
-            }
-        }
-        buf.append("\n");
-        res += buf;
-        return res;
     }
 
     public boolean contains(String cardId) {
@@ -94,5 +47,10 @@ public class Deck {
             return true;
         }
         return false;
+    }
+
+    public void upgrade(String cardId) {
+        BaseCard card = (BaseCard) cards.stream().filter(c -> c.id().equals(cardId)).findFirst().get();
+        card.setLevel(card.getLevel() + 1);
     }
 }

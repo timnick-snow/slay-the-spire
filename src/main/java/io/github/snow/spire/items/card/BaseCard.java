@@ -2,13 +2,17 @@ package io.github.snow.spire.items.card;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
+import java.lang.reflect.Constructor;
 
 /**
  * @author snow
  * @since 2023/12/12
  */
 @Getter
-public abstract class BaseCard implements Card, Upgradable {
+@Slf4j
+public abstract class BaseCard implements UpgradableCard {
     protected final String id;
     @Setter
     protected int level;
@@ -40,5 +44,16 @@ public abstract class BaseCard implements Card, Upgradable {
     @Override
     public String id() {
         return id;
+    }
+
+    @Override
+    public Card copy(String id) {
+        try {
+            Constructor<? extends BaseCard> constructor = this.getClass().getDeclaredConstructor(String.class, int.class);
+            return constructor.newInstance(id, level);
+        } catch (Exception e) {
+            log.error("potion copy error", e);
+            return null;
+        }
     }
 }

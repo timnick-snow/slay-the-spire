@@ -1,7 +1,7 @@
 package io.github.snow.spire.items.map;
 
-import io.github.snow.spire.enums.RoomType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.snow.spire.enums.RoomType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,17 +26,21 @@ public class RoomNode {
     private List<Integer> pids;
     @JsonIgnore
     private List<RoomNode> next;
+    @JsonIgnore
+    private List<RoomNode> prev;
 
 
     public RoomNode(int id) {
         this.id = id;
         this.next = new ArrayList<>();
+        this.prev = new ArrayList<>();
         this.pids = new ArrayList<>();
     }
 
     public void addParentNode(RoomNode n) {
         this.next.add(n);
         this.pids.add(n.id);
+        n.prev.add(this);
     }
 
 }

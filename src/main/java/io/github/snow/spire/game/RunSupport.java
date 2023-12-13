@@ -7,7 +7,6 @@ import io.github.snow.spire.items.bless.Bless;
 import io.github.snow.spire.items.bless.ExchangeBossRelic;
 import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.map.FloorRooms;
-import io.github.snow.spire.items.map.MapHandler;
 import io.github.snow.spire.items.potion.Potion;
 import io.github.snow.spire.items.relic.Relic;
 import io.github.snow.spire.items.reward.CardReward;
@@ -42,6 +41,7 @@ public class RunSupport {
     private final PotionManager potionManager;
     private final RewardManager rewardManager;
     private final CardManager cardManager;
+    private final MapManager mapManager;
     private final ApplicationContext applicationContext;
     private final FlowService flowService;
     private final Terminal terminal;
@@ -67,7 +67,10 @@ public class RunSupport {
     public void startRun(Characters role, int level) {
         this.runContext = gameContext.genRun(role, level);
         gameContext.setMainPage(MainPage.GAMING);
+        // 发布事件
         applicationContext.publishEvent(new GameStartEvent(runContext));
+        // 生成地图
+        runContext.setMap(mapManager.gen());
     }
 
     public String roleInfo() {
@@ -100,7 +103,7 @@ public class RunSupport {
         String tips = roleInfo() + "\n";
         FloorRooms floorRooms = runContext.getNextFloor();
         tips += "前方有" + floorRooms.getRooms().size() + "个房间，请选择一个进入\n";
-        tips += MapHandler.format(floorRooms);
+        tips += mapManager.format(floorRooms);
         runContext.setLastTips(tips);
     }
 

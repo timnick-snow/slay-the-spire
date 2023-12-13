@@ -1,6 +1,5 @@
 package io.github.snow.spire;
 
-import io.github.snow.spire.items.map.MapHandler;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;

@@ -5,7 +5,6 @@ import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.RunPage;
 import io.github.snow.spire.game.*;
 import io.github.snow.spire.items.map.FloorRooms;
-import io.github.snow.spire.items.map.MapHandler;
 import io.github.snow.spire.items.reward.Reward;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +37,7 @@ public class RunContext {
     /**
      * 地图
      */
-    private final FloorRooms[][] map;
+    private FloorRooms[][] map;
     /**
      * 钥匙 R G B
      */
@@ -105,7 +104,7 @@ public class RunContext {
     private List<Reward> rewards;
 
     public RunContext(String seed, Characters character, int difficulty) {
-        this.map = initRandomGetMap(seed);
+        this.randomManage = RandomManage.fromSeed(seed);
         this.seed = seed;
         this.character = character;
         this.difficulty = difficulty;
@@ -128,13 +127,6 @@ public class RunContext {
         this.deck.addAll(item.deck());
         this.itemId += item.deck().size();
         this.rewards = new ArrayList<>();
-    }
-
-    @SuppressWarnings("all")
-    private FloorRooms[][] initRandomGetMap(String seed) {
-        this.randomManage = RandomManage.fromSeed(seed);
-        var maps = MapHandler.gen(randomManage.getMapRandom());
-        return maps;
     }
 
     public String brief() {

@@ -50,7 +50,7 @@ public class Deck {
 
     public void upgrade(String cardId) {
         BaseCard card = (BaseCard) cards.stream().filter(c -> c.id().equals(cardId)).findFirst().get();
-        card.setLevel(card.getLevel() + 1);
+        card.upgrade();
     }
 
     public List<Card> removeAll(String[] ids) {

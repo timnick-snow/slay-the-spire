@@ -8,9 +8,9 @@ import io.github.snow.spire.enums.CardType;
  * @since 2023/12/12
  */
 public class SearingBlow extends RedCard {
-    // todo 单独处理升级问题
-    private static final String DESC = "造成12点伤害。能被多次 【升级】 。";
-    private static final String DESC1 = "造成16点伤害。能被多次 【升级】 。";
+    private static final String TEMPLATE = "造成%s点伤害。能被多次 【升级】 。";
+
+    private int damage = 12;
 
     public SearingBlow(String id, int level) {
         super(id, level);
@@ -37,17 +37,27 @@ public class SearingBlow extends RedCard {
     }
 
     @Override
+    public void upgrade() {
+        super.upgrade();
+        this.damage = calcDamage(level);
+    }
+
+    @Override
     public String description() {
-        return level == 0 ? DESC : DESC1;
+        return TEMPLATE.formatted(damage);
     }
 
     @Override
     public String upgradeDescription() {
-        return DESC1;
+        return TEMPLATE.formatted(calcDamage(level + 1));
     }
 
     @Override
     public boolean isUpgradable() {
         return true;
+    }
+
+    private int calcDamage(int n) {
+        return n * (n + 7) / 2 + 12;
     }
 }

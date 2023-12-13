@@ -15,6 +15,10 @@ public interface UpgradableCard extends Card {
      */
     int level();
 
+    String upgradeDescription();
+
+    void upgrade();
+
     /**
      * 能否继续升级
      */
@@ -29,8 +33,6 @@ public interface UpgradableCard extends Card {
         }
         return "%s+%d".formatted(name, level() + 1);
     }
-
-    String upgradeDescription();
 
     default int upgradeCost() {
         return cost();

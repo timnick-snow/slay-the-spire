@@ -23,6 +23,11 @@ public abstract class BaseCard implements UpgradableCard {
     }
 
     @Override
+    public void upgrade() {
+        setLevel(level + 1);
+    }
+
+    @Override
     public String displayName() {
         String name = baseName();
         if (level == 0) {

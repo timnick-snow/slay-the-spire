@@ -5,8 +5,6 @@ import io.github.snow.spire.enums.*;
 import io.github.snow.spire.items.*;
 import io.github.snow.spire.items.bless.Bless;
 import io.github.snow.spire.items.bless.ExchangeBossRelic;
-import io.github.snow.spire.items.bless.TransformOneCard;
-import io.github.snow.spire.items.bless.TransformTwoCard;
 import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.map.FloorRooms;
 import io.github.snow.spire.items.map.MapHandler;
@@ -97,6 +95,7 @@ public class RunSupport {
 
 
     public void goHint() {
+        // todo 能否前进？
         // tips
         String tips = roleInfo() + "\n";
         FloorRooms floorRooms = runContext.getNextFloor();

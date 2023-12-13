@@ -24,7 +24,9 @@ public class RewardService {
             return "当前奖励列表为空。\n";
         }
         runSupport.clearRewards();
-        return "你跳过了%d项奖励\n".formatted(rewards.size());
+        String skipLog = "你跳过了%d项奖励\n".formatted(rewards.size());
+        runSupport.goHint();
+        return "%s\n%s\n".formatted(skipLog, runSupport.tips());
     }
 
     public String take(int[] ids) {
@@ -46,6 +48,12 @@ public class RewardService {
             }
         }
         rewards.removeIf(takeRewards::contains);
-        return "";
+
+        String res = "";
+        if (rewards.isEmpty()) {
+            runSupport.goHint();
+            res = "\n%s\n".formatted(runSupport.tips());
+        }
+        return res;
     }
 }

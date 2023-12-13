@@ -37,6 +37,9 @@ public class RewardCommand {
             @Option(longNames = "id", shortNames = 'i',
                     description = "reward id", arityMin = 1, arityMax = 5) int[] ids
     ) {
+        if (ids == null || ids.length == 0) {
+            return "nothing choose to take.";
+        }
         for (int i = 0; i < ids.length; i++) {
             ids[i] -= 1;
         }

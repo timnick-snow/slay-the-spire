@@ -21,7 +21,14 @@ public interface Card {
     /**
      * 名称
      */
-    String name();
+    String baseName();
+
+    /**
+     * 显示名称
+     */
+    default String displayName() {
+        return baseName();
+    }
 
     /**
      * 介绍

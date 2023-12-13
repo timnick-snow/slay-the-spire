@@ -1,0 +1,1618 @@
+[
+  {
+    "name":"io.github.snow.spire.items.potion.Ambrosia",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.AncientPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.AttackPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.BlessingOfTheForge",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.BlockPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.BloodPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.BottledMiracle",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.ColorlessPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.CultistPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.CunningPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.DexterityPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.DistilledChaos",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.DuplicationPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.ElixirPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.EnergyPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.EntropicBrew",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.EssenceOfDarkness",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.EssenceOfSteel",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.FairyPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.FearPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.FirePotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.FocusPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.FruitJuice",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.GamblersBrew",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.GhostInAJar",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.HeartOfIron",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.LiquidBronze",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.LiquidMemories",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.PoisonPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.PotionOfCapacity",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.PowerPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.RegenPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.SkillPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.SmokeBomb",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.SneckoOil",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.SpeedPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.StancePotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.SteroidPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.StrengthPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.SwiftPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.potion.WeakPotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Accuracy",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Acrobatics",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Adrenaline",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.AfterImage",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Aggregate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.AllForOne",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.AllOutAttack",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Alpha",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Amplify",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Anger",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Apotheosis",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Armaments",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.AscendersBane",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.AThousandCuts",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.AutoShields",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Backflip",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Backstab",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BallLightning",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BandageUp",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Bane",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Barrage",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Barricade",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Bash",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BattleHymn",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BattleTrance",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BeamCell",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Berserk",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Beta",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BiasedCognition",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Bite",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BladeDance",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Blasphemy",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Blind",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Blizzard",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BloodForBlood",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Bloodletting",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Bludgeon",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Blur",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BodySlam",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BootSequence",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BouncingFlask",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BowlingBash",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Brilliance",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Brutality",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Buffer",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BulletTime",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Burn",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.BurningPact",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Burst",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CalculatedGamble",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Caltrops",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Capacitor",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Carnage",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CarveReality",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Catalyst",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Chaos",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Chill",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Choke",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Chrysalis",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Clash",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Cleave",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CloakAndDagger",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Clothesline",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Clumsy",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ColdSnap",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Collect",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Combust",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CompileDriver",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Concentrate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Conclude",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ConjureBlade",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Consecrate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ConserveBattery",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Consume",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Coolheaded",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CoreSurge",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CorpseExplosion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Corruption",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CreativeAI",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Crescendo",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CripplingPoison",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CrushJoints",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CurseCard",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CurseOfTheBell",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.CutThroughFate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DaggerSpray",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DaggerThrow",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DarkEmbrace",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Darkness",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DarkShackles",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Dash",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Dazed",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DeadlyPoison",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Decay",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DeceiveReality",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DeepBreath",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Defend",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Deflect",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Defragment",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DemonForm",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DeusExMachina",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DevaForm",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Devotion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DieDieDie",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Disarm",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Discovery",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Distraction",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DodgeAndRoll",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DoomAndGloom",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Doppelganger",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DoubleEnergy",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DoubleTap",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Doubt",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DramaticEntrance",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Dropkick",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Dualcast",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.DualWield",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.EchoForm",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Electrodynamics",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.EmptyBody",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.EmptyFist",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.EmptyMind",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.EndlessAgony",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Enlightenment",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Entrench",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Envenom",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Eruption",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.EscapePlan",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Establishment",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Evaluate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Eviscerate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Evolve",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Exhume",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Expertise",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Expunger",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Fasting",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FearNoEvil",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Feed",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FeelNoPain",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FiendFire",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Finesse",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Finisher",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FireBreathing",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Fission",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FlameBarrier",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FlashOfSteel",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Flechettes",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Flex",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FlurryOfBlows",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FlyingKnee",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FlyingSleeves",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FollowUp",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Footwork",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ForceField",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ForeignInfluence",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Foresight",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Forethought",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.FTL",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Fusion",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Gash",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.GeneticAlgorithm",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Ghostly",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.GhostlyArmor",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Glacier",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.GlassKnife",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.GoForTheEyes",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.GoodInstincts",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.GrandFinale",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Halt",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.HandOfGreed",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Havoc",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.HeadButt",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Heatsinks",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.HeavyBlade",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.HeelHook",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.HelloWorld",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Hemokinesis",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Hologram",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Hyperbeam",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Immolate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Impatience",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Impervious",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Indignation",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.InfernalBlade",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.InfiniteBlades",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Inflame",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Injury",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.InnerPeace",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Insight",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Intimidate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.IronWave",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.JackOfAllTrades",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.JAX",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Judgment",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Juggernaut",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.JustLuck",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Leap",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.LegSweep",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.LessonLearned",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.LikeWater",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.LimitBreak",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Lockon",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Loop",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.MachineLearning",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Madness",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Magnetism",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Malaise",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.MasterfulStab",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.MasterOfStrategy",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.MasterReality",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Mayhem",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Meditate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Melter",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.MentalFortress",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Metallicize",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Metamorphosis",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.MeteorStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.MindBlast",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Miracle",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.MultiCast",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.NecronomiCurse",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Neutralize",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.NightTerror",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Nirvana",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Normality",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.NoxiousFumes",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Offering",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Omega",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Omniscience",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Outmaneuver",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Pain",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Panacea",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Panache",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.PanicButton",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Parasite",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.PerfectedStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Perseverance",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.PhantasmalKiller",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.PiercingWail",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.PoisonedStab",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.PommelStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.PowerThrough",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Pray",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Predator",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Prepared",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.PressurePoints",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Prostrate",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Protect",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Pummel",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Purity",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.QuickSlash",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Rage",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Ragnarok",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Rainbow",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Rampage",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ReachHeaven",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Reaper",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Reboot",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Rebound",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.RecklessCharge",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Recycle",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.RedDefend",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Redo",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.RedStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Reflex",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Regret",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ReinforcedBody",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Reprogram",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.RiddleWithHoles",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.RipAndTear",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.RitualDagger",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Rupture",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Rushdown",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SadisticNature",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Safety",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Sanctity",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SandsOfTime",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SashWhip",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Scrape",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Scrawl",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SearingBlow",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SecondWind",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SecretTechnique",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SecretWeapon",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SeeingRed",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Seek",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SelfRepair",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Sentinel",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Setup",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SeverSoul",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Shame",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Shiv",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Shockwave",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ShrugItOff",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SignatureMove",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SimmeringFury",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Skewer",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Skim",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Slice",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Slimed",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Smite",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SneakyStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SpiritShield",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SpotWeakness",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Stack",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.StaticDischarge",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Steam",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SteamPower",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Storm",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.StormOfSteel",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Streamline",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Strike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Study",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SuckerPunch",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Sunder",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Survivor",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SweepingBeam",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SwiftStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Swivel",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.SwordBoomerang",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Tactician",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.TalkToTheHand",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Tantrum",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Tempest",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Terror",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.TheBomb",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ThinkingAhead",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ThirdEye",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ThroughViolence",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Thunderclap",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ThunderStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.ToolsOfTheTrade",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Tranquility",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Transmutation",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Trip",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.TrueGrit",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Turbo",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.TwinStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Undo",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Unload",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Uppercut",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Vault",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Venomology",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Vigilance",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Violence",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.VoidStatus",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Wallop",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Warcry",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.WaveOfTheHand",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Weave",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.WellLaidPlans",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.WheelKick",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Whirlwind",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.WhiteNoise",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.WildStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.WindmillStrike",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Wish",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Worship",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Wound",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.WraithForm",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.WreathOfFlame",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Writhe",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+  },
+  {
+    "name":"io.github.snow.spire.items.card.Zap",
+    "methods":[{"name":"<init>","parameterTypes":["java.lang.String","int"] }]
+  }
+]

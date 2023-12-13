@@ -35,9 +35,17 @@ public class RandomManage {
     private Random eventRandom;
 
     /**
-     * 奖励随机数 - 普通/精英战斗奖励随机数 (卡牌，金币)
+     * 奖励随机数 - 卡牌
      */
-    private Random rewardRandom;
+    private Random cardRandom;
+    /**
+     * 奖励随机数 - 药水
+     */
+    private Random potionRandom;
+    /**
+     * 奖励随机数 - 金币
+     */
+    private Random goldRandom;
 
     /**
      * 战斗随机数 - 战斗内的随机数1 - 己方
@@ -52,10 +60,6 @@ public class RandomManage {
      */
     private Random fightRandom3;
     /**
-     * 药水随机数
-     */
-    private Random potionRandom;
-    /**
      * 其它
      */
     private Random otherRandom;
@@ -67,11 +71,12 @@ public class RandomManage {
         randomManage.bossRandom = new Random(hash++);
         randomManage.relicRandom = new Random(hash++);
         randomManage.eventRandom = new Random(hash++);
-        randomManage.rewardRandom = new Random(hash++);
+        randomManage.cardRandom = new Random(hash++);
+        randomManage.potionRandom = new Random(hash++);
+        randomManage.goldRandom = new Random(hash++);
         randomManage.fightRandom1 = new Random(hash++);
         randomManage.fightRandom2 = new Random(hash++);
         randomManage.fightRandom3 = new Random(hash++);
-        randomManage.potionRandom = new Random(hash++);
         randomManage.otherRandom = new Random(hash);
         return randomManage;
     }

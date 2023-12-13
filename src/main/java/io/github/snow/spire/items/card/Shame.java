@@ -10,7 +10,7 @@ public class Shame extends CurseCard{
     }
 
     @Override
-    public String name() {
+    public String baseName() {
         return "羞耻";
     }
 

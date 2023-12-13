@@ -11,8 +11,8 @@ import io.github.snow.spire.temp.RunContext;
 public class TransformOneCard implements Bless {
     @Override
     public boolean run(RunContext ctx, RunSupport support) {
-        // todo 变化卡
-        return false;
+        support.transformCard(1);
+        return true;
     }
 
     @Override

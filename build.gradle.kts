@@ -13,6 +13,11 @@ graalvmNative {
     metadataRepository {
         enabled = true
     }
+    binaries{
+        named("main"){
+
+        }
+    }
 }
 
 java {

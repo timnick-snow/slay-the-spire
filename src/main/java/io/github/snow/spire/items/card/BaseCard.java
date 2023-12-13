@@ -22,10 +22,8 @@ public abstract class BaseCard implements UpgradableCard {
         this.level = level;
     }
 
-    public abstract String baseName();
-
     @Override
-    public String name() {
+    public String displayName() {
         String name = baseName();
         if (level == 0) {
             return name;
@@ -52,7 +50,7 @@ public abstract class BaseCard implements UpgradableCard {
             Constructor<? extends BaseCard> constructor = this.getClass().getDeclaredConstructor(String.class, int.class);
             return constructor.newInstance(id, level);
         } catch (Exception e) {
-            log.error("potion copy error", e);
+            log.error("card copy error", e);
             return null;
         }
     }

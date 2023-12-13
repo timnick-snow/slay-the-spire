@@ -6,8 +6,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static io.github.snow.spire.tool.FormatUtil.center;
+import java.util.Optional;
 
 
 /**
@@ -34,23 +33,36 @@ public class Deck {
         return cards.stream().anyMatch(c -> c.id().equals(cardId));
     }
 
+    public boolean canRemove(String cardId) {
+        Optional<Card> first = cards.stream().filter(card -> card.isRemovable() && card.id().equals(cardId)).findFirst();
+        return first.isPresent();
+    }
+
     public boolean remove(String cardId) {
-        int idx = -1;
-        for (int i = 0; i < cards.size(); i++) {
-            if (cards.get(i).id().equals(cardId)) {
-                idx = i;
-                break;
-            }
-        }
-        if (idx >= 0) {
-            cards.remove(idx);
+        Optional<Card> first = cards.stream().filter(card -> card.isRemovable() && card.id().equals(cardId)).findFirst();
+        if (first.isPresent()) {
+            cards.remove(first.get());
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public void upgrade(String cardId) {
         BaseCard card = (BaseCard) cards.stream().filter(c -> c.id().equals(cardId)).findFirst().get();
         card.setLevel(card.getLevel() + 1);
+    }
+
+    public List<Card> removeAll(String[] ids) {
+        List<Card> res = new ArrayList<>();
+        for (String id : ids) {
+            Optional<Card> first = cards.stream().filter(card -> card.isRemovable() && card.id().equals(id)).findFirst();
+            if (first.isPresent()) {
+                Card card = first.get();
+                cards.remove(card);
+                res.add(card);
+            }
+        }
+        return res;
     }
 }

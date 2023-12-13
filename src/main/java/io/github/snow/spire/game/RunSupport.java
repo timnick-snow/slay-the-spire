@@ -1,14 +1,12 @@
 package io.github.snow.spire.game;
 
 import io.github.snow.spire.beans.context.GameStartEvent;
-import io.github.snow.spire.enums.BlessLevel;
-import io.github.snow.spire.enums.Characters;
-import io.github.snow.spire.enums.MainPage;
-import io.github.snow.spire.enums.RelicRarity;
+import io.github.snow.spire.enums.*;
 import io.github.snow.spire.items.*;
 import io.github.snow.spire.items.bless.Bless;
-import io.github.snow.spire.items.bless.ChooseRareCard;
 import io.github.snow.spire.items.bless.ExchangeBossRelic;
+import io.github.snow.spire.items.bless.TransformOneCard;
+import io.github.snow.spire.items.bless.TransformTwoCard;
 import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.map.FloorRooms;
 import io.github.snow.spire.items.map.MapHandler;
@@ -89,7 +87,7 @@ public class RunSupport {
         return "%s%02d".formatted(prefix, id);
     }
 
-    public List<String> nextItemIds(String prefix,int n) {
+    public List<String> nextItemIds(String prefix, int n) {
         List<String> res = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             res.add(nextItemId(prefix));
@@ -215,7 +213,7 @@ public class RunSupport {
 
     public void addCard(Card card) {
         runContext.getDeck().add(card);
-        writeAndFlush("你获得了卡牌【%s】！".formatted(card.name()));
+        writeAndFlush("你获得了卡牌【%s】！".formatted(card.displayName()));
     }
 
     public void addRandomCard(Predicate<Card> filter) {
@@ -225,7 +223,20 @@ public class RunSupport {
 
     public boolean rewardChooseCard(Predicate<Card> filter) {
         List<String> ids = nextItemIds("c", 3);
-        List<Card> cards = cardManager.getRandoms(filter, ids);
+        List<Card> cards = cardManager.getRandoms(filter, ids, runContext.getAct());
+        CardReward reward = new CardReward(cards);
+        boolean taken = reward.take(this);
+        if (taken) {
+            return true;
+        }
+        addAndShowRewards(Collections.singletonList(reward));
+        return false;
+    }
+
+    public boolean rewardChooseCard() {
+        List<String> ids = nextItemIds("c", 3);
+        Predicate<Card> filter = card -> card.color() == runContext.getCharacter().color();
+        List<Card> cards = cardManager.rewardCard(filter, ids, CombatType.NORMAL, runContext.getAct());
         CardReward reward = new CardReward(cards);
         boolean taken = reward.take(this);
         if (taken) {
@@ -248,6 +259,15 @@ public class RunSupport {
     public void upgradeCard() {
         Deck deck = runContext.getDeck();
         flowService.upgradeCard(deck);
+    }
+
+    public void transformCard(int n) {
+        List<Card> removed = flowService.transformCard(runContext.getDeck(), n);
+        List<String> ids = nextItemIds("c", removed.size());
+        List<Card> adds = cardManager.transformCard(removed, ids);
+        for (Card card : adds) {
+            addCard(card);
+        }
     }
 
     private List<Bless> genBless() {

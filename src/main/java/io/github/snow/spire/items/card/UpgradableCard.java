@@ -23,13 +23,11 @@ public interface UpgradableCard extends Card {
     }
 
     default String upgradeName() {
-        String name = name();
-        int idx = name.lastIndexOf('+');
-        if (idx == -1) {
-            return name + "+";
-        } else {
-            return name.substring(0, idx + 1) + (level() + 1);
+        String name = baseName();
+        if (level() == 0) {
+            return "%s+".formatted(name);
         }
+        return "%s+%d".formatted(name, level() + 1);
     }
 
     String upgradeDescription();

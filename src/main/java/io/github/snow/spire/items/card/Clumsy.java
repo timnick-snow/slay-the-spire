@@ -10,7 +10,7 @@ public class Clumsy extends CurseCard{
     }
 
     @Override
-    public String name() {
+    public String baseName() {
         return "笨拙";
     }
 

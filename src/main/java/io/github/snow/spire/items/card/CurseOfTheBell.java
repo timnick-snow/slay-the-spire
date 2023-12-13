@@ -12,7 +12,7 @@ public class CurseOfTheBell extends CurseCard {
     }
 
     @Override
-    public String name() {
+    public String baseName() {
         return "铃铛的诅咒";
     }
 

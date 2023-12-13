@@ -12,7 +12,7 @@ public class AscendersBane extends CurseCard {
     }
 
     @Override
-    public String name() {
+    public String baseName() {
         return "进阶之灾";
     }
 

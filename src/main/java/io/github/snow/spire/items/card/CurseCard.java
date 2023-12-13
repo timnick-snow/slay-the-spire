@@ -50,7 +50,7 @@ public abstract class CurseCard implements Card {
             Constructor<? extends CurseCard> constructor = this.getClass().getDeclaredConstructor(String.class);
             return constructor.newInstance(id);
         } catch (Exception e) {
-            log.error("potion copy error", e);
+            log.error("card copy error", e);
             return null;
         }
     }

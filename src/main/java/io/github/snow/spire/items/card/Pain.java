@@ -10,7 +10,7 @@ public class Pain extends CurseCard{
     }
 
     @Override
-    public String name() {
+    public String baseName() {
         return "疼痛";
     }
 

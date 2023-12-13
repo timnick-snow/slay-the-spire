@@ -12,8 +12,7 @@ public class ChooseClassCard implements Bless {
 
     @Override
     public boolean run(RunContext ctx, RunSupport support) {
-        // todo 标准选卡
-        return false;
+        return support.rewardChooseCard();
     }
 
     @Override

@@ -20,6 +20,7 @@ import org.springframework.shell.standard.AbstractShellComponent;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,8 +62,8 @@ public class FlowService extends AbstractShellComponent {
     public Optional<Card> chooseCard(List<Card> cards) {
         List<SelectorItem<String>> items = new ArrayList<>();
         for (Card card : cards) {
-            String name = "%s：%s".formatted(card.name(), card.description());
-            items.add(SelectorItem.of(name, card.name()));
+            String name = "%s：%s E || %s".formatted(card.displayName(), card.costDisplay(), card.description());
+            items.add(SelectorItem.of(name, card.displayName()));
         }
         items.add(SelectorItem.of("跳过", Constants.SKIP));
         // 交互选择
@@ -74,7 +75,7 @@ public class FlowService extends AbstractShellComponent {
         if (result.equals(Constants.SKIP)) {
             return Optional.empty();
         }
-        Card select = cards.stream().filter(card -> card.name().equals(result)).findFirst().get();
+        Card select = cards.stream().filter(card -> card.displayName().equals(result)).findFirst().get();
         return Optional.of(select);
     }
 
@@ -86,15 +87,39 @@ public class FlowService extends AbstractShellComponent {
         String cardInfo = cardManager.format(cards, true) + "\n";
         writeAndFlush(cardInfo);
 
-        String cardId;
         while (true) {
             ComponentFlow flow = componentFlowBuilder.clone().reset()
                     .withStringInput("cardId").name("从卡组中选择一张牌移除，输入卡id...")
                     .and().build();
-            cardId = flow.run().getContext().get("cardId");
+            String cardId = flow.run().getContext().get("cardId");
+            cardId = cardId.trim();
             if (deck.remove(cardId)) {
                 writeAndFlush("一张卡牌被移除(%s)。".formatted(cardId));
                 break;
+            }
+            writeAndFlush("无效的卡id。\n");
+        }
+    }
+
+    /**
+     * 变卡
+     */
+    public List<Card> transformCard(Deck deck, int n) {
+        List<Card> cards = deck.getCards().stream().filter(Card::isRemovable).toList();
+        String cardInfo = cardManager.format(cards, true) + "\n";
+        writeAndFlush(cardInfo);
+        n = Math.min(n, cards.size());
+        while (true) {
+            ComponentFlow flow = componentFlowBuilder.clone().reset()
+                    .withStringInput("cardIds").name("从卡组中选择%d张牌进行变化，输入卡id，多个id空格分隔...".formatted(n))
+                    .and().build();
+            String cardIds = flow.run().getContext().get("cardIds");
+            cardIds = cardIds.trim();
+            String[] ids = cardIds.split(" +");
+            if (ids.length == n && Arrays.stream(ids).allMatch(deck::canRemove)) {
+                List<Card> res = deck.removeAll(ids);
+                writeAndFlush("%d张卡牌被移除：%s。".formatted(n, cardIds));
+                return res;
             }
             writeAndFlush("无效的卡id。\n");
         }
@@ -128,7 +153,7 @@ public class FlowService extends AbstractShellComponent {
             String template = "%s：%s，%d E；%s\n";
             String finalCardId = cardId;
             UpgradableCard card = (UpgradableCard) list.stream().filter(c -> c.id().equals(finalCardId)).findFirst().get();
-            writeAndFlush(template.formatted("升级前", card.name(), card.cost(), card.description()));
+            writeAndFlush(template.formatted("升级前", card.displayName(), card.cost(), card.description()));
             writeAndFlush(template.formatted("升级后", card.upgradeName(), card.upgradeCost(), card.upgradeDescription()));
 
             flow = componentFlowBuilder.clone().reset()

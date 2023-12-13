@@ -10,7 +10,7 @@ public class Normality extends CurseCard{
     }
 
     @Override
-    public String name() {
+    public String baseName() {
         return "凡庸";
     }
 

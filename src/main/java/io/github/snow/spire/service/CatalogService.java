@@ -39,7 +39,7 @@ public class CatalogService {
         // 祝福
         if (runSupport.takeBless()) {
             runSupport.goHint();
-            return runSupport.tips() + "\n";
+            return "\n" + runSupport.tips() + "\n";
         }
         return null;
     }

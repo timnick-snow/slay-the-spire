@@ -1,9 +1,12 @@
 package io.github.snow.spire.items;
 
 import io.github.snow.spire.beans.context.GameStartEvent;
-import io.github.snow.spire.items.card.*;
+import io.github.snow.spire.enums.CardRarity;
+import io.github.snow.spire.enums.CombatType;
 import io.github.snow.spire.items.card.Stack;
+import io.github.snow.spire.items.card.*;
 import io.github.snow.spire.temp.RunContext;
+import io.github.snow.spire.tool.RandomUtil;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -20,23 +23,101 @@ import static io.github.snow.spire.tool.FormatUtil.center;
 public class CardManager {
     private final List<Card> cardList = new ArrayList<>(256);
     private Random otherRandom;
-    private Random rewardRandom;
+    private Random cardRandom;
+    private int offset;
+
+    // 基本稀有度概率
+    private static final int[][] BASE_RARITY = {{30, 370, 600}, {100, 400, 500}};
 
 
-    public List<Card> getRandoms(Predicate<Card> filter, List<String> ids) {
+    /**
+     * 目标卡与源卡的颜色相同。每张符合条件的卡都有相同的被挑选机会。
+     * 一张卡牌不能转变为同一张卡牌。
+     * 无法将卡牌转变为基本卡牌、特殊卡。
+     */
+    public List<Card> transformCard(List<Card> src, List<String> ids) {
+        List<Card> res = new ArrayList<>();
+        for (int i = 0; i < src.size(); i++) {
+            Card srcCard = src.get(i);
+            List<Card> list = cardList.stream().filter(c -> c.color() == srcCard.color())
+                    .filter(c -> c.rarity() != CardRarity.SPECIAL && c.rarity() != CardRarity.STARTER)
+                    .filter(c -> !c.baseName().equals(srcCard.baseName()))
+                    .toList();
+
+            int a = otherRandom.nextInt(0, 1000);
+            int b = otherRandom.nextInt(0, 1000);
+            Card targetCard;
+            if (srcCard.rarity() == CardRarity.STARTER) {
+                targetCard = list.get(a % list.size());
+            } else {
+                targetCard = list.get(b % list.size());
+            }
+            res.add(targetCard.copy(ids.get(i)));
+        }
+        return res;
+    }
+
+    /**
+     * 标准奖励卡牌
+     * 当卡牌奖励产生时，每张卡牌都是独立决定的。然而，卡牌奖励中的卡牌永远不会相同。
+     * 对于每张卡牌，游戏首先决定其稀有度。然后它随机选择一张具有该稀有度的卡牌。
+     * 卡牌奖励中卡牌是否升级取决于玩家的行为。只有普通和不常见的卡牌可以通过这种方式升级，稀有卡牌不会通过随机机会升级。
+     */
+    public List<Card> rewardCard(Predicate<Card> filter, List<String> ids, CombatType combatType, int act) {
+        if (combatType == CombatType.BOSS) {
+            throw new IllegalCallerException("cannot gen boss reward here.");
+        }
+        int idx = combatType.getIdx();
+        List<Card> res = new ArrayList<>();
+        Set<String> set = new HashSet<>();
+        for (String id : ids) {
+            // 确定稀有度 这些基本稀有度机会根据特殊百分比进行抵消。
+            // 这个数字从-5%开始，每掷出一张普通卡牌，这个数字就会增加1%。
+            // 每当滚动一张稀有卡时，它就会重置回-5%。该数字最大为 +40%。
+            int[] odds = reviseOdds(BASE_RARITY[idx], offset);
+            int rv = cardRandom.nextInt(0, 1000);
+            int ri = RandomUtil.randomIndex(odds, rv);
+            CardRarity rarity = switch (ri) {
+                case 0 -> {
+                    offset = -50;
+                    yield CardRarity.RARE;
+                }
+                case 1 -> CardRarity.UNCOMMON;
+                case 2 -> {
+                    offset += 10;
+                    if (offset > 400) {
+                        offset = 400;
+                    }
+                    yield CardRarity.COMMON;
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + ri);
+            };
+            List<Card> list = cardList.stream().filter(filter).filter(c -> c.rarity() == rarity).toList();
+            randomNoSame(res, set, id, list, cardRandom, act);
+        }
+        return res;
+    }
+
+    private void randomNoSame(List<Card> res, Set<String> set, String id, List<Card> list, Random cardRandom, int act) {
+        while (true) {
+            int value = cardRandom.nextInt(0, 1000);
+            Card card = list.get(value % list.size());
+            if (!set.contains(card.baseName())) {
+                set.add(card.baseName());
+                res.add(card.copy(id));
+                // todo 卡牌可能升级
+                int uv = cardRandom.nextInt(0, 1000);
+                break;
+            }
+        }
+    }
+
+    public List<Card> getRandoms(Predicate<Card> filter, List<String> ids, int act) {
         List<Card> list = cardList.stream().filter(filter).toList();
         List<Card> res = new ArrayList<>();
         Set<String> set = new HashSet<>();
         for (String id : ids) {
-            while (true) {
-                int value = otherRandom.nextInt(0, 1000);
-                Card card = list.get(value % list.size());
-                if (!set.contains(card.name())) {
-                    set.add(card.name());
-                    res.add(card.copy(id));
-                    break;
-                }
-            }
+            randomNoSame(res, set, id, list, otherRandom, act);
         }
         return res;
     }
@@ -55,22 +136,22 @@ public class CardManager {
         if (verbose) {
 /*
 --------------------------------------------------------------------------------------------------
-|  id  |   名称   | 颜色 | 类型 | 耗能 | 稀有度 | 描述
+|  id  |    名称     | 颜色 | 类型 | 耗能 | 稀有度 | 描述
 --------------------------------------------------------------------------------------------------
-| c101 |   打击   | 红色 | 攻击 |  1  |  初始  | 造成6点伤害。造成6点伤害。造成6点伤害。造成6点伤害。造成6点...
+| c101 |    打击     | 红色 | 攻击 |  1  |  初始  | 造成6点伤害。造成6点伤害。造成6点伤害。造成6点伤害。造成6点...
  */
-            String divide = "--------------------------------------------------------------------------------------------------\n";
+            String divide = "-".repeat(120) + "\n";
             buf.append(divide)
-                    .append("|  id  |   名称   | 颜色 | 类型 | 耗能 | 稀有度 | 描述\n")
+                    .append("|  id  |    名称     | 颜色 | 类型 | 耗能 | 稀有度 | 描述\n")
                     .append(divide);
             for (Card card : cards) {
                 buf.append("|").append(center(card.id(), 6));
-                buf.append("|").append(center(card.name(), 8));
-                buf.append("|").append(center(card.color().getDisplay(), 4));
-                buf.append("|").append(center(card.type().getDisplay(), 4));
+                buf.append("|").append(center(card.displayName(), 13));
+                buf.append("|").append(center(card.color().getDisplay(), 6));
+                buf.append("|").append(center(card.type().getDisplay(), 6));
                 // 耗能
                 buf.append("|").append(center(card.costDisplay(), 6));
-                buf.append("|").append(center(card.rarity().getDisplay(), 6));
+                buf.append("|").append(center(card.rarity().getDisplay(), 8));
                 // 描述
                 buf.append("| ");
                 if (card.description().length() <= 32) {
@@ -83,7 +164,7 @@ public class CardManager {
         } else {
             // 简要的
             for (int i = 0; i < cards.size(); i++) {
-                buf.append(cards.get(i).name());
+                buf.append(cards.get(i).displayName());
                 if (i == cards.size() - 1) {
                     break;
                 }
@@ -100,12 +181,29 @@ public class CardManager {
     }
 
 
+    private int[] reviseOdds(int[] arr, int offset) {
+        int[] res = new int[arr.length];
+        int x = offset;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] + x <= 0) {
+                x += arr[i];
+                res[i] = 0;
+            } else {
+                res[i] = arr[i] + x;
+                x = 0;
+            }
+        }
+        res[arr.length - 1] -= offset;
+        return res;
+    }
+
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
         RunContext source = (RunContext) event.getSource();
-        this.rewardRandom = source.getRandomManage().getRewardRandom();
         this.otherRandom = source.getRandomManage().getOtherRandom();
+        this.cardRandom = source.getRandomManage().getCardRandom();
         this.cardList.clear();
+        this.offset = -50;
 
         registerAll();
     }

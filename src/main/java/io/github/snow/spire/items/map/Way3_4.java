@@ -15,8 +15,12 @@ class Way3_4 implements Way {
 
     static {
         BRANCHES = new ArrayList<>();
+
+        // TX
         BRANCHES.add(List.of(Branch.T, Branch.X));
         BRANCHES.add(List.of(Branch.X, Branch.T));
+
+        // 2SD
         BRANCHES.add(List.of(Branch.D, Branch.S, Branch.S));
         BRANCHES.add(List.of(Branch.S, Branch.D, Branch.S));
         BRANCHES.add(List.of(Branch.S, Branch.S, Branch.D));

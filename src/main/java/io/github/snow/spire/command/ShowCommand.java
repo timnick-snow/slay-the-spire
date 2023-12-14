@@ -13,7 +13,7 @@ import org.springframework.shell.command.annotation.Option;
  * @since 2023/12/7
  */
 @RequiredArgsConstructor
-@Command(command = "show", group = "Show")
+@Command(command = "ls", group = "Show")
 public class ShowCommand {
 
     private final ShowService showService;
@@ -22,14 +22,14 @@ public class ShowCommand {
     @CommandAvailability(provider = "availOnGaming")
     public String show() {
         return """
-                show brief      ->  显示简要信息
-                show role       ->  显示角色基本信息
-                show key        ->  显示碎片收集情况
-                show potion     ->  显示拥有的药水
-                show relic      ->  显示拥有的遗物
-                show deck       ->  显示卡组
-                show position   ->  显示角色位置
-                show reward     ->  显示可领取的奖励
+                ls brief      ->  显示简要信息
+                ls role       ->  显示角色基本信息
+                ls key        ->  显示碎片收集情况
+                ls potion     ->  显示拥有的药水
+                ls relic      ->  显示拥有的遗物
+                ls deck       ->  显示卡组
+                ls position   ->  显示角色位置
+                ls reward     ->  显示可领取的奖励
                 """;
     }
 

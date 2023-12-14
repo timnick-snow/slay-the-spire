@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.map;
 
+import io.github.snow.spire.tool.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class WayBranch {
     public static List<List<Integer>> strategy(int from, int to, Random random) {
         Way way = from <= to ? WAYS[from][to] : WAYS[to][from].symmetrical();
         List<Branch> branches = way.select(random.nextInt(0, 1000));
+        log.info("branches select: {}", JsonUtil.toJsonString(branches));
         int y = 0;
         List<List<Integer>> res = new ArrayList<>();
         for (Branch branch : branches) {

@@ -12,8 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static io.github.snow.spire.tool.FormatUtil.center;
 
 /**
  * 地图生成
@@ -228,9 +231,94 @@ public class MapManager {
         return res;
     }
 
+/*
+
+      \ /
+_____  M
+ */
+
+    public String mapFormat(FloorRooms[] map, int start, int limit, String boss) {
+        if (limit == 0) {
+            return "";
+        }
+        int end = limit < 0 ? map.length : start + limit;
+        List<StringBuilder> list = new ArrayList<>();
+        String padding = " ".repeat(5);
+        for (int i = start; i < end; i++) {
+            FloorRooms rooms = map[i];
+            StringBuilder roomBuf = new StringBuilder();
+            StringBuilder wayBuf = new StringBuilder();
+            // boss房间特殊处理
+            if (i == map.length - 1) {
+                roomBuf.append(center("B O S S - %s".formatted(boss), 45));
+                list.add(roomBuf);
+                break;
+            }
+            int stair = rooms.getStair();
+            roomBuf.append(stair).append("层");
+            roomBuf.append(stair > 9 ? " " : "  ");
+            wayBuf.append(padding);
+
+            int flag = 0;
+            boolean tripleFlag = false;
+            for (RoomNode room : rooms.getRooms()) {
+                int nextSize = room.getNext().size();
+                if (room.getPrev().size() > 1 || nextSize > 1 || tripleFlag) {
+                    // 偏移填充
+                    roomBuf.append(padding);
+                    wayBuf.append(padding);
+                    tripleFlag = false;
+                }
+                roomBuf.append(center(room.getRoomType().getSymbol(), 5));
+                if (nextSize == 2) {
+                    wayBuf.append(center("\\ /", 5));
+                } else if (nextSize == 3) {
+                    wayBuf.append(center("\\|/", 5));
+                    tripleFlag = true;
+                } else {
+                    if (flag == 1) {
+                        wayBuf.append(center("\\", 5));
+                        flag = 0;
+                    } else if (flag > 0) {
+                        wayBuf.append(center("|", 5));
+                        flag -= 1;
+                    } else {
+                        int size = room.getNext().getFirst().getPrev().size();
+                        if (size == 1) {
+                            wayBuf.append(center("|", 5));
+                        } else {
+                            wayBuf.append(center("/", 5));
+                            flag = size - 1;
+                        }
+                    }
+                }
+            }
+
+            list.add(roomBuf);
+            list.add(wayBuf);
+        }
+
+        StringBuilder buf = new StringBuilder(256);
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (i == list.size() - 1 && ((i & 1) == 1)) {
+                continue;
+            }
+            buf.append(list.get(i)).append("\n");
+        }
+        // 图例
+        buf.append("\n");
+        buf.append("M - 小怪\t\t? - 不明\t\tS - 商店\n");
+        buf.append("E - 精英\t\tR - 火堆\t\tT - 财宝\n");
+        return buf.toString();
+    }
+
     public String format(FloorRooms floorRooms) {
+        return format(floorRooms.getRooms());
+    }
+
+    public String format(List<RoomNode> roomNodes) {
         StringBuilder buf = new StringBuilder();
-        for (RoomNode room : floorRooms.getRooms()) {
+        for (RoomNode room : roomNodes) {
             buf.append(room.getId()).append("  ").append(room.getRoomType().getSymbol());
             if (!room.getNext().isEmpty()) {
                 buf.append(" -> ");

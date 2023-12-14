@@ -5,6 +5,7 @@ import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.RunPage;
 import io.github.snow.spire.game.*;
 import io.github.snow.spire.items.map.FloorRooms;
+import io.github.snow.spire.items.map.RoomNode;
 import io.github.snow.spire.items.reward.Reward;
 import lombok.Getter;
 import lombok.Setter;
@@ -131,6 +132,12 @@ public class RunContext {
 
     public String brief() {
         return "种子编号：%s\n角色：%s\t幕: %d\t层: %d\n".formatted(seed, character.getDisplay(), act + 1, stair + 1);
+    }
+
+    @JsonIgnore
+    public RoomNode getCurRoom() {
+        FloorRooms curFloor = getCurFloor();
+        return curFloor.getRooms().get(roomId % 100 - 1);
     }
 
     @JsonIgnore

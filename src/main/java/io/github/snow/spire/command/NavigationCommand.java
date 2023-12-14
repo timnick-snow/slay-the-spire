@@ -16,16 +16,16 @@ public class NavigationCommand {
 
     private final NavigationService navigationService;
 
-    @Command(command = "navigation", alias = "nav", description = "Navigation.")
+    @Command(command = "navigation", description = "Navigation.")
     @CommandAvailability(provider = "availOnGaming")
     public String nav() {
         return """
                 map             ->  地图
-                way             ->  道路
+                way             ->  房间连通道路
                 """;
     }
 
-    @Command(command = "map", alias = "m", description = "Map.")
+    @Command(command = "map", description = "Map.")
     @CommandAvailability(provider = "availOnGaming")
     public String map(
             @Option(shortNames = 's', defaultValue = "0", description = "start floor") int start,
@@ -35,11 +35,20 @@ public class NavigationCommand {
         return navigationService.map(start, limit);
     }
 
-    @Command(command = "way", alias = "w", description = "Way.")
+    @Command(command = "way", description = "Way.")
     @CommandAvailability(provider = "availOnGaming")
     public String way(
             @Option(shortNames = 'r', description = "room id") String roomId
     ) {
         return navigationService.way(roomId);
+    }
+
+    @Command(command = "go", description = "Go.")
+    @CommandAvailability(provider = "availOnGaming")
+    public String go(
+            @Option(shortNames = 'r', description = "room id", required = true) int roomId
+    ) {
+        // todo  --skip --fly
+        return navigationService.go(roomId);
     }
 }

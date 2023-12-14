@@ -5,6 +5,7 @@ import io.github.snow.spire.items.BossManager;
 import io.github.snow.spire.items.MapManager;
 import io.github.snow.spire.items.map.FloorRooms;
 import io.github.snow.spire.items.map.RoomNode;
+import io.github.snow.spire.items.reward.Reward;
 import io.github.snow.spire.temp.RunContext;
 import io.github.snow.spire.tool.Convert;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author snow
@@ -38,19 +40,13 @@ public class NavigationService {
             if (roomNum == -1) {
                 return "无效的房号";
             }
-            int stair = roomNum / 100;
-            int act = runSupport.getRunContext().getAct();
-            int floorIdx = stair - act * 17 - 1;
-            if (floorIdx < 0 || floorIdx > 14) {
+            Optional<RoomNode> roomNodeOpt = runSupport.getRoomById(roomNum);
+            if (roomNodeOpt.isEmpty()) {
                 return "无效的房号";
             }
-
-            int idx = roomNum % 100 - 1;
-            List<RoomNode> rooms = getCurMap()[floorIdx].getRooms();
-            if (idx < 0 || idx > rooms.size() - 1) {
-                return "无效的房号";
-            }
-            return mapManager.format(rooms.get(idx).getNext());
+            RoomNode roomNode = roomNodeOpt.get();
+            String info = "%s房间\t\t类型：%s\t\t可达房间：%d\n".formatted(roomId, roomNode.getRoomType().getSymbol(), roomNode.getNext().size());
+            return info + mapManager.format(roomNode.getNext());
         }
     }
 
@@ -58,5 +54,20 @@ public class NavigationService {
         RunContext runContext = runSupport.getRunContext();
         int act = runContext.getAct();
         return runContext.getMap()[act];
+    }
+
+    public String go(int roomId) {
+        List<Reward> rewards = runSupport.getRunContext().getRewards();
+        if (!rewards.isEmpty()) {
+            return "请先处理奖励列表 - reward";
+        }
+        Optional<RoomNode> roomNodeOpt = runSupport.getRoomById(roomId);
+        if (roomNodeOpt.isEmpty()) {
+            return "无效的房号";
+        }
+        if (!runSupport.goRoom(roomNodeOpt.get())) {
+            return "不可达房间";
+        }
+        return null;
     }
 }

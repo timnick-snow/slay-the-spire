@@ -2,7 +2,7 @@ package io.github.snow.spire.items;
 
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.enums.CardRarity;
-import io.github.snow.spire.enums.CombatType;
+import io.github.snow.spire.enums.EnemyType;
 import io.github.snow.spire.items.card.Stack;
 import io.github.snow.spire.items.card.*;
 import io.github.snow.spire.temp.RunContext;
@@ -63,11 +63,11 @@ public class CardManager {
      * 对于每张卡牌，游戏首先决定其稀有度。然后它随机选择一张具有该稀有度的卡牌。
      * 卡牌奖励中卡牌是否升级取决于玩家的行为。只有普通和不常见的卡牌可以通过这种方式升级，稀有卡牌不会通过随机机会升级。
      */
-    public List<Card> rewardCard(Predicate<Card> filter, List<String> ids, CombatType combatType, int act) {
-        if (combatType == CombatType.BOSS) {
+    public List<Card> rewardCard(Predicate<Card> filter, List<String> ids, EnemyType enemyType, int act) {
+        if (enemyType == EnemyType.BOSS) {
             throw new IllegalCallerException("cannot gen boss reward here.");
         }
-        int idx = combatType.getIdx();
+        int idx = enemyType.getIdx();
         List<Card> res = new ArrayList<>();
         Set<String> set = new HashSet<>();
         for (String id : ids) {

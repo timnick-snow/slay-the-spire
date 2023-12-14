@@ -30,7 +30,17 @@ public class RandomManage {
     private Random relicRandom;
 
     /**
-     * 事件随机数 - 问号事件
+     * 房间随机数 - 小怪
+     */
+    private Random roomRandom1;
+
+    /**
+     * 房间随机数 - 精英
+     */
+    private Random roomRandom2;
+
+    /**
+     * 事件随机数 - 随机事件
      */
     private Random eventRandom;
 
@@ -70,6 +80,8 @@ public class RandomManage {
         randomManage.mapRandom = new Random(hash++);
         randomManage.bossRandom = new Random(hash++);
         randomManage.relicRandom = new Random(hash++);
+        randomManage.roomRandom1 = new Random(hash++);
+        randomManage.roomRandom2 = new Random(hash++);
         randomManage.eventRandom = new Random(hash++);
         randomManage.cardRandom = new Random(hash++);
         randomManage.potionRandom = new Random(hash++);

@@ -7,6 +7,7 @@ import io.github.snow.spire.items.bless.Bless;
 import io.github.snow.spire.items.bless.ExchangeBossRelic;
 import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.map.FloorRooms;
+import io.github.snow.spire.items.map.RoomNode;
 import io.github.snow.spire.items.potion.Potion;
 import io.github.snow.spire.items.relic.Relic;
 import io.github.snow.spire.items.reward.CardReward;
@@ -21,10 +22,7 @@ import org.jline.terminal.Terminal;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 /**
@@ -42,6 +40,7 @@ public class RunSupport {
     private final RewardManager rewardManager;
     private final CardManager cardManager;
     private final MapManager mapManager;
+    private final RoomManager roomManager;
     private final ApplicationContext applicationContext;
     private final FlowService flowService;
     private final Terminal terminal;
@@ -80,7 +79,7 @@ public class RunSupport {
     }
 
     public String position() {
-        return "幕: %d\t层: %d\t房间: %d".formatted(runContext.getAct(), runContext.getStair(), runContext.getRoomId());
+        return "幕: %d\t层: %d\t房间: %d".formatted(runContext.getAct() + 1, runContext.getStair() + 1, runContext.getRoomId());
     }
 
     public String nextItemId(String prefix) {
@@ -238,7 +237,7 @@ public class RunSupport {
     public boolean rewardChooseCard() {
         List<String> ids = nextItemIds("c", 3);
         Predicate<Card> filter = card -> card.color() == runContext.getCharacter().color();
-        List<Card> cards = cardManager.rewardCard(filter, ids, CombatType.NORMAL, runContext.getAct());
+        List<Card> cards = cardManager.rewardCard(filter, ids, EnemyType.NORMAL, runContext.getAct());
         CardReward reward = new CardReward(cards);
         boolean taken = reward.take(this);
         if (taken) {
@@ -270,6 +269,34 @@ public class RunSupport {
         for (Card card : adds) {
             addCard(card);
         }
+    }
+
+    public Optional<RoomNode> getRoomById(int roomId) {
+        int stair = roomId / 100;
+        int act = runContext.getAct();
+        int floorIdx = stair - act * 17 - 1;
+        if (floorIdx < 0 || floorIdx > 14) {
+            return Optional.empty();
+        }
+        int idx = roomId % 100 - 1;
+        List<RoomNode> rooms = runContext.getMap()[act][floorIdx].getRooms();
+        if (idx < 0 || idx > rooms.size() - 1) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(rooms.get(idx));
+    }
+
+    public boolean goRoom(RoomNode roomNode) {
+        if (runContext.getRoomId() == -1) {
+            return roomNode.getAct() == runContext.getAct() && roomNode.getStairId() == 0;
+        }
+        RoomNode curRoom = runContext.getCurRoom();
+        boolean res = curRoom.getPids().contains(roomNode.getId());
+        if (res) {
+            // todo handle room event res
+            Object obj = roomManager.enter(roomNode);
+        }
+        return res;
     }
 
     private List<Bless> genBless() {

@@ -43,4 +43,19 @@ public class RoomNode {
         n.prev.add(this);
     }
 
+    public int getStair() {
+        return id / 100 - 1;
+    }
+
+    public int getFloorId() {
+        return id % 100 - 1;
+    }
+
+    public int getAct() {
+        return getStair() / 17;
+    }
+
+    public int getStairId() {
+        return getStair() % 17;
+    }
 }

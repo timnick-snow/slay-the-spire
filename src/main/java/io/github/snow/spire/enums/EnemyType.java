@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Getter
-public enum CombatType {
+public enum EnemyType {
     NORMAL(0),
     ELITE(1),
     BOSS(2),

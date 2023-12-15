@@ -50,24 +50,29 @@ public class NavigationService {
         }
     }
 
-    private FloorRooms[] getCurMap() {
-        RunContext runContext = runSupport.getRunContext();
-        int act = runContext.getAct();
-        return runContext.getMap()[act];
-    }
-
     public String go(int roomId) {
         List<Reward> rewards = runSupport.getRunContext().getRewards();
         if (!rewards.isEmpty()) {
             return "请先处理奖励列表 - reward";
         }
+        if (runSupport.getRunContext().getRoomResult() != null) {
+            return "请先离开当前房间";
+        }
+
         Optional<RoomNode> roomNodeOpt = runSupport.getRoomById(roomId);
         if (roomNodeOpt.isEmpty()) {
             return "无效的房号";
         }
-        if (!runSupport.goRoom(roomNodeOpt.get())) {
+        boolean enterFlag = runSupport.goRoom(roomNodeOpt.get());
+        if (!enterFlag) {
             return "不可达房间";
         }
-        return null;
+        return "";
+    }
+
+    private FloorRooms[] getCurMap() {
+        RunContext runContext = runSupport.getRunContext();
+        int act = runContext.getAct();
+        return runContext.getMap()[act];
     }
 }

@@ -22,6 +22,7 @@ public class NavigationCommand {
         return """
                 map             ->  地图
                 way             ->  房间连通道路
+                go <room-id>    ->  进入房间
                 """;
     }
 
@@ -43,12 +44,23 @@ public class NavigationCommand {
         return navigationService.way(roomId);
     }
 
+    /*
+    todo 选项
+    --fly       如有必要，使用飞鞋
+    --skip      如当前有未领取的奖励，先跳过所有奖励
+    --leave     如果未离开当前房间，先离开当前房间
+    --force     强制前往，等同于`--fly --skip --leave`
+     */
+    /**
+     * 前往某房间
+     *
+     * @param roomId 房间id
+     */
     @Command(command = "go", description = "Go.")
     @CommandAvailability(provider = "availOnGaming")
     public String go(
             @Option(shortNames = 'r', description = "room id", required = true) int roomId
     ) {
-        // todo  --skip --fly
         return navigationService.go(roomId);
     }
 }

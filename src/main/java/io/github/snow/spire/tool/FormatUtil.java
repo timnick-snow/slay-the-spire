@@ -14,19 +14,38 @@ public class FormatUtil {
      * @return 具有指定宽度的文本
      */
     public static String center(String text, int width) {
+        int len = strWidth(text);
+        if (len >= width) {
+            return text;
+        }
+        int space = width - len;
+        return " ".repeat(space / 2) + text + " ".repeat((space + 1) / 2);
+    }
+
+    public static String left(String text, int width) {
+        int len = strWidth(text);
+        if (len >= width) {
+            return text;
+        }
+        int space = width - len;
+        return text + " ".repeat(space);
+    }
+
+    public static String kw(String text) {
+        return "【" + text + "】";
+    }
+
+
+    public static int strWidth(String str) {
         int len = 0;
-        for (char c : text.toCharArray()) {
+        for (char c : str.toCharArray()) {
             if (isChinese(c)) {
                 len += 2;
             } else {
                 len++;
             }
         }
-        if (len >= width) {
-            return text;
-        }
-        int space = width - len;
-        return " ".repeat(space / 2) + text + " ".repeat((space + 1) / 2);
+        return len;
     }
 
     // 判断字符是否为中文

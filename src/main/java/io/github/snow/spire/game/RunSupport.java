@@ -1,6 +1,10 @@
 package io.github.snow.spire.game;
 
 import io.github.snow.spire.beans.context.GameStartEvent;
+import io.github.snow.spire.beans.pojo.EnterRoomResult;
+import io.github.snow.spire.beans.pojo.RoomChoose;
+import io.github.snow.spire.beans.pojo.RoomFight;
+import io.github.snow.spire.beans.pojo.RoomFree;
 import io.github.snow.spire.enums.*;
 import io.github.snow.spire.items.*;
 import io.github.snow.spire.items.bless.Bless;
@@ -22,7 +26,10 @@ import org.jline.terminal.Terminal;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -41,6 +48,7 @@ public class RunSupport {
     private final CardManager cardManager;
     private final MapManager mapManager;
     private final RoomManager roomManager;
+    private final FightManager fightManager;
     private final ApplicationContext applicationContext;
     private final FlowService flowService;
     private final Terminal terminal;
@@ -237,7 +245,7 @@ public class RunSupport {
     public boolean rewardChooseCard() {
         List<String> ids = nextItemIds("c", 3);
         Predicate<Card> filter = card -> card.color() == runContext.getCharacter().color();
-        List<Card> cards = cardManager.rewardCard(filter, ids, EnemyType.NORMAL, runContext.getAct());
+        List<Card> cards = cardManager.rewardCard(filter, ids, CombatType.NORMAL, runContext.getAct());
         CardReward reward = new CardReward(cards);
         boolean taken = reward.take(this);
         if (taken) {
@@ -287,14 +295,32 @@ public class RunSupport {
     }
 
     public boolean goRoom(RoomNode roomNode) {
+        boolean res;
         if (runContext.getRoomId() == -1) {
-            return roomNode.getAct() == runContext.getAct() && roomNode.getStairId() == 0;
+            res = roomNode.getAct() == runContext.getAct() && roomNode.getStairId() == 0;
+        } else {
+            RoomNode curRoom = runContext.getCurRoom();
+            res = curRoom.getPids().contains(roomNode.getId());
         }
-        RoomNode curRoom = runContext.getCurRoom();
-        boolean res = curRoom.getPids().contains(roomNode.getId());
+
         if (res) {
-            // todo handle room event res
-            Object obj = roomManager.enter(roomNode);
+            EnterRoomResult roomResult = roomManager.enter(roomNode);
+            runContext.setStair(roomNode.getStair());
+            runContext.setRoomId(roomNode.getId());
+
+            runContext.setRoomResult(roomResult);
+            switch (roomResult) {
+                case RoomFight roomFight -> {
+                    roomFight.fightContext().init(this);
+                    fightManager.startFight(roomFight.fightContext());
+                }
+                case RoomChoose roomChoose -> {
+                    // todo
+                }
+                case RoomFree roomFree -> {
+                    // todo
+                }
+            }
         }
         return res;
     }

@@ -1,7 +1,12 @@
 package io.github.snow.spire.items;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.beans.context.GameStartEvent;
+import io.github.snow.spire.beans.pojo.EnterRoomResult;
+import io.github.snow.spire.beans.pojo.RoomFight;
+import io.github.snow.spire.enums.CombatType;
 import io.github.snow.spire.enums.RoomType;
+import io.github.snow.spire.items.enemy.Cultist;
 import io.github.snow.spire.items.map.RoomNode;
 import io.github.snow.spire.temp.RunContext;
 import org.springframework.context.event.EventListener;
@@ -40,12 +45,23 @@ public class RoomManager {
         this.eventRandom = source.getRandomManage().getEventRandom();
     }
 
-    public Object enter(RoomNode roomNode) {
-        // 触发普通战斗 触发事件 进入商店，尽情购物吧
-        // 触发精英战斗 进入休息处 你找到了一个大宝箱
-        // BOSS战斗
-        if (roomNode.getRoomType()== RoomType.MONSTER) {
+    /*
+    战斗(普通/精英/BOSS) -> 战斗上下文，进入战斗
+    商店/休息处/宝箱 -> 命令自由行动 自由离开
+    事件 -> 强制选择
+     */
+
+    /**
+     * 进入房间
+     */
+    public EnterRoomResult enter(RoomNode roomNode) {
+        System.out.printf("你进入了 %d 房间。\n", roomNode.getId());
+        if (roomNode.getRoomType() == RoomType.MONSTER) {
             System.out.println("【触发普通战斗！】");
+            FightContext ctx = new FightContext();
+            ctx.addEnemy(new Cultist("e1"));
+            ctx.setCombatType(CombatType.NORMAL);
+            return new RoomFight(ctx);
         }
         return null;
     }

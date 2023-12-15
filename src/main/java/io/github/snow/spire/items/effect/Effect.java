@@ -26,4 +26,10 @@ public interface Effect extends DisplayAble, FightLifecycle {
     EffectType effectType();
 
     boolean isStackable();
+
+    boolean isAlive();
+
+    int amount();
+
+    void stack(int amount);
 }

@@ -22,10 +22,10 @@ public abstract class AutoLossEffect extends BaseEffect {
     }
 
     @Override
-    public void onTurnStart(FightContext ctx) {
-        int old = this.getNum();
-        this.addNum(-1);
-        int res = this.getNum();
+    public void onRoundStart(FightContext ctx) {
+        int old = this.amount();
+        this.stack(-1);
+        int res = this.amount();
         // 【邪教徒 e1】 身上的 【易伤】 消失了
         // 【邪教徒 e1】 身上的 【易伤】 减少了：5 -> 4
         String info = "【%s】 身上的 【%s】 ".formatted(this.host().displayName(), this.name());

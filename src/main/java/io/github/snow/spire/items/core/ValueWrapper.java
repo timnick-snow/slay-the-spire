@@ -1,4 +1,4 @@
-package io.github.snow.spire.beans.fight;
+package io.github.snow.spire.items.core;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,5 +19,9 @@ public class ValueWrapper {
     @Override
     public String toString() {
         return String.valueOf(value);
+    }
+
+    public static ValueWrapper of(int value) {
+        return new ValueWrapper(value);
     }
 }

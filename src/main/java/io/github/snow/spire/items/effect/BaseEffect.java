@@ -1,16 +1,14 @@
 package io.github.snow.spire.items.effect;
 
 import io.github.snow.spire.items.core.DisplayAble;
-import lombok.Getter;
 
 /**
  * @author snow
  * @since 2023/12/14
  */
-@Getter
 public abstract class BaseEffect implements Effect {
-    private int num;
-    private final DisplayAble host;
+    protected int num;
+    protected final DisplayAble host;
 
     public BaseEffect(DisplayAble host, int num) {
         this.host = host;
@@ -30,7 +28,8 @@ public abstract class BaseEffect implements Effect {
         return "%s %d".formatted(name(), num);
     }
 
-    public void addNum(int add) {
+    @Override
+    public void stack(int add) {
         if (!this.isStackable()) {
             throw new IllegalStateException("Can not call addNum because this effect can not stack: "
                     + this.getClass().getSimpleName());
@@ -41,5 +40,15 @@ public abstract class BaseEffect implements Effect {
     @Override
     public DisplayAble host() {
         return host;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return num > 0;
+    }
+
+    @Override
+    public int amount() {
+        return num;
     }
 }

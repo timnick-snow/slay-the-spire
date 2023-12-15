@@ -1,4 +1,4 @@
-package io.github.snow.spire.beans.fight;
+package io.github.snow.spire.items.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

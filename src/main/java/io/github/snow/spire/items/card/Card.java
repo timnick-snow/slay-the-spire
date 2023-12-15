@@ -4,8 +4,9 @@ import io.github.snow.spire.enums.CardColor;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
 import io.github.snow.spire.enums.Characters;
+import io.github.snow.spire.items.core.DisplayAble;
 
-public interface Card {
+public interface Card extends DisplayAble {
 
     CardColor color();
 
@@ -26,6 +27,7 @@ public interface Card {
     /**
      * 显示名称
      */
+    @Override
     default String displayName() {
         return baseName();
     }

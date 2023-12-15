@@ -1,17 +1,13 @@
 package io.github.snow.spire.items.enemy;
 
-import io.github.snow.spire.beans.Constants;
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.beans.fight.AttackResult;
-import io.github.snow.spire.beans.fight.DamageGroup;
-import io.github.snow.spire.beans.fight.EffectResult;
-import io.github.snow.spire.beans.fight.ValueWrapper;
+import io.github.snow.spire.items.core.BaseFighter;
 import io.github.snow.spire.items.effect.Effect;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 敌军
@@ -20,18 +16,12 @@ import java.util.List;
  * @since 2023/12/14
  */
 @Slf4j
-public abstract class BaseEnemy implements Enemy {
-    private final String id;
-    private int maxHp;
-    private int hp;
-    private final List<Effect> powers;
+public abstract class BaseEnemy extends BaseFighter implements Enemy {
 
-
-    public BaseEnemy(String id) {
-        this.id = id;
+    public BaseEnemy(String number) {
+        super(number);
         this.maxHp = maxHpRange()[0];
         this.hp = this.maxHp;
-        this.powers = new ArrayList<>();
     }
 
     protected abstract int[] maxHpRange();
@@ -41,61 +31,42 @@ public abstract class BaseEnemy implements Enemy {
         this.hp = maxHp;
     }
 
-
     @Override
-    public AttackResult beAttacked(DamageGroup damageGroup, FightContext ctx) {
-        // 被攻击
-        powers.forEach(effect -> effect.onBeAttacked(damageGroup, ctx));
-        // 伤害是一段一段触发的
-        int num = damageGroup.getNum();
-        int base = damageGroup.getBase();
-
-        int total = 0, block = 0;
-        for (int i = 0; i < num; i++) {
-            ValueWrapper damage = new ValueWrapper(base);
-            // 被伤害
-            powers.forEach(effect -> effect.onGetDamage(damage, ctx));
-            int injured = damage.getValue();
-            int block0 = base - injured;
-            block += block0;
-            total += block0;
-
-            int realInjured = injured;
-            int oldHp = this.hp;
-            if (realInjured > 0) {
-                ValueWrapper real = new ValueWrapper(realInjured);
-                // 受到真实伤害
-                powers.forEach(effect -> effect.onGetInjured(real, ctx));
-                realInjured = real.getValue();
-                total += realInjured;
-                this.hp -= realInjured;
-            }
-            String log = Constants.DAMAGE_LOG_TEMPLATE.formatted(i + 1, num, base, block0, realInjured,
-                    displayName(), oldHp, this.hp);
-            System.out.println(log);
-            if (this.hp <= 0) {
-                break;
+    public void onRoundEnd(FightContext ctx) {
+        Iterator<Map.Entry<String, Effect>> it = powers.entrySet().iterator();
+        while (it.hasNext()) {
+            var entry = it.next();
+            var effect = entry.getValue();
+            effect.onRoundEnd(ctx);
+            if (!effect.isAlive()) {
+                it.remove();
             }
         }
-        return new AttackResult(total, block, this.hp <= 0);
     }
 
     @Override
-    public EffectResult addEffect(Effect effect, FightContext ctx) {
-        // todo 待定 新状态 状态叠加
-        return null;
+    public void onRoundStart(FightContext ctx) {
+        Iterator<Map.Entry<String, Effect>> it = powers.entrySet().iterator();
+        while (it.hasNext()) {
+            var entry = it.next();
+            var effect = entry.getValue();
+            effect.onRoundStart(ctx);
+            if (!effect.isAlive()) {
+                it.remove();
+            }
+        }
     }
 
     @Override
     public String displayName() {
-        return "%s %s".formatted(name(), id);
+        return "%s %s".formatted(name(), number);
     }
 
     @Override
-    public Enemy copy(String id, int a, int b) {
+    public Enemy copy(String number, int a, int b) {
         try {
             Constructor<? extends BaseEnemy> constructor = this.getClass().getDeclaredConstructor(String.class);
-            BaseEnemy baseEnemy = constructor.newInstance(id);
+            BaseEnemy baseEnemy = constructor.newInstance(number);
             int[] range = maxHpRange();
             int max = range[0], min = range[1];
             int maxHp = min + a % (max - min + 1);
@@ -105,25 +76,5 @@ public abstract class BaseEnemy implements Enemy {
             log.error("Enemy copy error", e);
             return null;
         }
-    }
-
-    @Override
-    public List<Effect> powers() {
-        return powers;
-    }
-
-    @Override
-    public String id() {
-        return id;
-    }
-
-    @Override
-    public int maxHp() {
-        return maxHp;
-    }
-
-    @Override
-    public int hp() {
-        return hp;
     }
 }

@@ -16,6 +16,6 @@ public abstract class Monster extends BaseEnemy {
 
     @Override
     public EnemyType enemyType() {
-        return EnemyType.NORMAL;
+        return EnemyType.MONSTER;
     }
 }

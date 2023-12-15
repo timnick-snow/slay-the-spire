@@ -1,6 +1,7 @@
 package io.github.snow.spire.temp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.snow.spire.beans.pojo.EnterRoomResult;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.RunPage;
 import io.github.snow.spire.game.*;
@@ -103,6 +104,7 @@ public class RunContext {
 
     private int itemId;
     private List<Reward> rewards;
+    private EnterRoomResult roomResult;
 
     public RunContext(String seed, Characters character, int difficulty) {
         this.randomManage = RandomManage.fromSeed(seed);

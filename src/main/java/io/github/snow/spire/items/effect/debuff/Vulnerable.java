@@ -1,9 +1,10 @@
 package io.github.snow.spire.items.effect.debuff;
 
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.beans.fight.DamageGroup;
+import io.github.snow.spire.items.core.DamageGroup;
 import io.github.snow.spire.enums.EffectType;
 import io.github.snow.spire.items.core.DisplayAble;
+import io.github.snow.spire.items.core.FightCard;
 import io.github.snow.spire.items.effect.AutoLossEffect;
 
 /**
@@ -24,10 +25,12 @@ public class Vulnerable extends AutoLossEffect {
 
     @Override
     public void onBeAttacked(DamageGroup damageGroup, FightContext ctx) {
-        // todo 和遗物的互动
-        System.out.println("【易伤】 触发");
-        int base = damageGroup.getBase();
-        damageGroup.setBase((int) (base * (1 + percent)));
+        if (damageGroup.getSource() instanceof FightCard) {
+            // todo 和遗物的互动
+            System.out.println("【易伤】 触发");
+            int base = damageGroup.getBase();
+            damageGroup.setBase((int) (base * (1 + percent)));
+        }
     }
 
     @Override
@@ -37,7 +40,7 @@ public class Vulnerable extends AutoLossEffect {
 
     @Override
     public String description() {
-        return "从 攻击 受到的伤害增加 50%% .持续 %d 回合。".formatted(this.getNum());
+        return "从 攻击 受到的伤害增加 50%% .持续 %d 回合。".formatted(this.amount());
     }
 
     @Override

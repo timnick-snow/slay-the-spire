@@ -1,20 +1,30 @@
 package io.github.snow.spire.items.core;
 
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.beans.fight.DamageGroup;
-import io.github.snow.spire.beans.fight.ValueWrapper;
 
+/**
+ * 战斗生命周期
+ *
+ * @author snow
+ * @since 2023/12/15
+ */
 public interface FightLifecycle {
     /**
-     * 回合结束
+     * 战斗开始
      */
-    default void onTurnEnd(FightContext ctx) {
+    default void onFightStart(FightContext ctx) {
     }
 
     /**
      * 回合开始
      */
-    default void onTurnStart(FightContext ctx) {
+    default void onRoundStart(FightContext ctx) {
+    }
+
+    /**
+     * 回合结束
+     */
+    default void onRoundEnd(FightContext ctx) {
     }
 
     /**
@@ -33,5 +43,8 @@ public interface FightLifecycle {
      * 受到真实伤害
      */
     default void onGetInjured(ValueWrapper real, FightContext ctx) {
+    }
+
+    default void onBeforeAddEffect(EffectAdder effectAdder, FightContext ctx) {
     }
 }

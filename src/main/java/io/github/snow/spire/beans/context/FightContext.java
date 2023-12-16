@@ -58,6 +58,8 @@ public class FightContext {
 
     private int cid;
 
+    private boolean completed;
+
     public FightContext() {
         enemies = new ArrayList<>();
 

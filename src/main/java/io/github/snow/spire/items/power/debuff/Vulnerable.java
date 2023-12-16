@@ -1,17 +1,17 @@
-package io.github.snow.spire.items.effect.debuff;
+package io.github.snow.spire.items.power.debuff;
 
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.items.core.DamageGroup;
-import io.github.snow.spire.enums.EffectType;
+import io.github.snow.spire.enums.PowerType;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightCard;
-import io.github.snow.spire.items.effect.AutoLossEffect;
+import io.github.snow.spire.items.power.AutoLossPower;
 
 /**
  * @author snow
  * @since 2023/12/14
  */
-public class Vulnerable extends AutoLossEffect {
+public class Vulnerable extends AutoLossPower {
 
     private final double percent = 0.5;
 
@@ -49,7 +49,7 @@ public class Vulnerable extends AutoLossEffect {
     }
 
     @Override
-    public EffectType effectType() {
-        return EffectType.DEBUFF;
+    public PowerType powerType() {
+        return PowerType.DEBUFF;
     }
 }

@@ -1,6 +1,6 @@
-package io.github.snow.spire.items.effect;
+package io.github.snow.spire.items.power;
 
-import io.github.snow.spire.enums.EffectType;
+import io.github.snow.spire.enums.PowerType;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightLifecycle;
 
@@ -8,7 +8,7 @@ import io.github.snow.spire.items.core.FightLifecycle;
  * @author snow
  * @since 2023/12/8
  */
-public interface Effect extends DisplayAble, FightLifecycle {
+public interface Power extends DisplayAble, FightLifecycle {
     /**
      * 宿主
      */
@@ -23,7 +23,7 @@ public interface Effect extends DisplayAble, FightLifecycle {
      */
     String id();
 
-    EffectType effectType();
+    PowerType powerType();
 
     boolean isStackable();
 

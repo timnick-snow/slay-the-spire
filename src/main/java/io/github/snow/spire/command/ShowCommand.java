@@ -30,6 +30,7 @@ public class ShowCommand {
                 ls deck       ->  显示卡组
                 ls position   ->  显示角色位置
                 ls reward     ->  显示可领取的奖励
+                ls card <id>  ->  显示指定卡牌的详细描述
                 """;
     }
 

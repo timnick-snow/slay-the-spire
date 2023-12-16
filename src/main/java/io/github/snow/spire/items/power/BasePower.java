@@ -1,4 +1,4 @@
-package io.github.snow.spire.items.effect;
+package io.github.snow.spire.items.power;
 
 import io.github.snow.spire.items.core.DisplayAble;
 
@@ -6,16 +6,16 @@ import io.github.snow.spire.items.core.DisplayAble;
  * @author snow
  * @since 2023/12/14
  */
-public abstract class BaseEffect implements Effect {
+public abstract class BasePower implements Power {
     protected int num;
     protected final DisplayAble host;
 
-    public BaseEffect(DisplayAble host, int num) {
+    public BasePower(DisplayAble host, int num) {
         this.host = host;
         this.num = num;
     }
 
-    public BaseEffect(DisplayAble host) {
+    public BasePower(DisplayAble host) {
         this.host = host;
         this.num = 1;
     }

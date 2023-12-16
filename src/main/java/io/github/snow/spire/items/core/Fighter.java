@@ -2,7 +2,7 @@ package io.github.snow.spire.items.core;
 
 
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.items.effect.Effect;
+import io.github.snow.spire.items.power.Power;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public interface Fighter extends DisplayAble, FightLifecycle {
     /**
      * 能力
      */
-    List<Effect> powers();
+    List<Power> powers();
 
     /**
      * 受到伤害
@@ -46,5 +46,5 @@ public interface Fighter extends DisplayAble, FightLifecycle {
     /**
      * 施加能力
      */
-    EffectResult addEffect(EffectAdder effectAdder, FightContext ctx);
+    PowerResult addPower(PowerAdder powerAdder, FightContext ctx);
 }

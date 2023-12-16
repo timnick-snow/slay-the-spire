@@ -2,7 +2,7 @@ package io.github.snow.spire.items.enemy;
 
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.items.core.BaseFighter;
-import io.github.snow.spire.items.effect.Effect;
+import io.github.snow.spire.items.power.Power;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
@@ -33,12 +33,12 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
 
     @Override
     public void onRoundEnd(FightContext ctx) {
-        Iterator<Map.Entry<String, Effect>> it = powers.entrySet().iterator();
+        Iterator<Map.Entry<String, Power>> it = powers.entrySet().iterator();
         while (it.hasNext()) {
             var entry = it.next();
-            var effect = entry.getValue();
-            effect.onRoundEnd(ctx);
-            if (!effect.isAlive()) {
+            var power = entry.getValue();
+            power.onRoundEnd(ctx);
+            if (!power.isAlive()) {
                 it.remove();
             }
         }
@@ -46,12 +46,12 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
 
     @Override
     public void onRoundStart(FightContext ctx) {
-        Iterator<Map.Entry<String, Effect>> it = powers.entrySet().iterator();
+        Iterator<Map.Entry<String, Power>> it = powers.entrySet().iterator();
         while (it.hasNext()) {
             var entry = it.next();
-            var effect = entry.getValue();
-            effect.onRoundStart(ctx);
-            if (!effect.isAlive()) {
+            var power = entry.getValue();
+            power.onRoundStart(ctx);
+            if (!power.isAlive()) {
                 it.remove();
             }
         }

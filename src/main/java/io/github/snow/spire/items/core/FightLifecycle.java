@@ -45,6 +45,6 @@ public interface FightLifecycle {
     default void onGetInjured(ValueWrapper real, FightContext ctx) {
     }
 
-    default void onBeforeAddEffect(EffectAdder effectAdder, FightContext ctx) {
+    default void onBeforeAddPower(PowerAdder powerAdder, FightContext ctx) {
     }
 }

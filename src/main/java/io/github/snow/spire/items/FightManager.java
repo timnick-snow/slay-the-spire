@@ -11,8 +11,7 @@ import io.github.snow.spire.temp.RunContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static io.github.snow.spire.tool.FormatUtil.*;
 
@@ -75,7 +74,7 @@ public class FightManager {
     public void overview(FightContext ctx) {
         /*
         ---------------------------------------------------------------------------------------------------
-        【机甲战士】 hp: 70/70    effect: 0  |  【邪教徒 e1】 hp: 40/40    effect: 0  意图：强化
+        【机甲战士】 hp: 70/70    power: 0  |  【邪教徒 e1】 hp: 40/40    power: 0  意图：强化
                                            |
         ---------------------------------------------------------------------------------------------------
         你的手牌：5    剩余能量：3
@@ -87,7 +86,7 @@ public class FightManager {
              5              6               7              8              9
 
         ---------------------------------------------------------------------------------------------------
-        弃牌堆：0    消耗堆：0
+        抽牌堆：0    弃牌堆：0    消耗堆：0
         ---------------------------------------------------------------------------------------------------
          */
         Player player = ctx.getPlayer();
@@ -97,14 +96,17 @@ public class FightManager {
         StringBuilder buf = new StringBuilder();
         buf.append("\n").append(divider);
 
+        // 回合指示
+        buf.append(" ".repeat(20)).append("第      ").append(ctx.getRound()).append("      回      合\n");
+        buf.append(divider);
         // 单位区
         buf.append(left(kw(player.displayName()), 18));
-        String playerInfo = "  hp: %2d/%2d    effect: %d  |".formatted(player.hp(), player.maxHp(), player.powers().size());
+        String playerInfo = "  hp: %2d/%2d    power: %d  |".formatted(player.hp(), player.maxHp(), player.powers().size());
         buf.append(playerInfo);
         int leftPadding = strWidth(playerInfo) + 18 - 1;
         for (Enemy enemy : enemies) {
             buf.append("  ").append(left(kw(enemy.displayName()), 18));
-            buf.append(" hp: %d/%d    effect: %d  意图：%s".formatted(enemy.hp(), enemy.maxHp(), enemy.powers().size(), "强化"));
+            buf.append(" hp: %d/%d    power: %d  意图：%s".formatted(enemy.hp(), enemy.maxHp(), enemy.powers().size(), "强化"));
             buf.append("\n");
             buf.append(" ".repeat(leftPadding)).append("|");
         }
@@ -118,28 +120,13 @@ public class FightManager {
         if (hand.isEmpty()) {
             buf.append("        {{ 当前没有任何手牌 }}        \n");
         } else {
-            StringBuilder numBuf = new StringBuilder();
-            StringBuilder cardBuf = new StringBuilder();
-            for (int i = 0; i < 5 && i < hand.size(); i++) {
-                buildHandSegment(hand, numBuf, cardBuf, i);
-            }
-            buf.append(numBuf).append("\n")
-                    .append(cardBuf).append("\n\n");
-
-            if (hand.size() > 5) {
-                numBuf = new StringBuilder();
-                cardBuf = new StringBuilder();
-                for (int i = 5; i < 10 && i < hand.size(); i++) {
-                    buildHandSegment(hand, numBuf, cardBuf, i);
-                }
-                buf.append(cardBuf).append("\n")
-                        .append(numBuf).append("\n\n");
-            }
+            buf.append(pileFormat(hand, false));
         }
         buf.append(divider);
 
         // 其它区
-        buf.append("弃牌堆：").append(ctx.getDiscardPile().size()).append("    ")
+        buf.append("抽牌堆：").append(ctx.getDrawPile().size()).append("    ")
+                .append("弃牌堆：").append(ctx.getDiscardPile().size()).append("    ")
                 .append("消耗堆：").append(ctx.getExhaustPile().size())
                 .append("\n");
         buf.append(divider);
@@ -147,14 +134,22 @@ public class FightManager {
         System.out.println(buf);
     }
 
-    private void buildHandSegment(List<FightCard> hand, StringBuilder numBuf, StringBuilder cardBuf, int i) {
+    private void buildHandSegment(List<FightCard> pile, StringBuilder numBuf, StringBuilder cardBuf, int i, boolean showId) {
         int offset = 5;
-        Card card = hand.get(i).card();
-        numBuf.append(" ".repeat(offset)).append(i);
+        Card card = pile.get(i).card();
+        numBuf.append(" ".repeat(offset));
+        int numWidth;
+        if (showId) {
+            numBuf.append(card.id());
+            numWidth = strWidth(String.valueOf(card.id()));
+        } else {
+            numBuf.append(i);
+            numWidth = strWidth(String.valueOf(i));
+        }
 
         String cardInfo = "【%sE - %s】".formatted(card.costDisplay(), card.displayName());
         cardBuf.append(cardInfo).append("    ");
-        numBuf.append(" ".repeat(strWidth(cardInfo) + 4 - 6));
+        numBuf.append(" ".repeat(strWidth(cardInfo) - numWidth - 1));
     }
 
     public void enemyRoundStart(FightContext ctx) {
@@ -162,6 +157,59 @@ public class FightManager {
         ctx.getEnemies().forEach(enemy -> enemy.onRoundStart(ctx));
 
         // todo 意图处理
+    }
+
+
+    public void drawPile(FightContext fightContext) {
+        showPile("抽牌堆", fightContext.getDrawPile());
+    }
+
+    public void discardPile(FightContext fightContext) {
+        showPile("弃牌堆", fightContext.getDiscardPile());
+    }
+
+    public void exhaustPile(FightContext fightContext) {
+        showPile("消耗堆", fightContext.getExhaustPile());
+    }
+
+    public void showPile(String title, Deque<FightCard> pile) {
+        List<FightCard> list = new ArrayList<>(pile);
+        list.sort(Comparator.comparing(c -> c.card().id()));
+        String res = """
+                %s：%d
+                                
+                %s
+                """.formatted(title, pile.size(), pileFormat(list, true));
+        System.out.println(res);
+    }
+
+    private StringBuilder pileFormat(List<FightCard> pile, boolean showId) {
+        StringBuilder buf = new StringBuilder();
+        if (pile.isEmpty()) {
+            buf.append("        {{ 空空如也 }}        \n");
+            return buf;
+        }
+        int i = 0;
+        while (i < pile.size()) {
+            StringBuilder numBuf = new StringBuilder();
+            StringBuilder cardBuf = new StringBuilder();
+            for (int j = 0; j < 5 && i < pile.size(); j++, i++) {
+                buildHandSegment(pile, numBuf, cardBuf, i, showId);
+            }
+            buf.append(numBuf).append("\n")
+                    .append(cardBuf).append("\n\n");
+
+            if (i < pile.size()) {
+                numBuf = new StringBuilder();
+                cardBuf = new StringBuilder();
+                for (int j = 0; j < 5 && i < pile.size(); j++, i++) {
+                    buildHandSegment(pile, numBuf, cardBuf, i, showId);
+                }
+                buf.append(cardBuf).append("\n")
+                        .append(numBuf).append("\n\n");
+            }
+        }
+        return buf;
     }
 
 

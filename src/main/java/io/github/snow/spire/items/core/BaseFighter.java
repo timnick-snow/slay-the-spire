@@ -2,7 +2,7 @@ package io.github.snow.spire.items.core;
 
 import io.github.snow.spire.beans.Constants;
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.items.effect.Effect;
+import io.github.snow.spire.items.power.Power;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public abstract class BaseFighter implements Fighter {
     protected final String number;
     protected int maxHp;
     protected int hp;
-    protected final Map<String, Effect> powers;
+    protected final Map<String, Power> powers;
 
     public BaseFighter(String number) {
         this.number = number;
@@ -27,7 +27,7 @@ public abstract class BaseFighter implements Fighter {
     @Override
     public AttackResult beAttacked(DamageGroup damageGroup, FightContext ctx) {
         // 被攻击
-        powers.values().forEach(effect -> effect.onBeAttacked(damageGroup, ctx));
+        powers.values().forEach(power -> power.onBeAttacked(damageGroup, ctx));
         // 伤害是一段一段触发的
         int num = damageGroup.getNum();
         int base = damageGroup.getBase();
@@ -36,7 +36,7 @@ public abstract class BaseFighter implements Fighter {
         for (int i = 0; i < num; i++) {
             ValueWrapper damage = new ValueWrapper(base);
             // 被伤害
-            powers.values().forEach(effect -> effect.onGetDamage(damage, ctx));
+            powers.values().forEach(power -> power.onGetDamage(damage, ctx));
             int injured = damage.getValue();
             int block0 = base - injured;
             block += block0;
@@ -47,7 +47,7 @@ public abstract class BaseFighter implements Fighter {
             if (realInjured > 0) {
                 ValueWrapper real = new ValueWrapper(realInjured);
                 // 受到真实伤害
-                powers.values().forEach(effect -> effect.onGetInjured(real, ctx));
+                powers.values().forEach(power -> power.onGetInjured(real, ctx));
                 realInjured = real.getValue();
                 total += realInjured;
                 this.hp -= realInjured;
@@ -63,29 +63,29 @@ public abstract class BaseFighter implements Fighter {
     }
 
     @Override
-    public EffectResult addEffect(EffectAdder effectAdder, FightContext ctx) {
-        Effect effect = effectAdder.getEffect();
-        if (!effect.isAlive()) {
-            return new EffectResult();
+    public PowerResult addPower(PowerAdder powerAdder, FightContext ctx) {
+        Power power = powerAdder.getPower();
+        if (!power.isAlive()) {
+            return new PowerResult();
         }
-        Effect origin = powers.get(effect.id());
+        Power origin = powers.get(power.id());
         if (origin == null) {
-            powers.put(effect.id(), effect);
+            powers.put(power.id(), power);
             // 【邪教徒 e1】 获得了 【易伤 3】
-            System.out.printf("【%s】 获得了 【%s】\n", displayName(), effect.displayName());
+            System.out.printf("【%s】 获得了 【%s】\n", displayName(), power.displayName());
         } else {
             if (origin.isStackable()) {
                 // 【邪教徒 e1】 身上的 【易伤】 增加了：2 -> 5
                 int old = origin.amount();
-                origin.stack(effect.amount());
-                System.out.printf("【%s】 身上的 【%s】 增加了：%d -> %d\n", displayName(), effect.name(), old, origin.amount());
+                origin.stack(power.amount());
+                System.out.printf("【%s】 身上的 【%s】 增加了：%d -> %d\n", displayName(), power.name(), old, origin.amount());
             }
         }
-        return new EffectResult();
+        return new PowerResult();
     }
 
     @Override
-    public List<Effect> powers() {
+    public List<Power> powers() {
         return new ArrayList<>(powers.values());
     }
 

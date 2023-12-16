@@ -26,7 +26,7 @@ public class NavigationCommand {
                 """;
     }
 
-    @Command(command = "map", description = "Map.")
+    @Command(command = "map", alias = "m", description = "Map.")
     @CommandAvailability(provider = "availOnGaming")
     public String map(
             @Option(shortNames = 's', defaultValue = "0", description = "start floor") int start,
@@ -51,6 +51,7 @@ public class NavigationCommand {
     --leave     如果未离开当前房间，先离开当前房间
     --force     强制前往，等同于`--fly --skip --leave`
      */
+
     /**
      * 前往某房间
      *

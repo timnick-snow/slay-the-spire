@@ -46,14 +46,7 @@ public interface Card extends DisplayAble {
     }
 
     default String costDisplay() {
-        int cost = cost();
-        if (cost == -1) {
-            return "X";
-        }
-        if (cost == -2) {
-            return "N";
-        }
-        return String.valueOf(cost);
+        return costDisplay(cost());
     }
 
     /**
@@ -67,5 +60,15 @@ public interface Card extends DisplayAble {
             case PURPLE -> Characters.WATCHER;
             case COLOURLESS, CURSE -> null;
         };
+    }
+
+    static String costDisplay(int cost) {
+        if (cost == -1) {
+            return "X";
+        }
+        if (cost == -2) {
+            return "N";
+        }
+        return String.valueOf(cost);
     }
 }

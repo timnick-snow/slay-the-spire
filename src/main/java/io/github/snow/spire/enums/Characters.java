@@ -1,6 +1,6 @@
 package io.github.snow.spire.enums;
 
-import lombok.Getter;
+import io.github.snow.spire.items.core.DisplayAble;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -10,8 +10,7 @@ import lombok.RequiredArgsConstructor;
  * @since 2023/12/4
  */
 @RequiredArgsConstructor
-@Getter
-public enum Characters {
+public enum Characters implements DisplayAble {
     /**
      * 战士
      */
@@ -38,5 +37,10 @@ public enum Characters {
             case DEFECT -> CardColor.BLUE;
             case WATCHER -> CardColor.PURPLE;
         };
+    }
+
+    @Override
+    public String displayName() {
+        return display;
     }
 }

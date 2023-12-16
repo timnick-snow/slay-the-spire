@@ -118,7 +118,7 @@ public class FightManager {
                 .append("剩余能量：").append(ctx.getEnergy())
                 .append("\n\n");
         if (hand.isEmpty()) {
-            buf.append("        {{ 当前没有任何手牌 }}        \n");
+            buf.append("        {{ 空空如也 }}        \n");
         } else {
             buf.append(pileFormat(hand, false));
         }
@@ -136,7 +136,7 @@ public class FightManager {
 
     private void buildHandSegment(List<FightCard> pile, StringBuilder numBuf, StringBuilder cardBuf, int i, boolean showId) {
         int offset = 5;
-        Card card = pile.get(i).card();
+        Card card = pile.get(i);
         numBuf.append(" ".repeat(offset));
         int numWidth;
         if (showId) {
@@ -174,7 +174,7 @@ public class FightManager {
 
     public void showPile(String title, Deque<FightCard> pile) {
         List<FightCard> list = new ArrayList<>(pile);
-        list.sort(Comparator.comparing(c -> c.card().id()));
+        list.sort(Comparator.comparing(Card::id));
         String res = """
                 %s：%d
                                 
@@ -183,11 +183,40 @@ public class FightManager {
         System.out.println(res);
     }
 
-    private StringBuilder pileFormat(List<FightCard> pile, boolean showId) {
+/*
+d03  【打击+】  <手牌>
+耗能: 1E  |  原耗能: 1E  |  颜色：红色  |  类型：攻击  |  稀有度：初始
+描述：...
+关键字：
+    【易伤】：从 攻击 受到的伤害增加 50% 。
+
+关联卡：
+    【XXX】：1E | 无色 | 技能 | ...
+
+ */
+
+    public String cardFormat(FightCard fc) {
+        StringBuilder buf = new StringBuilder();
+        buf.append("""
+                %s  【%s】  <%s>
+                
+                耗能: %sE  |  原耗能: %sE  |  颜色：%s  |  类型：%s  |  稀有度：%s
+                
+                描述：%s
+                """
+                .formatted(fc.id(), fc.displayName(), fc.position().displayName()
+                        , fc.costDisplay(), fc.originCostDisplay(), fc.color().displayName()
+                        , fc.type().displayName(), fc.rarity().displayName(), fc.description())
+        );
+        // todo 关键字 关联卡
+        return buf.toString();
+    }
+
+    private String pileFormat(List<FightCard> pile, boolean showId) {
         StringBuilder buf = new StringBuilder();
         if (pile.isEmpty()) {
             buf.append("        {{ 空空如也 }}        \n");
-            return buf;
+            return buf.toString();
         }
         int i = 0;
         while (i < pile.size()) {
@@ -209,7 +238,7 @@ public class FightManager {
                         .append(numBuf).append("\n\n");
             }
         }
-        return buf;
+        return buf.toString();
     }
 
 

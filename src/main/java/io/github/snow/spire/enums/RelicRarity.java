@@ -1,6 +1,6 @@
 package io.github.snow.spire.enums;
 
-import lombok.Getter;
+import io.github.snow.spire.items.core.DisplayAble;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -10,8 +10,7 @@ import lombok.RequiredArgsConstructor;
  * @since 2023/12/8
  */
 @RequiredArgsConstructor
-@Getter
-public enum RelicRarity {
+public enum RelicRarity implements DisplayAble {
     STARTER("初始"),
     COMMON("普通"),
     UNCOMMON("罕见"),
@@ -22,4 +21,9 @@ public enum RelicRarity {
     OTHER("其它"),
     ;
     private final String display;
+
+    @Override
+    public String displayName() {
+        return display;
+    }
 }

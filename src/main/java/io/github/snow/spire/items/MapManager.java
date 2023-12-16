@@ -269,7 +269,7 @@ _____  M
                     wayBuf.append(padding);
                     tripleFlag = false;
                 }
-                roomBuf.append(center(room.getRoomType().getSymbol(), 5));
+                roomBuf.append(center(room.getRoomType().displayName(), 5));
                 if (nextSize == 2) {
                     wayBuf.append(center("\\ /", 5));
                 } else if (nextSize == 3) {
@@ -319,15 +319,15 @@ _____  M
     public String format(List<RoomNode> roomNodes) {
         StringBuilder buf = new StringBuilder();
         for (RoomNode room : roomNodes) {
-            buf.append(room.getId()).append("  ").append(room.getRoomType().getSymbol());
+            buf.append(room.getId()).append("  ").append(room.getRoomType().displayName());
             if (!room.getNext().isEmpty()) {
                 buf.append(" -> ");
                 if (room.getNext().size() == 1) {
-                    buf.append(room.getNext().getFirst().getRoomType().getSymbol());
+                    buf.append(room.getNext().getFirst().getRoomType().displayName());
                 } else {
                     buf.append("(");
                     for (RoomNode nextRoom : room.getNext()) {
-                        buf.append(nextRoom.getRoomType().getSymbol()).append(",");
+                        buf.append(nextRoom.getRoomType().displayName()).append(",");
                     }
                     buf.deleteCharAt(buf.length() - 1);
                     buf.append(")");

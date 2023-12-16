@@ -3,7 +3,6 @@ package io.github.snow.spire.items;
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CombatType;
-import io.github.snow.spire.enums.EnemyType;
 import io.github.snow.spire.items.card.Stack;
 import io.github.snow.spire.items.card.*;
 import io.github.snow.spire.temp.RunContext;
@@ -148,11 +147,11 @@ public class CardManager {
             for (Card card : cards) {
                 buf.append("|").append(center(card.id(), 6));
                 buf.append("|").append(center(card.displayName(), 13));
-                buf.append("|").append(center(card.color().getDisplay(), 6));
-                buf.append("|").append(center(card.type().getDisplay(), 6));
+                buf.append("|").append(center(card.color().displayName(), 6));
+                buf.append("|").append(center(card.type().displayName(), 6));
                 // 耗能
                 buf.append("|").append(center(card.costDisplay(), 6));
-                buf.append("|").append(center(card.rarity().getDisplay(), 8));
+                buf.append("|").append(center(card.rarity().displayName(), 8));
                 // 描述
                 buf.append("| ");
                 if (card.description().length() <= 32) {

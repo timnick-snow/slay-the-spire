@@ -17,7 +17,7 @@ public abstract class RandomRelic implements Bless {
 
     @Override
     public String display(RunContext ctx) {
-        return "获得一个随机%s遗物。".formatted(rarity().getDisplay());
+        return "获得一个随机%s遗物。".formatted(rarity().displayName());
     }
 
     public abstract RelicRarity rarity();

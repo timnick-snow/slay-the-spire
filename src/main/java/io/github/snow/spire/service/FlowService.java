@@ -62,7 +62,8 @@ public class FlowService extends AbstractShellComponent {
     public Optional<Card> chooseCard(List<Card> cards) {
         List<SelectorItem<String>> items = new ArrayList<>();
         for (Card card : cards) {
-            String name = "%s：%s E || %s".formatted(card.displayName(), card.costDisplay(), card.description());
+            String name = "%s：%sE | %s | %s | %s".formatted(card.displayName(), card.costDisplay(), card.color().displayName()
+                    , card.type().displayName(), card.description());
             items.add(SelectorItem.of(name, card.displayName()));
         }
         items.add(SelectorItem.of("跳过", Constants.SKIP));

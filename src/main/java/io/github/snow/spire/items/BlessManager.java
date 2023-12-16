@@ -73,7 +73,7 @@ public class BlessManager {
         register(new ChooseClassCard());
         register(new ChooseRareCard());
         register(new ChooseRareColorlessCard());
-        register(new ChooseUncommonColorlessCard());
+        register(new ChooseColorlessCard());
         register(new ExchangeBossRelic());
         register(new GetGold100());
         register(new GetGold250());

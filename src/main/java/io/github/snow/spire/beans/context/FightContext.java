@@ -1,5 +1,6 @@
 package io.github.snow.spire.beans.context;
 
+import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.enums.CombatType;
 import io.github.snow.spire.game.Deck;
 import io.github.snow.spire.game.RunSupport;
@@ -7,8 +8,10 @@ import io.github.snow.spire.items.core.FightCard;
 import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.*;
 import io.github.snow.spire.items.relic.Relic;
+import io.github.snow.spire.tool.Convert;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.ObjectUtils;
 
 import java.util.*;
 
@@ -82,8 +85,7 @@ public class FightContext {
         // 初始化抽牌堆
         Deck deck = runSupport.getRunContext().getDeck();
         List<FightCard> initCards = deck.getCards().stream()
-                .map(card -> card.copy(String.format("d%02d", ++cid)))
-                .map(card -> new FightCard(card, player))
+                .map(card -> new FightCard(card, player, String.format("d%02d", ++cid)))
                 .toList();
         this.drawPile.addAll(initCards);
         this.shuffleRandom = runSupport.getRunContext().getRandomManage().getFightRandom1();
@@ -100,9 +102,13 @@ public class FightContext {
         list.addAll(drawPile);
         discardPile.clear();
         drawPile.clear();
-
+        // 打乱顺序
         Collections.shuffle(list, shuffleRandom);
-        drawPile.addAll(list);
+
+        for (FightCard card : list) {
+            card.position(CardPosition.DRAW_PILE);
+            drawPile.add(card);
+        }
     }
 
     /*
@@ -132,7 +138,8 @@ public class FightContext {
                     break;
                 }
             }
-            FightCard fightCard = drawPile.pollFirst();
+            FightCard fightCard = drawPile.removeFirst();
+            fightCard.position(CardPosition.HAND);
             res.add(fightCard);
             hand.add(fightCard);
             num--;
@@ -159,5 +166,22 @@ public class FightContext {
     public void setEnergy(int energy) {
         System.out.printf("你的能量变为：%d\n", energy);
         this.energy = energy;
+    }
+
+    public Optional<FightCard> findCardById(String id) {
+        if (ObjectUtils.isEmpty(id)) {
+            return Optional.empty();
+        }
+        if (id.length() == 1) {
+            int idx = Convert.toInt(id, -1);
+            if (idx < 0 || idx >= hand.size()) {
+                return Optional.empty();
+            }
+            return Optional.of(hand.get(idx));
+        }
+        return drawPile.stream().filter(card -> card.id().equals(id)).findFirst()
+                .or(() -> discardPile.stream().filter(card -> card.id().equals(id)).findFirst())
+                .or(() -> exhaustPile.stream().filter(card -> card.id().equals(id)).findFirst())
+                .or(() -> playZone.stream().filter(card -> card.id().equals(id)).findFirst());
     }
 }

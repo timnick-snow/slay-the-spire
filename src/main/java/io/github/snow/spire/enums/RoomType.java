@@ -1,5 +1,6 @@
 package io.github.snow.spire.enums;
 
+import io.github.snow.spire.items.core.DisplayAble;
 import lombok.Getter;
 
 /**
@@ -8,8 +9,7 @@ import lombok.Getter;
  * @author snow
  * @since 2023/12/4
  */
-@Getter
-public enum RoomType {
+public enum RoomType implements DisplayAble {
     /**
      * 不明
      */
@@ -48,5 +48,10 @@ public enum RoomType {
 
     RoomType(String symbol) {
         this.symbol = symbol;
+    }
+
+    @Override
+    public String displayName() {
+        return symbol;
     }
 }

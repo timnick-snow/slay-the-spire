@@ -1,12 +1,16 @@
 package io.github.snow.spire.service;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.beans.pojo.EnterRoomResult;
 import io.github.snow.spire.beans.pojo.RoomFight;
 import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.FightManager;
+import io.github.snow.spire.items.core.FightCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.Availability;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author snow
@@ -28,30 +32,31 @@ public class FightService {
     }
 
     public void overview() {
-        EnterRoomResult roomResult = runSupport.getRunContext().getRoomResult();
-        if (roomResult instanceof RoomFight roomFight) {
-            fightManager.overview(roomFight.fightContext());
-        }
+        fightManager.overview(getRoomFight().fightContext());
     }
 
     public void drawPile() {
-        EnterRoomResult roomResult = runSupport.getRunContext().getRoomResult();
-        if (roomResult instanceof RoomFight roomFight) {
-            fightManager.drawPile(roomFight.fightContext());
-        }
+        fightManager.drawPile(getRoomFight().fightContext());
     }
 
     public void discardPile() {
-        EnterRoomResult roomResult = runSupport.getRunContext().getRoomResult();
-        if (roomResult instanceof RoomFight roomFight) {
-            fightManager.discardPile(roomFight.fightContext());
-        }
+        fightManager.discardPile(getRoomFight().fightContext());
     }
 
     public void exhaustPile() {
-        EnterRoomResult roomResult = runSupport.getRunContext().getRoomResult();
-        if (roomResult instanceof RoomFight roomFight) {
-            fightManager.exhaustPile(roomFight.fightContext());
+        fightManager.exhaustPile(getRoomFight().fightContext());
+    }
+
+    public String card(String id) {
+        FightContext ctx = getRoomFight().fightContext();
+        Optional<FightCard> opt = ctx.findCardById(id);
+        if (opt.isEmpty()) {
+            return "未找到卡牌：" + id;
         }
+        return fightManager.cardFormat(opt.get());
+    }
+
+    private RoomFight getRoomFight() {
+        return (RoomFight) runSupport.getRunContext().getRoomResult();
     }
 }

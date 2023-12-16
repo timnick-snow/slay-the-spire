@@ -45,7 +45,7 @@ public class NavigationService {
                 return "无效的房号";
             }
             RoomNode roomNode = roomNodeOpt.get();
-            String info = "%s房间\t\t类型：%s\t\t可达房间：%d\n".formatted(roomId, roomNode.getRoomType().getSymbol(), roomNode.getNext().size());
+            String info = "%s房间\t\t类型：%s\t\t可达房间：%d\n".formatted(roomId, roomNode.getRoomType().displayName(), roomNode.getNext().size());
             return info + mapManager.format(roomNode.getNext());
         }
     }

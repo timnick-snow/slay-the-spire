@@ -133,7 +133,7 @@ public class RunContext {
     }
 
     public String brief() {
-        return "种子编号：%s\n角色：%s\t幕: %d\t层: %d\n".formatted(seed, character.getDisplay(), act + 1, stair + 1);
+        return "种子编号：%s\n角色：%s\t幕: %d\t层: %d\n".formatted(seed, character.displayName(), act + 1, stair + 1);
     }
 
     @JsonIgnore

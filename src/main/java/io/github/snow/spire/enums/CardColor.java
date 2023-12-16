@@ -1,5 +1,6 @@
 package io.github.snow.spire.enums;
 
+import io.github.snow.spire.items.core.DisplayAble;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -8,8 +9,7 @@ import lombok.RequiredArgsConstructor;
  * @since 2023/12/7
  */
 @RequiredArgsConstructor
-@Getter
-public enum CardColor {
+public enum CardColor implements DisplayAble {
     RED("红色"),
     GREEN("绿色"),
     BLUE("蓝色"),
@@ -18,4 +18,9 @@ public enum CardColor {
     CURSE("诅咒"),
     ;
     private final String display;
+
+    @Override
+    public String displayName() {
+        return display;
+    }
 }

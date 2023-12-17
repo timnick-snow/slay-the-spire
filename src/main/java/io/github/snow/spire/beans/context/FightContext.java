@@ -184,4 +184,9 @@ public class FightContext {
                 .or(() -> exhaustPile.stream().filter(card -> card.id().equals(id)).findFirst())
                 .or(() -> playZone.stream().filter(card -> card.id().equals(id)).findFirst());
     }
+
+    public void consumeEnergy(int cost) {
+        this.energy = Math.max(0, energy - cost);
+        System.out.printf("你消耗了 %d 能量，剩余能量 %d", cost, energy);
+    }
 }

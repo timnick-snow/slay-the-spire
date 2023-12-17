@@ -45,6 +45,11 @@ public abstract class CurseCard implements Card {
     }
 
     @Override
+    public boolean isPlayable() {
+        return false;
+    }
+
+    @Override
     public Card copy(String id) {
         try {
             Constructor<? extends CurseCard> constructor = this.getClass().getDeclaredConstructor(String.class);

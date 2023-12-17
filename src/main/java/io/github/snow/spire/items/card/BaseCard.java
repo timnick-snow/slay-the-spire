@@ -40,6 +40,11 @@ public abstract class BaseCard implements UpgradableCard {
     }
 
     @Override
+    public boolean isPlayable() {
+        return true;
+    }
+
+    @Override
     public int level() {
         return level;
     }

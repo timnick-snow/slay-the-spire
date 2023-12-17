@@ -34,9 +34,19 @@ public interface Fighter extends DisplayAble, FightLifecycle {
     int hp();
 
     /**
+     * 格挡
+     */
+    int block();
+
+    /**
      * 能力
      */
     List<Power> powers();
+
+    /**
+     * 回合开始时失去格挡的值
+     */
+    int blockLossOnRoundStart();
 
     /**
      * 受到伤害

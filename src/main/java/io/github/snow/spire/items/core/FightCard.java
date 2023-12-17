@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.core;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.enums.CardColor;
 import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.enums.CardRarity;
@@ -45,6 +46,14 @@ public class FightCard implements Card {
         return Card.costDisplay(originCost());
     }
 
+    public boolean isPlayable(FightContext ctx) {
+        if (!isPlayable()) {
+            System.out.println("这张卡牌 【不能打出】 ！");
+            return false;
+        }
+        System.out.println("能量不足！");
+        return ctx.getEnergy() >= cost();
+    }
 
     @Override
     public CardColor color() {
@@ -89,5 +98,10 @@ public class FightCard implements Card {
     @Override
     public Card copy(String id) {
         return new FightCard(card, host, id);
+    }
+
+    @Override
+    public boolean isPlayable() {
+        return card.isPlayable();
     }
 }

@@ -15,9 +15,10 @@ import java.util.Map;
  */
 public abstract class BaseFighter implements Fighter {
     protected final String number;
+    protected final Map<String, Power> powers;
     protected int maxHp;
     protected int hp;
-    protected final Map<String, Power> powers;
+    protected int block;
 
     public BaseFighter(String number) {
         this.number = number;
@@ -65,7 +66,7 @@ public abstract class BaseFighter implements Fighter {
     @Override
     public PowerResult addPower(PowerAdder powerAdder, FightContext ctx) {
         Power power = powerAdder.getPower();
-        if (!power.isAlive()) {
+        if (power.isDead()) {
             return new PowerResult();
         }
         Power origin = powers.get(power.id());
@@ -102,5 +103,15 @@ public abstract class BaseFighter implements Fighter {
     @Override
     public int hp() {
         return hp;
+    }
+
+    @Override
+    public int block() {
+        return block;
+    }
+
+    @Override
+    public int blockLossOnRoundStart() {
+        return block;
     }
 }

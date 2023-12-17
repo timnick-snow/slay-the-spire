@@ -41,6 +41,8 @@ public interface Card extends DisplayAble {
 
     Card copy(String id);
 
+    boolean isPlayable();
+
     default boolean isRemovable() {
         return true;
     }

@@ -52,30 +52,71 @@ public class FightManager {
         playerRoundStart(ctx);
     }
 
-    /*
-    玩家回合开始 -> 抽牌 -> 打牌 -> 玩家回合结束
+    /**
+     * 玩家回合开始 -> 抽牌 -> 打牌 -> 玩家回合结束
      */
     public void playerRoundStart(FightContext ctx) {
         int round = ctx.roundAdd();
         System.out.printf("【第 %d 回合】 - 玩家回合阶段\n", round);
         ctx.getPlayer().onRoundStart(ctx);
 
-        // 抽牌 todo 实际抽牌数受到遗物/能力的影响  抽到牌时的生命周期
+        // 1. 抽牌
         ValueWrapper drawNum = ValueWrapper.of(5);
         List<FightCard> draw = ctx.draw(drawNum.getValue());
-        // 重置能量 todo 实际能量数受到遗物/能力的影响
+        // 2. 重置能量
         ValueWrapper energyNum = ValueWrapper.of(3);
         ctx.setEnergy(energyNum.getValue());
-
-        // 当前战斗内概述信息
+        // 3. 当前战斗内概述信息 => 等待玩家打牌
         overview(ctx);
+    }
+
+    /**
+     * 打出卡牌
+     */
+    public void playCard(FightCard card, FightContext ctx) {
+        if (!card.isPlayable(ctx)) {
+            return;
+        }
+        // 1. 消耗能量
+        System.out.printf("你打出卡牌 【%s】\n", card.displayName());
+        ctx.consumeEnergy(card.cost());
+        // 2. 获取卡牌的效果
+
+        // 3. 执行效果
+
+        // 4. 卡牌的去向
+    }
+
+    /**
+     * 结束玩家回合
+     */
+    public void endPlayerRound(FightContext ctx) {
+        // 1. 剩余手牌的去向
+
+        // 2. 敌方回合开始
+        enemyRoundStart(ctx);
+    }
+
+    /**
+     * 敌方回合开始
+     */
+    public void enemyRoundStart(FightContext ctx) {
+        System.out.printf("【第 %d 回合】 - 敌方回合阶段\n", ctx.getRound());
+        ctx.getEnemies().forEach(enemy -> enemy.onRoundStart(ctx));
+
+        // 1. 获取意图的效果
+
+        // 2. 执行效果
+
+        // 3. 玩家下一回开始
+        playerRoundStart(ctx);
     }
 
     public void overview(FightContext ctx) {
         /*
         ---------------------------------------------------------------------------------------------------
-        【机甲战士】 hp: 70/70    power: 0  |  【邪教徒 e1】 hp: 40/40    power: 0  意图：强化
-                                           |
+        【机甲战士】 hp: 70/70  block: 0  power: 0  |  【邪教徒 e1】 hp: 40/40  block: 0  power: 0  意图：攻势(6*6) + 强化 + 其它
+                                                   |
         ---------------------------------------------------------------------------------------------------
         你的手牌：5    剩余能量：3
 
@@ -92,21 +133,21 @@ public class FightManager {
         Player player = ctx.getPlayer();
         List<Enemy> enemies = ctx.getEnemies();
 
-        String divider = "-".repeat(120) + "\n";
+        String divider = "-".repeat(140) + "\n";
         StringBuilder buf = new StringBuilder();
         buf.append("\n").append(divider);
 
         // 回合指示
-        buf.append(" ".repeat(20)).append("第      ").append(ctx.getRound()).append("      回      合\n");
+        buf.append(" ".repeat(24)).append("第      ").append(ctx.getRound()).append("      回      合\n");
         buf.append(divider);
         // 单位区
         buf.append(left(kw(player.displayName()), 18));
-        String playerInfo = "  hp: %2d/%2d    power: %d  |".formatted(player.hp(), player.maxHp(), player.powers().size());
+        String playerInfo = "  hp: %2d/%2d  block: %d  power: %d  |".formatted(player.hp(), player.maxHp(), player.block(), player.powers().size());
         buf.append(playerInfo);
         int leftPadding = strWidth(playerInfo) + 18 - 1;
         for (Enemy enemy : enemies) {
             buf.append("  ").append(left(kw(enemy.displayName()), 18));
-            buf.append(" hp: %d/%d    power: %d  意图：%s".formatted(enemy.hp(), enemy.maxHp(), enemy.powers().size(), "强化"));
+            buf.append(" hp: %d/%d  block: %d  power: %d  意图：%s".formatted(enemy.hp(), enemy.maxHp(), enemy.block(), enemy.powers().size(), "强化"));
             buf.append("\n");
             buf.append(" ".repeat(leftPadding)).append("|");
         }
@@ -152,13 +193,6 @@ public class FightManager {
         numBuf.append(" ".repeat(strWidth(cardInfo) - numWidth - 1));
     }
 
-    public void enemyRoundStart(FightContext ctx) {
-        System.out.printf("【第 %d 回合】 - 敌方回合阶段\n", ctx.getRound());
-        ctx.getEnemies().forEach(enemy -> enemy.onRoundStart(ctx));
-
-        // todo 意图处理
-    }
-
 
     public void drawPile(FightContext fightContext) {
         showPile("抽牌堆", fightContext.getDrawPile());
@@ -199,9 +233,9 @@ d03  【打击+】  <手牌>
         StringBuilder buf = new StringBuilder();
         buf.append("""
                 %s  【%s】  <%s>
-                
+                                
                 耗能: %sE  |  原耗能: %sE  |  颜色：%s  |  类型：%s  |  稀有度：%s
-                
+                                
                 描述：%s
                 """
                 .formatted(fc.id(), fc.displayName(), fc.position().displayName()

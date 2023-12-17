@@ -12,15 +12,15 @@ import java.util.function.Predicate;
  * @author snow
  * @since 2023/12/8
  */
-public class ChooseColorlessCard extends ChooseCard {
+public class ChooseUncommonColorlessCard extends ChooseCard {
     @Override
     public String trait() {
-        return "无色";
+        return "罕见无色";
     }
 
     @Override
     public Predicate<Card> filter(RunContext ctx) {
-        return card -> card.rarity() == CardRarity.COMMON && card.color() == CardColor.COLOURLESS;
+        return card -> card.rarity() == CardRarity.UNCOMMON && card.color() == CardColor.COLOURLESS;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package io.github.snow.spire.items.core;
 
-import io.github.snow.spire.items.core.DisplayAble;
 import lombok.Getter;
 import lombok.Setter;
 

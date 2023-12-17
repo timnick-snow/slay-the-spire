@@ -27,7 +27,7 @@ public interface Power extends DisplayAble, FightLifecycle {
 
     boolean isStackable();
 
-    boolean isAlive();
+    boolean isDead();
 
     int amount();
 

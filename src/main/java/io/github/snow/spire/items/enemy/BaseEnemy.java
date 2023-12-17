@@ -38,7 +38,7 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
             var entry = it.next();
             var power = entry.getValue();
             power.onRoundEnd(ctx);
-            if (!power.isAlive()) {
+            if (power.isDead()) {
                 it.remove();
             }
         }
@@ -51,7 +51,7 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
             var entry = it.next();
             var power = entry.getValue();
             power.onRoundStart(ctx);
-            if (!power.isAlive()) {
+            if (power.isDead()) {
                 it.remove();
             }
         }

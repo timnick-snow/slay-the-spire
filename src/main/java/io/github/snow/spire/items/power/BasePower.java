@@ -43,8 +43,8 @@ public abstract class BasePower implements Power {
     }
 
     @Override
-    public boolean isAlive() {
-        return num > 0;
+    public boolean isDead() {
+        return num <= 0;
     }
 
     @Override

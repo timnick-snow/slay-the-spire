@@ -2,13 +2,17 @@ package io.github.snow.spire.service;
 
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.beans.pojo.EnterRoomResult;
+import io.github.snow.spire.beans.pojo.PlayRule;
 import io.github.snow.spire.beans.pojo.RoomFight;
+import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.FightManager;
 import io.github.snow.spire.items.core.FightCard;
+import io.github.snow.spire.items.core.Fighter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.Availability;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
 
@@ -58,5 +62,29 @@ public class FightService {
 
     private RoomFight getRoomFight() {
         return (RoomFight) runSupport.getRunContext().getRoomResult();
+    }
+
+    public String playCard(String id, String target) {
+        FightContext ctx = getRoomFight().fightContext();
+        Optional<FightCard> cardOpt = ctx.findCardById(id);
+        if (cardOpt.isEmpty()) {
+            return "未找到卡牌：" + id;
+        }
+        FightCard fightCard = cardOpt.get();
+        if (fightCard.position() != CardPosition.HAND) {
+            return "这张卡不在你的手牌中！";
+        }
+        PlayRule playRule = new PlayRule();
+
+        if (!ObjectUtils.isEmpty(target)) {
+            Optional<Fighter> fighterOpt = ctx.findFighterById(target);
+            if (fighterOpt.isEmpty()) {
+                return "未找到目标：" + target;
+            }
+            playRule.setMaster(fighterOpt.get());
+        }
+
+        fightManager.playCard(fightCard, playRule, ctx);
+        return "\ndone.\n";
     }
 }

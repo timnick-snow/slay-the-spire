@@ -68,6 +68,15 @@ public class FightCommand {
         return fightService.card(id);
     }
 
+    @Command(command = "play", alias = "p", description = "Play card .")
+    @CommandAvailability(provider = {"availOnGaming", "availOnFight"})
+    public String play(
+            @Option(shortNames = 'i', required = true, arity = EXACTLY_ONE) String id,
+            @Option(shortNames = 't', arity = EXACTLY_ONE) String target
+    ) {
+        return fightService.playCard(id, target);
+    }
+
     @Bean
     public AvailabilityProvider availOnFight() {
         return fightService::availability;

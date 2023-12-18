@@ -5,6 +5,7 @@ import io.github.snow.spire.enums.CombatType;
 import io.github.snow.spire.game.Deck;
 import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.core.FightCard;
+import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.*;
 import io.github.snow.spire.items.relic.Relic;
@@ -85,7 +86,7 @@ public class FightContext {
         // 初始化抽牌堆
         Deck deck = runSupport.getRunContext().getDeck();
         List<FightCard> initCards = deck.getCards().stream()
-                .map(card -> new FightCard(card, player, String.format("d%02d", ++cid)))
+                .map(card -> new FightCard(card.copy(""), player, String.format("d%02d", ++cid)))
                 .toList();
         this.drawPile.addAll(initCards);
         this.shuffleRandom = runSupport.getRunContext().getRandomManage().getFightRandom1();
@@ -187,6 +188,31 @@ public class FightContext {
 
     public void consumeEnergy(int cost) {
         this.energy = Math.max(0, energy - cost);
-        System.out.printf("你消耗了 %d 能量，剩余能量 %d", cost, energy);
+        System.out.printf("你消耗了 %d 能量，剩余能量 %d\n", cost, energy);
+    }
+
+    public void moveCard(FightCard card, CardPosition dest) {
+        CardPosition src = card.position();
+        if (src == dest) {
+            return;
+        }
+        switch (src) {
+            case HAND -> hand.remove(card);
+            case DRAW_PILE -> drawPile.remove(card);
+            case DISCARD_PILE -> discardPile.remove(card);
+            case EXHAUST_PILE -> exhaustPile.remove(card);
+            case PLAY_ZONE -> playZone.remove(card);
+        }
+        switch (dest) {
+            case HAND -> hand.add(card);
+            case DRAW_PILE -> drawPile.add(card);
+            case DISCARD_PILE -> discardPile.add(card);
+            case EXHAUST_PILE -> exhaustPile.add(card);
+            case PLAY_ZONE -> playZone.add(card);
+        }
+    }
+
+    public Optional<Fighter> findFighterById(String target) {
+        return null;
     }
 }

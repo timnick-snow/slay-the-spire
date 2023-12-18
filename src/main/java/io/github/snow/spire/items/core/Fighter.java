@@ -2,6 +2,9 @@ package io.github.snow.spire.items.core;
 
 
 import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.items.effect.rough.BlockAdder;
+import io.github.snow.spire.items.effect.rough.DamageGroup;
+import io.github.snow.spire.items.effect.rough.PowerAdder;
 import io.github.snow.spire.items.power.Power;
 
 import java.util.List;
@@ -57,4 +60,6 @@ public interface Fighter extends DisplayAble, FightLifecycle {
      * 施加能力
      */
     PowerResult addPower(PowerAdder powerAdder, FightContext ctx);
+
+    void addBlock(BlockAdder blockAdder);
 }

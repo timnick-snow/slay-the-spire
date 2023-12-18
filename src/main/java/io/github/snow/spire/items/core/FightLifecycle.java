@@ -1,6 +1,8 @@
 package io.github.snow.spire.items.core;
 
 import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.items.effect.rough.DamageGroup;
+import io.github.snow.spire.items.effect.rough.PowerAdder;
 
 /**
  * 战斗生命周期
@@ -25,6 +27,12 @@ public interface FightLifecycle {
      * 回合结束
      */
     default void onRoundEnd(FightContext ctx) {
+    }
+
+    /**
+     * 攻击前
+     */
+    default void onBeforeAttack(DamageGroup damageGroup, FightContext ctx) {
     }
 
     /**

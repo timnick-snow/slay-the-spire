@@ -1,6 +1,7 @@
 package io.github.snow.spire.items.power;
 
 import io.github.snow.spire.items.core.DisplayAble;
+import lombok.Setter;
 
 /**
  * @author snow
@@ -8,17 +9,8 @@ import io.github.snow.spire.items.core.DisplayAble;
  */
 public abstract class BasePower implements Power {
     protected int num;
-    protected final DisplayAble host;
-
-    public BasePower(DisplayAble host, int num) {
-        this.host = host;
-        this.num = num;
-    }
-
-    public BasePower(DisplayAble host) {
-        this.host = host;
-        this.num = 1;
-    }
+    @Setter
+    protected DisplayAble host;
 
     @Override
     public String displayName() {

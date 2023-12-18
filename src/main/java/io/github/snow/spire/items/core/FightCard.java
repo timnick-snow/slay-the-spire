@@ -1,14 +1,18 @@
 package io.github.snow.spire.items.core;
 
 import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.beans.pojo.PlayRule;
 import io.github.snow.spire.enums.CardColor;
 import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
 import io.github.snow.spire.items.card.Card;
+import io.github.snow.spire.items.effect.RoughEffect;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * @author snow
@@ -26,6 +30,9 @@ public class FightCard implements Card {
      */
     @Setter
     private int cost;
+    /**
+     * 位置
+     */
     @Setter
     @Getter
     private CardPosition position;
@@ -46,13 +53,16 @@ public class FightCard implements Card {
         return Card.costDisplay(originCost());
     }
 
-    public boolean isPlayable(FightContext ctx) {
+    public boolean isPlayable(PlayRule playRule, FightContext ctx) {
         if (!isPlayable()) {
             System.out.println("这张卡牌 【不能打出】 ！");
             return false;
         }
-        System.out.println("能量不足！");
-        return ctx.getEnergy() >= cost();
+        if (ctx.getEnergy() < cost()) {
+            System.out.println("能量不足！");
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -103,5 +113,10 @@ public class FightCard implements Card {
     @Override
     public boolean isPlayable() {
         return card.isPlayable();
+    }
+
+    @Override
+    public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
+        return card.getRoughEffect(fighter);
     }
 }

@@ -1,10 +1,13 @@
 package io.github.snow.spire.items.card;
 
+import io.github.snow.spire.items.core.Fighter;
+import io.github.snow.spire.items.effect.RoughEffect;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
+import java.util.List;
 
 /**
  * @author snow
@@ -63,5 +66,10 @@ public abstract class BaseCard implements UpgradableCard {
             log.error("card copy error", e);
             return null;
         }
+    }
+
+    @Override
+    public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
+        throw new UnsupportedOperationException("'%s' not support effect!".formatted(displayName()));
     }
 }

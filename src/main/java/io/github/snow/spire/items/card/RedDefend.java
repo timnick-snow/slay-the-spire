@@ -2,6 +2,13 @@ package io.github.snow.spire.items.card;
 
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
+import io.github.snow.spire.items.core.Fighter;
+import io.github.snow.spire.items.core.SourceChain;
+import io.github.snow.spire.items.effect.RoughEffect;
+import io.github.snow.spire.items.effect.rough.BlockAdder;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author snow
@@ -11,9 +18,24 @@ public class RedDefend extends RedCard {
     private static final String DESC = "获得5点格挡。";
     private static final String DESC1 = "获得8点格挡。";
 
+    private int block = 5;
 
     public RedDefend(String id, int level) {
         super(id, level);
+    }
+
+    @Override
+    public void upgrade() {
+        super.upgrade();
+        this.block = 8;
+    }
+
+    @Override
+    public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
+        BlockAdder adder = new BlockAdder();
+        adder.setBlock(block);
+        adder.setSource(new SourceChain().setFighter(fighter).setProducer(this));
+        return Collections.singletonList(adder);
     }
 
     @Override

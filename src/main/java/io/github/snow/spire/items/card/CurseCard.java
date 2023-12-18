@@ -3,9 +3,13 @@ package io.github.snow.spire.items.card;
 import io.github.snow.spire.enums.CardColor;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
+import io.github.snow.spire.items.core.Fighter;
+import io.github.snow.spire.items.effect.RoughEffect;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author snow
@@ -58,5 +62,10 @@ public abstract class CurseCard implements Card {
             log.error("card copy error", e);
             return null;
         }
+    }
+
+    @Override
+    public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
+        return Collections.emptyList();
     }
 }

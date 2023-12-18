@@ -1,20 +1,12 @@
 package io.github.snow.spire.items.power;
 
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.items.core.DisplayAble;
 
 /**
  * @author snow
  * @since 2023/12/14
  */
 public abstract class AutoLossPower extends BasePower {
-    public AutoLossPower(DisplayAble host, int num) {
-        super(host, num);
-    }
-
-    public AutoLossPower(DisplayAble host) {
-        super(host);
-    }
 
     @Override
     public boolean isStackable() {

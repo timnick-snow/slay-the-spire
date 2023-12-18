@@ -1,7 +1,9 @@
 package io.github.snow.spire.items.core;
 
-import io.github.snow.spire.beans.Constants;
 import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.items.effect.rough.BlockAdder;
+import io.github.snow.spire.items.effect.rough.DamageGroup;
+import io.github.snow.spire.items.effect.rough.PowerAdder;
 import io.github.snow.spire.items.power.Power;
 
 import java.util.ArrayList;
@@ -33,18 +35,19 @@ public abstract class BaseFighter implements Fighter {
         int num = damageGroup.getNum();
         int base = damageGroup.getBase();
 
-        int total = 0, block = 0;
+        int total = 0, blockDamage = 0;
         for (int i = 0; i < num; i++) {
             ValueWrapper damage = new ValueWrapper(base);
-            // 被伤害
+            // 受到伤害
             powers.values().forEach(power -> power.onGetDamage(damage, ctx));
             int injured = damage.getValue();
-            int block0 = base - injured;
-            block += block0;
+            int block0 = Math.min(injured, block());
+            blockDamage += block0;
             total += block0;
 
-            int realInjured = injured;
-            int oldHp = this.hp;
+            int realInjured = injured - block0;
+            this.block -= block0;
+
             if (realInjured > 0) {
                 ValueWrapper real = new ValueWrapper(realInjured);
                 // 受到真实伤害
@@ -53,14 +56,16 @@ public abstract class BaseFighter implements Fighter {
                 total += realInjured;
                 this.hp -= realInjured;
             }
-            String log = Constants.DAMAGE_LOG_TEMPLATE.formatted(i + 1, num, base, block0, realInjured,
-                    displayName(), oldHp, this.hp);
+            // [1/2] 对 【邪教徒 e1】 造成 5 伤害，格挡 5 伤害，损失 0 点生命值。 当前状态 { hp: 40/40, block: 1 }
+            // [2/2] 对 【邪教徒 e1】 造成 5 伤害，格挡 1 伤害，损失 4 点生命值。 当前状态 { hp: 36/40, block: 0 }
+            String log = "[%d/%d] 对 【%s】 造成 %d 伤害，格挡 %d 伤害，损失 %d 点生命值。 当前状态 { hp: %d/%d, block: %d }"
+                    .formatted(i + 1, num, displayName(), base, block0, realInjured, hp(), maxHp(), block());
             System.out.println(log);
             if (this.hp <= 0) {
                 break;
             }
         }
-        return new AttackResult(total, block, this.hp <= 0);
+        return new AttackResult(total, blockDamage, this.hp <= 0);
     }
 
     @Override
@@ -83,6 +88,15 @@ public abstract class BaseFighter implements Fighter {
             }
         }
         return new PowerResult();
+    }
+
+    @Override
+    public void addBlock(BlockAdder blockAdder) {
+        int add = blockAdder.getBlock();
+        this.block += add;
+        String log = "【%s】 增加了 %d 格挡。 当前状态 { hp: %d/%d, block: %d }"
+                .formatted(displayName(), add, hp(), maxHp(), block());
+        System.out.println(log);
     }
 
     @Override

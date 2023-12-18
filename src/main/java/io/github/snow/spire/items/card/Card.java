@@ -5,8 +5,9 @@ import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.items.core.DisplayAble;
+import io.github.snow.spire.items.core.EffectProducer;
 
-public interface Card extends DisplayAble {
+public interface Card extends DisplayAble, EffectProducer {
 
     CardColor color();
 

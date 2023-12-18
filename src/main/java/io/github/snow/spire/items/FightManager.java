@@ -2,9 +2,15 @@ package io.github.snow.spire.items;
 
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.beans.context.GameStartEvent;
+import io.github.snow.spire.beans.pojo.PlayRule;
+import io.github.snow.spire.enums.CardPosition;
+import io.github.snow.spire.enums.EffectTarget;
 import io.github.snow.spire.items.card.Card;
+import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightCard;
 import io.github.snow.spire.items.core.ValueWrapper;
+import io.github.snow.spire.items.effect.Effect;
+import io.github.snow.spire.items.effect.RoughEffect;
 import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.Player;
 import io.github.snow.spire.temp.RunContext;
@@ -73,18 +79,47 @@ public class FightManager {
     /**
      * 打出卡牌
      */
-    public void playCard(FightCard card, FightContext ctx) {
-        if (!card.isPlayable(ctx)) {
+    public void playCard(FightCard card, PlayRule playRule, FightContext ctx) {
+        if (!card.isPlayable(playRule, ctx)) {
+            // 0. 卡牌不可打出
             return;
         }
-        // 1. 消耗能量
+        // 1. 获取卡牌效果
+        List<RoughEffect<?>> roughEffectList = card.getRoughEffect(ctx.getPlayer());
+        List<Effect<?>> effects = new ArrayList<>();
+        for (RoughEffect<?> roughEffect : roughEffectList) {
+            EffectTarget effectTarget = roughEffect.effectTarget();
+            List<DisplayAble> targets = new ArrayList<>();
+            switch (effectTarget) {
+                case NONE -> {
+                }
+                case SELF -> targets.add(ctx.getPlayer());
+                case SINGLE_OPPONENT -> {
+                    if (playRule.getMaster() != null && playRule.getMaster() instanceof Enemy enemy) {
+                        targets.add(enemy);
+                    } else if (playRule.getMaster() == null && ctx.getEnemies().size() == 1) {
+                        targets.add(ctx.getEnemies().getFirst());
+                    } else {
+                        System.out.println("你需要指定一个敌方目标");
+                        return;
+                    }
+                }
+                case ALL_OPPONENT -> targets.addAll(ctx.getEnemies());
+                case RANDOM_OPPONENT -> targets.add(ctx.getEnemies().getFirst());
+            }
+            effects.add(roughEffect.process(targets));
+        }
+
+        // 2. 打出消耗能量
         System.out.printf("你打出卡牌 【%s】\n", card.displayName());
         ctx.consumeEnergy(card.cost());
-        // 2. 获取卡牌的效果
+        ctx.moveCard(card, CardPosition.PLAY_ZONE);
 
-        // 3. 执行效果
+        // 3. 执行卡牌效果
+        effects.forEach(effect -> effect.work(ctx));
 
-        // 4. 卡牌的去向
+        // 4. 卡牌使用完成进入弃牌堆
+        ctx.moveCard(card, CardPosition.DISCARD_PILE);
     }
 
     /**

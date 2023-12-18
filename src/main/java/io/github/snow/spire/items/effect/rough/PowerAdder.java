@@ -6,6 +6,7 @@ import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.core.SourceChain;
 import io.github.snow.spire.items.effect.BaseRoughEffect;
 import io.github.snow.spire.items.effect.finished.PowerEffect;
+import io.github.snow.spire.items.power.BasePower;
 import io.github.snow.spire.items.power.Power;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,10 +20,10 @@ import java.util.List;
 @Getter
 @Setter
 public class PowerAdder extends BaseRoughEffect<Fighter> {
-    private final Power power;
+    private final BasePower power;
     private SourceChain source;
 
-    public PowerAdder(EffectTarget effectTarget, Power power) {
+    public PowerAdder(EffectTarget effectTarget, BasePower power) {
         super(effectTarget);
         this.power = power;
     }
@@ -30,6 +31,7 @@ public class PowerAdder extends BaseRoughEffect<Fighter> {
     @Override
     @SuppressWarnings("unchecked")
     public PowerEffect process(List<? extends DisplayAble> targets) {
+        targets.forEach(power::setHost);
         PowerEffect effect = new PowerEffect((List<Fighter>) targets, this);
         source.setEffect(effect);
         return effect;

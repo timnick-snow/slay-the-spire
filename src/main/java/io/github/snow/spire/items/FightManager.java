@@ -8,11 +8,13 @@ import io.github.snow.spire.enums.EffectTarget;
 import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightCard;
+import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.core.ValueWrapper;
 import io.github.snow.spire.items.effect.Effect;
 import io.github.snow.spire.items.effect.RoughEffect;
 import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.Player;
+import io.github.snow.spire.items.power.Power;
 import io.github.snow.spire.temp.RunContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -41,6 +43,8 @@ public class FightManager {
      */
     private Random fightRandom3;
 
+    final static String DIVIDER = "-".repeat(140) + "\n";
+
 /*
 战斗开始 -> 第X回合开始 -> 玩家回合开始 -> 玩家回合结束 -> 敌人回合开始 -> 敌人回合结束 ->  第X回合结束
  */
@@ -63,7 +67,7 @@ public class FightManager {
      */
     public void playerRoundStart(FightContext ctx) {
         int round = ctx.roundAdd();
-        System.out.printf("【第 %d 回合】 - 玩家回合阶段\n", round);
+        System.out.printf("\n【第 %d 回合】 - 玩家回合阶段\n", round);
         ctx.getPlayer().onRoundStart(ctx);
 
         // 1. 抽牌
@@ -120,6 +124,10 @@ public class FightManager {
 
         // 4. 卡牌使用完成进入弃牌堆
         ctx.moveCard(card, CardPosition.DISCARD_PILE);
+
+        // 5. 剩余手牌
+        System.out.println("done.\n");
+        System.out.println(handFormat(ctx));
     }
 
     /**
@@ -127,6 +135,23 @@ public class FightManager {
      */
     public void endPlayerRound(FightContext ctx) {
         // 1. 剩余手牌的去向
+        List<FightCard> handCopy = new ArrayList<>(ctx.getHand());
+        List<FightCard> discard = new ArrayList<>();
+        for (FightCard card : handCopy) {
+            CardPosition position = card.positionOnEnd();
+            if (position == CardPosition.DISCARD_PILE) {
+                discard.add(card);
+            }
+            ctx.moveCard(card, position);
+        }
+        if (!discard.isEmpty()) {
+            StringBuilder buf = new StringBuilder();
+            buf.append("手牌中的 %d 张卡牌进入弃牌堆：".formatted(discard.size()));
+            for (FightCard card : discard) {
+                buf.append(kw(card.displayName())).append("  ");
+            }
+            System.out.println(buf);
+        }
 
         // 2. 敌方回合开始
         enemyRoundStart(ctx);
@@ -136,11 +161,11 @@ public class FightManager {
      * 敌方回合开始
      */
     public void enemyRoundStart(FightContext ctx) {
-        System.out.printf("【第 %d 回合】 - 敌方回合阶段\n", ctx.getRound());
+        System.out.printf("\n【第 %d 回合】 - 敌方回合阶段\n", ctx.getRound());
         ctx.getEnemies().forEach(enemy -> enemy.onRoundStart(ctx));
 
         // 1. 获取意图的效果
-
+        System.out.println("todo 敌军行动");
         // 2. 执行效果
 
         // 3. 玩家下一回开始
@@ -168,13 +193,12 @@ public class FightManager {
         Player player = ctx.getPlayer();
         List<Enemy> enemies = ctx.getEnemies();
 
-        String divider = "-".repeat(140) + "\n";
         StringBuilder buf = new StringBuilder();
-        buf.append("\n").append(divider);
+        buf.append("\n").append(DIVIDER);
 
         // 回合指示
         buf.append(" ".repeat(24)).append("第      ").append(ctx.getRound()).append("      回      合\n");
-        buf.append(divider);
+        buf.append(DIVIDER);
         // 单位区
         buf.append(left(kw(player.displayName()), 18));
         String playerInfo = "  hp: %2d/%2d  block: %d  power: %d  |".formatted(player.hp(), player.maxHp(), player.block(), player.powers().size());
@@ -186,9 +210,24 @@ public class FightManager {
             buf.append("\n");
             buf.append(" ".repeat(leftPadding)).append("|");
         }
-        buf.append("\n").append(divider);
+        buf.append("\n").append(DIVIDER);
 
         // 手牌区
+        buf.append(handFormat(ctx));
+        buf.append(DIVIDER);
+
+        // 其它区
+        buf.append("抽牌堆：").append(ctx.getDrawPile().size()).append("    ")
+                .append("弃牌堆：").append(ctx.getDiscardPile().size()).append("    ")
+                .append("消耗堆：").append(ctx.getExhaustPile().size())
+                .append("\n");
+        buf.append(DIVIDER);
+
+        System.out.println(buf);
+    }
+
+    public String handFormat(FightContext ctx) {
+        StringBuilder buf = new StringBuilder();
         List<FightCard> hand = ctx.getHand();
         buf.append("你的手牌：").append(hand.size()).append("    ")
                 .append("剩余能量：").append(ctx.getEnergy())
@@ -198,16 +237,27 @@ public class FightManager {
         } else {
             buf.append(pileFormat(hand, false));
         }
-        buf.append(divider);
+        return buf.toString();
+    }
 
-        // 其它区
-        buf.append("抽牌堆：").append(ctx.getDrawPile().size()).append("    ")
-                .append("弃牌堆：").append(ctx.getDiscardPile().size()).append("    ")
-                .append("消耗堆：").append(ctx.getExhaustPile().size())
-                .append("\n");
-        buf.append(divider);
+    public String powerInfo(Fighter fighter) {
+        StringBuilder buf = new StringBuilder();
+        buf.append(left(kw(fighter.displayName()), 18));
+        String playerInfo = "  hp: %2d/%2d  block: %d  power: %d".formatted(fighter.hp(), fighter.maxHp(), fighter.block(), fighter.powers().size());
+        buf.append(playerInfo).append("\n");
 
-        System.out.println(buf);
+        // power
+        if (!fighter.powers().isEmpty()) {
+            buf.append("能力：\n");
+            for (Power power : fighter.powers()) {
+                // 痛击(3)：xxx
+                // 力量(5)：xxx
+                buf.append("    ").append(power.displayName())
+                        .append("：").append(power.description())
+                        .append("\n");
+            }
+        }
+        return buf.toString();
     }
 
     private void buildHandSegment(List<FightCard> pile, StringBuilder numBuf, StringBuilder cardBuf, int i, boolean showId) {

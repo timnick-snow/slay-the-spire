@@ -4,6 +4,7 @@ import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.enums.BlessLevel;
 import io.github.snow.spire.items.bless.*;
 import io.github.snow.spire.temp.RunContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.*;
  * @since 2023/12/11
  */
 @Component
+@Slf4j
 public class BlessManager {
     private final Map<BlessLevel, List<Bless>> blessMap = new HashMap<>();
     private Random blessRandom;
@@ -45,7 +47,9 @@ public class BlessManager {
         while (true) {
             int size = positiveList.size();
             int random = b + c * i + i + size;
-            positive = positiveList.get(random % size);
+            int idx = random % size;
+            log.info("random: {}, idx: {}", random, idx);
+            positive = positiveList.get(idx);
             i++;
             if (negative instanceof LossMaxHp && positive instanceof AddMaxHp) {
                 continue;

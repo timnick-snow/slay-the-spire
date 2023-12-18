@@ -17,7 +17,7 @@ public abstract class BasePower implements Power {
         if (!this.isStackable()) {
             return name();
         }
-        return "%s %d".formatted(name(), num);
+        return "%s(%d)".formatted(name(), num);
     }
 
     @Override

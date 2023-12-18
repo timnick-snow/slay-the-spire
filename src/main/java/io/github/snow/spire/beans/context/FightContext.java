@@ -212,7 +212,13 @@ public class FightContext {
         }
     }
 
-    public Optional<Fighter> findFighterById(String target) {
-        return null;
+    public Optional<Fighter> findFighterById(String id) {
+        if (player.number().equals(id)) {
+            return Optional.ofNullable(player);
+        }
+        return enemies.stream()
+                .filter(enemy -> enemy.number().equals(id))
+                .map(enemy -> (Fighter)enemy)
+                .findFirst();
     }
 }

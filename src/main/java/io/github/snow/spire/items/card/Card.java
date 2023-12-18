@@ -1,9 +1,6 @@
 package io.github.snow.spire.items.card;
 
-import io.github.snow.spire.enums.CardColor;
-import io.github.snow.spire.enums.CardRarity;
-import io.github.snow.spire.enums.CardType;
-import io.github.snow.spire.enums.Characters;
+import io.github.snow.spire.enums.*;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.EffectProducer;
 
@@ -43,6 +40,10 @@ public interface Card extends DisplayAble, EffectProducer {
     Card copy(String id);
 
     boolean isPlayable();
+
+    default CardPosition positionOnEnd() {
+        return CardPosition.DISCARD_PILE;
+    }
 
     default boolean isRemovable() {
         return true;

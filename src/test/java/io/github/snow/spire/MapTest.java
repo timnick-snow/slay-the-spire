@@ -11,10 +11,23 @@ import java.util.Random;
 public class MapTest {
     @Test
     public void fun1() throws Exception {
-        long seed = 123;
-        for (int i = 0; i < 100; i++) {
-            Random mapRandom = new Random(seed * 17 + i * 31 + 1);
-//            MapHandler.genActMap(0, mapRandom);
+        for (int k = 0; k < 10000; k++) {
+            Random blessRandom = new Random();
+            int a = blessRandom.nextInt(0, 1000);
+            int b = blessRandom.nextInt(0, 1000);
+            int c = blessRandom.nextInt(0, 1000);
+
+
+            int i = 0;
+            int size = 7;
+            for (int j = 0; j < 100; j++) {
+                int random = b + c * i + i + 7;
+                int idx = random % size;
+                i++;
+                if (idx < 0) {
+                    System.out.println(idx);
+                }
+            }
         }
     }
 }

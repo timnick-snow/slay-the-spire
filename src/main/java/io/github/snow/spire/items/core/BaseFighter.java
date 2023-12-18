@@ -77,7 +77,7 @@ public abstract class BaseFighter implements Fighter {
         Power origin = powers.get(power.id());
         if (origin == null) {
             powers.put(power.id(), power);
-            // 【邪教徒 e1】 获得了 【易伤 3】
+            // 【邪教徒 e1】 获得了 【易伤(3)】
             System.out.printf("【%s】 获得了 【%s】\n", displayName(), power.displayName());
         } else {
             if (origin.isStackable()) {

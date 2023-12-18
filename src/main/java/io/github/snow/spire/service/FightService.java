@@ -85,6 +85,30 @@ public class FightService {
         }
 
         fightManager.playCard(fightCard, playRule, ctx);
-        return "\ndone.\n";
+        return null;
+    }
+
+    public String powerInfo(String id) {
+        FightContext ctx = getRoomFight().fightContext();
+        Fighter fighter;
+        if (ObjectUtils.isEmpty(id)) {
+            fighter = ctx.getPlayer();
+        } else {
+            Optional<Fighter> fighterOpt = ctx.findFighterById(id);
+            if (fighterOpt.isEmpty()) {
+                return "未找到目标：" + id;
+            } else {
+                fighter = fighterOpt.get();
+            }
+        }
+        return fightManager.powerInfo(fighter);
+    }
+
+    public String hand() {
+        return fightManager.handFormat(getRoomFight().fightContext());
+    }
+
+    public void endRound() {
+        fightManager.endPlayerRound(getRoomFight().fightContext());
     }
 }

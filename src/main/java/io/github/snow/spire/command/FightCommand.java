@@ -32,6 +32,7 @@ public class FightCommand {
                 draw pile(or a)         ->  查看抽牌堆
                 discard pile(or s)      ->  查看弃牌堆
                 exhaust pile(or x)      ->  查看消耗堆
+                hand                    ->  查看手牌
                 card <card_id>          ->  查看指定卡牌的详细描述
                 """;
     }
@@ -52,6 +53,12 @@ public class FightCommand {
     @CommandAvailability(provider = {"availOnGaming", "availOnFight"})
     public void exhaustPile() {
         fightService.exhaustPile();
+    }
+
+    @Command(command = "hand", description = "List hand.")
+    @CommandAvailability(provider = {"availOnGaming", "availOnFight"})
+    public String hand() {
+        return fightService.hand();
     }
 
     @Command(command = "overview", description = "Overview.")
@@ -75,6 +82,18 @@ public class FightCommand {
             @Option(shortNames = 't', arity = EXACTLY_ONE) String target
     ) {
         return fightService.playCard(id, target);
+    }
+
+    @Command(command = "power", description = "Power information.")
+    @CommandAvailability(provider = {"availOnGaming", "availOnFight"})
+    public String power(@Option(shortNames = 'i', arity = EXACTLY_ONE) String id) {
+        return fightService.powerInfo(id);
+    }
+
+    @Command(command = "end", description = "End your round.")
+    @CommandAvailability(provider = {"availOnGaming", "availOnFight"})
+    public void end() {
+        fightService.endRound();
     }
 
     @Bean

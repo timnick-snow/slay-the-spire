@@ -1,5 +1,6 @@
 package io.github.snow.spire;
 
+import io.github.snow.spire.tool.Output;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -35,7 +36,7 @@ public class Gen {
             }
             if (line.startsWith("==")) {
                 superClass = line.substring(2, line.length() - 2);
-                System.out.println(superClass);
+                Output.println(superClass);
                 continue;
             }
             Result result = potionResult(line, classPackage, date, superClass);
@@ -75,7 +76,7 @@ public class Gen {
     private static Result relicResult(String line, String classPackage, String date, String superClass) {
         String[] split = line.split("\\|\\|");
         String className = Arrays.stream(split[0].trim().split(" "))
-                .map(s -> s.substring(0,1).toUpperCase(Locale.ROOT) + s.substring(1))
+                .map(s -> s.substring(0, 1).toUpperCase(Locale.ROOT) + s.substring(1))
                 .reduce("", (s1, s2) -> s1 + s2);
 
         StringBuilder buf = new StringBuilder(512);

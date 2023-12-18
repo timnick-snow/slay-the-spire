@@ -10,6 +10,7 @@ import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.*;
 import io.github.snow.spire.items.relic.Relic;
 import io.github.snow.spire.tool.Convert;
+import io.github.snow.spire.tool.Output;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.ObjectUtils;
@@ -96,7 +97,7 @@ public class FightContext {
      * 洗牌
      */
     public void shuffle() {
-        System.out.println("洗牌！");
+        Output.println("洗牌！");
 
         List<FightCard> list = new ArrayList<>();
         list.addAll(discardPile);
@@ -128,14 +129,14 @@ public class FightContext {
         List<FightCard> res = new ArrayList<>();
         while (num > 0) {
             if (hand.size() >= 10) {
-                System.out.println("手牌数已满！");
+                Output.println("手牌数已满！");
                 break;
             }
             if (drawPile.isEmpty()) {
                 if (!discardPile.isEmpty()) {
                     shuffle();
                 } else {
-                    System.out.println("无牌可抽了！");
+                    Output.println("无牌可抽了！");
                     break;
                 }
             }
@@ -145,7 +146,7 @@ public class FightContext {
             hand.add(fightCard);
             num--;
         }
-        System.out.printf("你抽取了 %d 张牌\n", res.size());
+        Output.printf("你抽取了 %d 张牌\n", res.size());
         return res;
     }
 
@@ -153,7 +154,7 @@ public class FightContext {
      * 敌人增加
      */
     public void addEnemy(Enemy enemy) {
-        System.out.printf("敌人 【%s】 出现了\n", enemy.displayName());
+        Output.printf("敌人 【%s】 出现了\n", enemy.displayName());
         this.enemies.add(enemy);
     }
 
@@ -165,7 +166,7 @@ public class FightContext {
     }
 
     public void setEnergy(int energy) {
-        System.out.printf("你的能量变为：%d\n", energy);
+        Output.printf("你的能量变为：%d\n", energy);
         this.energy = energy;
     }
 
@@ -188,7 +189,7 @@ public class FightContext {
 
     public void consumeEnergy(int cost) {
         this.energy = Math.max(0, energy - cost);
-        System.out.printf("你消耗了 %d 能量，剩余能量 %d\n", cost, energy);
+        Output.printf("你消耗了 %d 能量，剩余能量 %d\n", cost, energy);
     }
 
     public void moveCard(FightCard card, CardPosition dest) {
@@ -218,7 +219,7 @@ public class FightContext {
         }
         return enemies.stream()
                 .filter(enemy -> enemy.number().equals(id))
-                .map(enemy -> (Fighter)enemy)
+                .map(enemy -> (Fighter) enemy)
                 .findFirst();
     }
 }

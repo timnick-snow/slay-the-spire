@@ -9,6 +9,7 @@ import io.github.snow.spire.enums.RoomType;
 import io.github.snow.spire.items.enemy.Cultist;
 import io.github.snow.spire.items.map.RoomNode;
 import io.github.snow.spire.temp.RunContext;
+import io.github.snow.spire.tool.Output;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -55,9 +56,9 @@ public class RoomManager {
      * 进入房间
      */
     public EnterRoomResult enter(RoomNode roomNode) {
-        System.out.printf("你进入了 %d 房间。\n", roomNode.getId());
+        Output.printf("你进入了 %d 房间。\n", roomNode.getId());
         if (roomNode.getRoomType() == RoomType.MONSTER) {
-            System.out.println("【触发普通战斗！】");
+            Output.println("【触发普通战斗！】");
             FightContext ctx = new FightContext();
             ctx.addEnemy(new Cultist("e1"));
             ctx.setCombatType(CombatType.NORMAL);

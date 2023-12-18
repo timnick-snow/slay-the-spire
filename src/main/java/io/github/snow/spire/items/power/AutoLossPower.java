@@ -1,6 +1,7 @@
 package io.github.snow.spire.items.power;
 
 import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.tool.Output;
 
 /**
  * @author snow
@@ -26,6 +27,6 @@ public abstract class AutoLossPower extends BasePower {
         } else {
             info += "消失了";
         }
-        System.out.println(info);
+        Output.println(info);
     }
 }

@@ -2,6 +2,7 @@ package io.github.snow.spire.temp;
 
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.MainPage;
+import io.github.snow.spire.tool.Output;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,7 @@ public class GameContext implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        Output.setTerminal(terminal);
         this.terminal.writer().println("""
                 欢迎来到杀戮尖塔：
                     game start -> 开始游戏

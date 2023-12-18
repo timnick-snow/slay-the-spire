@@ -16,6 +16,7 @@ import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.Player;
 import io.github.snow.spire.items.power.Power;
 import io.github.snow.spire.temp.RunContext;
+import io.github.snow.spire.tool.Output;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +55,7 @@ public class FightManager {
      */
     public void startFight(FightContext ctx) {
         // 战斗开始
-        System.out.println("战斗开始！");
+        Output.println("战斗开始！");
         ctx.getPlayer().onFightStart(ctx);
         ctx.shuffle();
 
@@ -67,7 +68,7 @@ public class FightManager {
      */
     public void playerRoundStart(FightContext ctx) {
         int round = ctx.roundAdd();
-        System.out.printf("\n【第 %d 回合】 - 玩家回合阶段\n", round);
+        Output.printf("\n【第 %d 回合】 - 玩家回合阶段\n", round);
         ctx.getPlayer().onRoundStart(ctx);
 
         // 1. 抽牌
@@ -104,7 +105,7 @@ public class FightManager {
                     } else if (playRule.getMaster() == null && ctx.getEnemies().size() == 1) {
                         targets.add(ctx.getEnemies().getFirst());
                     } else {
-                        System.out.println("你需要指定一个敌方目标");
+                        Output.println("你需要指定一个敌方目标");
                         return;
                     }
                 }
@@ -115,7 +116,7 @@ public class FightManager {
         }
 
         // 2. 打出消耗能量
-        System.out.printf("你打出卡牌 【%s】\n", card.displayName());
+        Output.printf("你打出卡牌 【%s】\n", card.displayName());
         ctx.consumeEnergy(card.cost());
         ctx.moveCard(card, CardPosition.PLAY_ZONE);
 
@@ -126,8 +127,8 @@ public class FightManager {
         ctx.moveCard(card, CardPosition.DISCARD_PILE);
 
         // 5. 剩余手牌
-        System.out.println("done.\n");
-        System.out.println(handFormat(ctx));
+        Output.println("done.\n");
+        Output.println(handFormat(ctx));
     }
 
     /**
@@ -150,7 +151,7 @@ public class FightManager {
             for (FightCard card : discard) {
                 buf.append(kw(card.displayName())).append("  ");
             }
-            System.out.println(buf);
+            Output.println(buf.toString());
         }
 
         // 2. 敌方回合开始
@@ -161,11 +162,11 @@ public class FightManager {
      * 敌方回合开始
      */
     public void enemyRoundStart(FightContext ctx) {
-        System.out.printf("\n【第 %d 回合】 - 敌方回合阶段\n", ctx.getRound());
+        Output.printf("\n【第 %d 回合】 - 敌方回合阶段\n", ctx.getRound());
         ctx.getEnemies().forEach(enemy -> enemy.onRoundStart(ctx));
 
         // 1. 获取意图的效果
-        System.out.println("todo 敌军行动");
+        Output.println("todo 敌军行动");
         // 2. 执行效果
 
         // 3. 玩家下一回开始
@@ -223,7 +224,7 @@ public class FightManager {
                 .append("\n");
         buf.append(DIVIDER);
 
-        System.out.println(buf);
+        Output.println(buf.toString());
     }
 
     public String handFormat(FightContext ctx) {
@@ -299,7 +300,7 @@ public class FightManager {
                                 
                 %s
                 """.formatted(title, pile.size(), pileFormat(list, true));
-        System.out.println(res);
+        Output.println(res);
     }
 
 /*

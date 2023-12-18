@@ -4,6 +4,7 @@ import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.enums.PowerType;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
 import io.github.snow.spire.items.power.AutoLossPower;
+import io.github.snow.spire.tool.Output;
 
 /**
  * @author snow
@@ -20,7 +21,7 @@ public class Vulnerable extends AutoLossPower {
     @Override
     public void onBeAttacked(DamageGroup damageGroup, FightContext ctx) {
         // todo 和遗物的互动
-        System.out.println("【易伤】 触发");
+        Output.println("【易伤】 触发");
         int base = damageGroup.getBase();
         damageGroup.setBase((int) (base * (1 + percent)));
     }

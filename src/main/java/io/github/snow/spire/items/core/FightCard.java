@@ -8,6 +8,7 @@ import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
 import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.effect.RoughEffect;
+import io.github.snow.spire.tool.Output;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -55,11 +56,11 @@ public class FightCard implements Card {
 
     public boolean isPlayable(PlayRule playRule, FightContext ctx) {
         if (!isPlayable()) {
-            System.out.println("这张卡牌 【不能打出】 ！");
+            Output.println("这张卡牌 【不能打出】 ！");
             return false;
         }
         if (ctx.getEnergy() < cost()) {
-            System.out.println("能量不足！");
+            Output.println("能量不足！");
             return false;
         }
         return true;

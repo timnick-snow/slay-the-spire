@@ -1,5 +1,6 @@
 package io.github.snow.spire;
 
+import io.github.snow.spire.tool.Output;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;

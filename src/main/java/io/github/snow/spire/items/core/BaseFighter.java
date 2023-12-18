@@ -5,6 +5,7 @@ import io.github.snow.spire.items.effect.rough.BlockAdder;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
 import io.github.snow.spire.items.effect.rough.PowerAdder;
 import io.github.snow.spire.items.power.Power;
+import io.github.snow.spire.tool.Output;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,7 +61,7 @@ public abstract class BaseFighter implements Fighter {
             // [2/2] 对 【邪教徒 e1】 造成 5 伤害，格挡 1 伤害，损失 4 点生命值。 当前状态 { hp: 36/40, block: 0 }
             String log = "[%d/%d] 对 【%s】 造成 %d 伤害，格挡 %d 伤害，损失 %d 点生命值。 当前状态 { hp: %d/%d, block: %d }"
                     .formatted(i + 1, num, displayName(), base, block0, realInjured, hp(), maxHp(), block());
-            System.out.println(log);
+            Output.println(log);
             if (this.hp <= 0) {
                 break;
             }
@@ -78,13 +79,13 @@ public abstract class BaseFighter implements Fighter {
         if (origin == null) {
             powers.put(power.id(), power);
             // 【邪教徒 e1】 获得了 【易伤(3)】
-            System.out.printf("【%s】 获得了 【%s】\n", displayName(), power.displayName());
+            Output.printf("【%s】 获得了 【%s】\n", displayName(), power.displayName());
         } else {
             if (origin.isStackable()) {
                 // 【邪教徒 e1】 身上的 【易伤】 增加了：2 -> 5
                 int old = origin.amount();
                 origin.stack(power.amount());
-                System.out.printf("【%s】 身上的 【%s】 增加了：%d -> %d\n", displayName(), power.name(), old, origin.amount());
+                Output.printf("【%s】 身上的 【%s】 增加了：%d -> %d\n", displayName(), power.name(), old, origin.amount());
             }
         }
         return new PowerResult();
@@ -96,7 +97,7 @@ public abstract class BaseFighter implements Fighter {
         this.block += add;
         String log = "【%s】 增加了 %d 格挡。 当前状态 { hp: %d/%d, block: %d }"
                 .formatted(displayName(), add, hp(), maxHp(), block());
-        System.out.println(log);
+        Output.println(log);
     }
 
     @Override

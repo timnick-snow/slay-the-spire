@@ -6,6 +6,7 @@ import io.github.snow.spire.game.Deck;
 import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.core.FightCard;
 import io.github.snow.spire.items.core.Fighter;
+import io.github.snow.spire.items.effect.Effect;
 import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.*;
 import io.github.snow.spire.items.relic.Relic;
@@ -36,8 +37,8 @@ public class FightContext {
     private List<Relic> relics;
 
     // 当前回合数
-    private int round;
-    private int round2;
+    private int round = 1;
+    private int round2 = 1;
 
     // 剩余能量
     private int energy;
@@ -65,6 +66,8 @@ public class FightContext {
     private int cid;
 
     private boolean completed;
+    // 效果队列
+    private Deque<Effect<?>> effectDeque;
 
     public FightContext() {
         enemies = new ArrayList<>();
@@ -74,6 +77,7 @@ public class FightContext {
         discardPile = new ArrayDeque<>();
         exhaustPile = new ArrayDeque<>();
         playZone = new ArrayDeque<>();
+        effectDeque = new ArrayDeque<>();
     }
 
     public void init(RunSupport runSupport) {
@@ -162,14 +166,12 @@ public class FightContext {
     /**
      * 回合增加
      */
-    public int roundAdd() {
+    public void roundAdd() {
         ++round;
-        return round;
     }
 
-    public int round2Add() {
+    public void round2Add() {
         ++round2;
-        return round2;
     }
 
     public void setEnergy(int energy) {
@@ -229,5 +231,42 @@ public class FightContext {
                 .filter(enemy -> enemy.number().equals(id))
                 .map(enemy -> (Fighter) enemy)
                 .findFirst();
+    }
+
+    public void addEffectTail(Effect<?> effect) {
+        this.effectDeque.addLast(effect);
+    }
+
+    public void addEffectTail(List<Effect<?>> effects) {
+        this.effectDeque.addAll(effects);
+    }
+
+    public void addEffectHead(Effect<?> effect) {
+        this.effectDeque.addFirst(effect);
+    }
+
+    public void addEffectHead(List<Effect<?>> effects) {
+        for (int i = effects.size() - 1; i >= 0; i--) {
+            this.effectDeque.addFirst(effects.get(i));
+        }
+    }
+
+    public void runEffect() {
+        while (!effectDeque.isEmpty()) {
+            Effect<?> effect = effectDeque.pollFirst();
+            effect.work(this);
+            if (player.isDie()) {
+                Output.println("\n你死了！\n");
+                this.completed = true;
+                runSupport.gameOver();
+                break;
+            }
+            enemies.removeIf(Fighter::isDie);
+            if (enemies.isEmpty()) {
+                Output.println("\n战斗胜利！\n");
+                this.completed = true;
+                break;
+            }
+        }
     }
 }

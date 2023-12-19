@@ -11,9 +11,9 @@ import org.jline.terminal.Terminal;
 public class Output {
     private static Terminal terminal;
     /**
-     * 非常慢 - 慢速 - 中速 - 快速 - 非常快 - 极快 - 无延迟
+     * 1 - 2 - 3 - 4 - 5 - 6 - 7
      */
-    private static final int[] DELAY_TIME = {1500, 1000, 750, 500, 250, 100, 0};
+    private static final int[] DELAY_TIME = {1000, 800, 650, 500, 300, 150, 0};
     private static final int SPEED = 3;
 
 

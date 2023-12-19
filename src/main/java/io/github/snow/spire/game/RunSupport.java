@@ -325,6 +325,12 @@ public class RunSupport {
         return res;
     }
 
+    public void gameOver() {
+        this.runContext = null;
+        gameContext.clearRun();
+        gameContext.setMainPage(MainPage.CATALOG);
+    }
+
     private List<Bless> genBless() {
         ArrayList<Bless> list = new ArrayList<>();
         // 前2个祝福

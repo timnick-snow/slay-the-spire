@@ -29,6 +29,9 @@ public interface FightLifecycle {
     default void onRoundEnd(FightContext ctx) {
     }
 
+    default void simulateAttack(DamageGroup damageGroup, FightContext ctx) {
+    }
+
     /**
      * 发起进攻
      */

@@ -20,6 +20,11 @@ public class Strength extends BasePower {
     }
 
     @Override
+    public void simulateAttack(DamageGroup damageGroup, FightContext ctx) {
+        damageGroup.setBase(damageGroup.getBase() + amount());
+    }
+
+    @Override
     public String name() {
         return "力量";
     }

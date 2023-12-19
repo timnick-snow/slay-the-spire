@@ -56,7 +56,7 @@ public abstract class BaseFighter implements Fighter {
                 ValueWrapper real = new ValueWrapper(realInjured);
                 // 受到真实伤害
                 powers.values().forEach(power -> power.onGetInjured(real, ctx));
-                realInjured = real.getValue();
+                realInjured = Math.min(real.getValue(), this.hp);
                 total += realInjured;
                 this.hp -= realInjured;
             }
@@ -69,7 +69,7 @@ public abstract class BaseFighter implements Fighter {
                 break;
             }
         }
-        return new AttackResult(total, blockDamage, this.hp <= 0);
+        return new AttackResult(total, blockDamage, isDie());
     }
 
     @Override
@@ -131,5 +131,10 @@ public abstract class BaseFighter implements Fighter {
     @Override
     public int blockLossOnRoundStart() {
         return block;
+    }
+
+    @Override
+    public boolean isDie() {
+        return this.hp <= 0;
     }
 }

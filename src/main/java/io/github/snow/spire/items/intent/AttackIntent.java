@@ -4,7 +4,6 @@ import io.github.snow.spire.enums.EffectTarget;
 import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.core.SourceChain;
 import io.github.snow.spire.items.effect.RoughEffect;
-import io.github.snow.spire.items.effect.finished.DamageEffect;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
 import lombok.RequiredArgsConstructor;
 

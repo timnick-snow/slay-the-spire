@@ -101,7 +101,7 @@ public class FightService {
                 fighter = fighterOpt.get();
             }
         }
-        return fightManager.powerInfo(fighter);
+        return fightManager.powerInfo(fighter,ctx);
     }
 
     public String hand() {

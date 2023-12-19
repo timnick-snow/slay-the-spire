@@ -3,9 +3,9 @@ package io.github.snow.spire.items;
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CombatType;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.card.Stack;
 import io.github.snow.spire.items.card.*;
-import io.github.snow.spire.temp.RunContext;
 import io.github.snow.spire.tool.RandomUtil;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -25,6 +25,7 @@ public class CardManager {
     private Random otherRandom;
     private Random cardRandom;
     private int offset;
+    private RunSupport runSupport;
 
     // 基本稀有度概率
     private static final int[][] BASE_RARITY = {{30, 370, 600}, {100, 400, 500}};
@@ -35,7 +36,8 @@ public class CardManager {
      * 一张卡牌不能转变为同一张卡牌。
      * 无法将卡牌转变为基本卡牌、特殊卡。
      */
-    public List<Card> transformCard(List<Card> src, List<String> ids) {
+    public List<Card> transformCard(List<Card> src) {
+        List<String> ids = runSupport.nextItemIds("c", src.size());
         List<Card> res = new ArrayList<>();
         for (int i = 0; i < src.size(); i++) {
             Card srcCard = src.get(i);
@@ -63,7 +65,10 @@ public class CardManager {
      * 对于每张卡牌，游戏首先决定其稀有度。然后它随机选择一张具有该稀有度的卡牌。
      * 卡牌奖励中卡牌是否升级取决于玩家的行为。只有普通和不常见的卡牌可以通过这种方式升级，稀有卡牌不会通过随机机会升级。
      */
-    public List<Card> rewardCard(Predicate<Card> filter, List<String> ids, CombatType combatType, int act) {
+    public List<Card> rewardCard(Predicate<Card> filter, CombatType combatType) {
+        int act = runSupport.getRunContext().getAct();
+        List<String> ids = runSupport.nextItemIds("c", 3);
+
         if (combatType == CombatType.BOSS) {
             throw new IllegalCallerException("cannot gen boss reward here.");
         }
@@ -112,7 +117,10 @@ public class CardManager {
         }
     }
 
-    public List<Card> getRandoms(Predicate<Card> filter, List<String> ids, int act) {
+    public List<Card> getRandoms(Predicate<Card> filter) {
+        int act = runSupport.getRunContext().getAct();
+        List<String> ids = runSupport.nextItemIds("c", 3);
+
         List<Card> list = cardList.stream().filter(filter).toList();
         List<Card> res = new ArrayList<>();
         Set<String> set = new HashSet<>();
@@ -122,7 +130,9 @@ public class CardManager {
         return res;
     }
 
-    public Card getRandom(Predicate<Card> filter, String id) {
+    public Card getRandom(Predicate<Card> filter) {
+        String id = runSupport.nextItemId("c");
+
         List<Card> list = cardList.stream().filter(filter).toList();
         int value = otherRandom.nextInt(0, 1000);
         Card card = list.get(value % list.size());
@@ -199,9 +209,10 @@ public class CardManager {
 
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
-        RunContext source = (RunContext) event.getSource();
-        this.otherRandom = source.getRandomManage().getOtherRandom();
-        this.cardRandom = source.getRandomManage().getCardRandom();
+        RunSupport source = (RunSupport) event.getSource();
+        this.runSupport = source;
+        this.otherRandom = source.getRunContext().getRandomManage().getOtherRandom();
+        this.cardRandom = source.getRunContext().getRandomManage().getCardRandom();
         this.cardList.clear();
         this.offset = -50;
 

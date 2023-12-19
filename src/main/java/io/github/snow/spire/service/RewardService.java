@@ -51,8 +51,11 @@ public class RewardService {
 
         String res = "";
         if (rewards.isEmpty()) {
-            runSupport.goHint();
-            res = "\n%s\n".formatted(runSupport.tips());
+            if (runSupport.canLeaveRoom()) {
+                runSupport.leaveRoom();
+                runSupport.goHint();
+                res = "\n%s\n".formatted(runSupport.tips());
+            }
         }
         return res;
     }

@@ -11,10 +11,10 @@ import org.jline.terminal.Terminal;
 public class Output {
     private static Terminal terminal;
     /**
-     * 1 - 2 - 3 - 4 - 5 - 6 - 7
+     * 1 - 11
      */
-    private static final int[] DELAY_TIME = {1000, 800, 650, 500, 300, 150, 0};
-    private static final int SPEED = 3;
+    private static final int[] DELAY_TIME = {1000, 900, 800, 700, 600, 500, 400, 300, 200, 100, 0};
+    private static int SPEED = 6;
 
 
     public static void println(String x) {
@@ -42,5 +42,9 @@ public class Output {
 
     public static void setTerminal(Terminal _terminal) {
         Output.terminal = _terminal;
+    }
+
+    public static void setSpeed(int speed) {
+        Output.SPEED = speed;
     }
 }

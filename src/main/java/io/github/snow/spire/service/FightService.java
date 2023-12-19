@@ -36,19 +36,19 @@ public class FightService {
     }
 
     public void overview() {
-        fightManager.overview(getRoomFight().fightContext());
+        fightManager.overview();
     }
 
     public void drawPile() {
-        fightManager.drawPile(getRoomFight().fightContext());
+        fightManager.drawPile();
     }
 
     public void discardPile() {
-        fightManager.discardPile(getRoomFight().fightContext());
+        fightManager.discardPile();
     }
 
     public void exhaustPile() {
-        fightManager.exhaustPile(getRoomFight().fightContext());
+        fightManager.exhaustPile();
     }
 
     public String card(String id) {
@@ -84,7 +84,7 @@ public class FightService {
             playRule.setMaster(fighterOpt.get());
         }
 
-        fightManager.playCard(fightCard, playRule, ctx);
+        fightManager.playCard(fightCard, playRule);
         return null;
     }
 
@@ -101,14 +101,14 @@ public class FightService {
                 fighter = fighterOpt.get();
             }
         }
-        return fightManager.powerInfo(fighter,ctx);
+        return fightManager.powerInfo(fighter);
     }
 
     public String hand() {
-        return fightManager.handFormat(getRoomFight().fightContext());
+        return fightManager.handFormat();
     }
 
     public void endRound() {
-        fightManager.endPlayerRound(getRoomFight().fightContext());
+        fightManager.endPlayerRound();
     }
 }

@@ -1,5 +1,6 @@
 package io.github.snow.spire.game;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.beans.pojo.EnterRoomResult;
 import io.github.snow.spire.beans.pojo.RoomChoose;
@@ -75,7 +76,7 @@ public class RunSupport {
         this.runContext = gameContext.genRun(role, level);
         gameContext.setMainPage(MainPage.GAMING);
         // 发布事件
-        applicationContext.publishEvent(new GameStartEvent(runContext));
+        applicationContext.publishEvent(new GameStartEvent(this));
         // 生成地图
         runContext.setMap(mapManager.gen());
     }
@@ -196,11 +197,11 @@ public class RunSupport {
      * 药水奖励
      */
     public void rewardPotion(int num) {
-        List<Reward> list = new ArrayList<>();
-        for (int i = 0; i < num; i++) {
-            Potion potion = potionManager.getPotion(nextItemId("p"));
-            list.add(new PotionReward(potion));
-        }
+        List<Potion> potionList = potionManager.getPotion(num);
+        List<Reward> list = potionList.stream()
+                .map(PotionReward::new)
+                .map(pr -> (Reward) pr)
+                .toList();
         addAndShowRewards(list);
     }
 
@@ -226,13 +227,12 @@ public class RunSupport {
     }
 
     public void addRandomCard(Predicate<Card> filter) {
-        Card card = cardManager.getRandom(filter, nextItemId("c"));
+        Card card = cardManager.getRandom(filter);
         addCard(card);
     }
 
     public boolean rewardChooseCard(Predicate<Card> filter) {
-        List<String> ids = nextItemIds("c", 3);
-        List<Card> cards = cardManager.getRandoms(filter, ids, runContext.getAct());
+        List<Card> cards = cardManager.getRandoms(filter);
         CardReward reward = new CardReward(cards);
         boolean taken = reward.take(this);
         if (taken) {
@@ -243,9 +243,8 @@ public class RunSupport {
     }
 
     public boolean rewardChooseCard() {
-        List<String> ids = nextItemIds("c", 3);
         Predicate<Card> filter = card -> card.color() == runContext.getCharacter().color();
-        List<Card> cards = cardManager.rewardCard(filter, ids, CombatType.NORMAL, runContext.getAct());
+        List<Card> cards = cardManager.rewardCard(filter, CombatType.NORMAL);
         CardReward reward = new CardReward(cards);
         boolean taken = reward.take(this);
         if (taken) {
@@ -272,8 +271,7 @@ public class RunSupport {
 
     public void transformCard(int n) {
         List<Card> removed = flowService.transformCard(runContext.getDeck(), n);
-        List<String> ids = nextItemIds("c", removed.size());
-        List<Card> adds = cardManager.transformCard(removed, ids);
+        List<Card> adds = cardManager.transformCard(removed);
         for (Card card : adds) {
             addCard(card);
         }
@@ -304,7 +302,7 @@ public class RunSupport {
         }
 
         if (res) {
-            EnterRoomResult roomResult = roomManager.enter(roomNode,runContext);
+            EnterRoomResult roomResult = roomManager.enter(roomNode, runContext);
             runContext.setStair(roomNode.getStair());
             runContext.setRoomId(roomNode.getId());
 
@@ -325,10 +323,34 @@ public class RunSupport {
         return res;
     }
 
+    // 战斗胜利
+    public void fightVictory(FightContext fightContext) {
+        List<Reward> list = rewardManager.fightReward(fightContext.getCombatType());
+        addAndShowRewards(list);
+    }
+
     public void gameOver() {
         this.runContext = null;
         gameContext.clearRun();
         gameContext.setMainPage(MainPage.CATALOG);
+    }
+
+    public boolean canLeaveRoom() {
+        EnterRoomResult roomResult = runContext.getRoomResult();
+        return switch (roomResult) {
+            case RoomChoose roomChoose -> false;
+            case RoomFight roomFight -> roomFight.fightContext().isCompleted();
+            case RoomFree roomFree -> true;
+        };
+    }
+
+    public void leaveRoom() {
+        boolean can = canLeaveRoom();
+        if (!can) {
+            writeAndFlush("你还不能离开房间！");
+            return;
+        }
+        runContext.setRoomResult(null);
     }
 
     private List<Bless> genBless() {

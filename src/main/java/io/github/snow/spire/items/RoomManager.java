@@ -6,6 +6,7 @@ import io.github.snow.spire.beans.pojo.EnterRoomResult;
 import io.github.snow.spire.beans.pojo.RoomFight;
 import io.github.snow.spire.enums.CombatType;
 import io.github.snow.spire.enums.RoomType;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.enemy.Cultist;
 import io.github.snow.spire.items.map.RoomNode;
 import io.github.snow.spire.temp.RunContext;
@@ -40,10 +41,10 @@ public class RoomManager {
 
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
-        RunContext source = (RunContext) event.getSource();
-        this.roomRandom1 = source.getRandomManage().getRoomRandom1();
-        this.roomRandom2 = source.getRandomManage().getRoomRandom2();
-        this.eventRandom = source.getRandomManage().getEventRandom();
+        RunContext runContext = ((RunSupport) event.getSource()).getRunContext();
+        this.roomRandom1 = runContext.getRandomManage().getRoomRandom1();
+        this.roomRandom2 = runContext.getRandomManage().getRoomRandom2();
+        this.eventRandom = runContext.getRandomManage().getEventRandom();
     }
 
     /*

@@ -1,6 +1,7 @@
 package io.github.snow.spire.items;
 
 import io.github.snow.spire.beans.context.GameStartEvent;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.temp.RunContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -28,8 +29,8 @@ public class BossManager {
 
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
-        RunContext source = (RunContext) event.getSource();
-        this.bossRandom = source.getRandomManage().getBossRandom();
+        RunSupport source = (RunSupport) event.getSource();
+        this.bossRandom = source.getRunContext().getRandomManage().getBossRandom();
         this.boss = new String[4];
         initBoss();
     }

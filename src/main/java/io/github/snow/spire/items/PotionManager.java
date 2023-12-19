@@ -3,6 +3,7 @@ package io.github.snow.spire.items;
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.PotionRarity;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.potion.*;
 import io.github.snow.spire.temp.RunContext;
 import io.github.snow.spire.tool.RandomUtil;
@@ -19,6 +20,7 @@ import java.util.*;
 public class PotionManager {
     private final Map<PotionRarity, List<Potion>> potionMap = new HashMap<>();
     private Random potionRandom;
+    private RunSupport runSupport;
     /*
      * 普通 - 65%
      * 罕见 - 25%
@@ -26,30 +28,36 @@ public class PotionManager {
      */
     private static final int[] ODDS = {650, 250, 100};
 
-    public Potion getPotion(String id) {
-        int a = potionRandom.nextInt(0, 1000);
-        int b = potionRandom.nextInt(0, 1000);
+    public List<Potion> getPotion(int num) {
+        List<Potion> res = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            String id = runSupport.nextItemId("p");
+            int a = potionRandom.nextInt(0, 1000);
+            int b = potionRandom.nextInt(0, 1000);
 
-        int idx = RandomUtil.randomIndex(ODDS, a);
-        PotionRarity rarity = switch (idx) {
-            case 0 -> PotionRarity.COMMON;
-            case 1 -> PotionRarity.UNCOMMON;
-            case 2 -> PotionRarity.RARE;
-            default -> throw new IllegalStateException("Unexpected value: " + idx);
-        };
+            int idx = RandomUtil.randomIndex(ODDS, a);
+            PotionRarity rarity = switch (idx) {
+                case 0 -> PotionRarity.COMMON;
+                case 1 -> PotionRarity.UNCOMMON;
+                case 2 -> PotionRarity.RARE;
+                default -> throw new IllegalStateException("Unexpected value: " + idx);
+            };
 
-        List<Potion> potions = potionMap.get(rarity);
-        Potion potion = potions.get(b % potions.size());
-        return potion.copy(id);
+            List<Potion> potions = potionMap.get(rarity);
+            Potion potion = potions.get(b % potions.size());
+            potion.copy(id);
+        }
+        return res;
     }
 
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
-        RunContext source = (RunContext) event.getSource();
-        this.potionRandom = source.getRandomManage().getPotionRandom();
+        RunSupport source = (RunSupport) event.getSource();
+        this.runSupport = source;
+        this.potionRandom = source.getRunContext().getRandomManage().getPotionRandom();
         this.potionMap.clear();
 
-        registerAll(source.getCharacter());
+        registerAll(source.getRunContext().getCharacter());
     }
 
     private void registerAll(Characters character) {

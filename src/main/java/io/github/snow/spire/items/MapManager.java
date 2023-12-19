@@ -3,6 +3,7 @@ package io.github.snow.spire.items;
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.beans.pojo.RoomAmend;
 import io.github.snow.spire.enums.RoomType;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.map.FloorRooms;
 import io.github.snow.spire.items.map.RoomNode;
 import io.github.snow.spire.items.map.WayBranch;
@@ -343,7 +344,7 @@ _____  M
 
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
-        RunContext source = (RunContext) event.getSource();
-        this.mapRandom = source.getRandomManage().getMapRandom();
+        RunSupport source = (RunSupport) event.getSource();
+        this.mapRandom = source.getRunContext().getRandomManage().getMapRandom();
     }
 }

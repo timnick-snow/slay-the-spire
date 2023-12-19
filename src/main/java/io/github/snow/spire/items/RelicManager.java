@@ -3,6 +3,7 @@ package io.github.snow.spire.items;
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.RelicRarity;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.relic.*;
 import io.github.snow.spire.temp.RunContext;
 import org.springframework.context.event.EventListener;
@@ -30,12 +31,12 @@ public class RelicManager {
 
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
-        RunContext source = (RunContext) event.getSource();
-        this.relicRandom = source.getRandomManage().getRelicRandom();
+        RunSupport source = (RunSupport) event.getSource();
+        this.relicRandom = source.getRunContext().getRandomManage().getRelicRandom();
         this.relicMap.clear();
         this.index.clear();
 
-        registerAll(source.getCharacter());
+        registerAll(source.getRunContext().getCharacter());
 
         for (var entry : relicMap.entrySet()) {
             index.put(entry.getKey(), 0);

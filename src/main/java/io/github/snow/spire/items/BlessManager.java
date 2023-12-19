@@ -2,6 +2,7 @@ package io.github.snow.spire.items;
 
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.enums.BlessLevel;
+import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.bless.*;
 import io.github.snow.spire.temp.RunContext;
 import lombok.extern.slf4j.Slf4j;
@@ -68,8 +69,8 @@ public class BlessManager {
 
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
-        RunContext source = (RunContext) event.getSource();
-        this.blessRandom = source.getRandomManage().getOtherRandom();
+        RunSupport source = (RunSupport) event.getSource();
+        this.blessRandom = source.getRunContext().getRandomManage().getOtherRandom();
         this.blessMap.clear();
 
         register(new AddMoreMaxHp());

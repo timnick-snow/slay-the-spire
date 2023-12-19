@@ -60,7 +60,11 @@ public class FightContext {
 
     // 其它。。。
     private RunSupport runSupport;
+
+    // 战斗类型
     private CombatType combatType;
+
+    // 洗牌随机数
     private Random shuffleRandom;
 
     private int cid;
@@ -265,6 +269,7 @@ public class FightContext {
             if (enemies.isEmpty()) {
                 Output.println("\n战斗胜利！\n");
                 this.completed = true;
+                runSupport.fightVictory(this);
                 break;
             }
         }

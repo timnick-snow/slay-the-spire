@@ -5,7 +5,6 @@ import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.beans.pojo.PlayRule;
 import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.enums.EffectTarget;
-import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightCard;
@@ -19,12 +18,14 @@ import io.github.snow.spire.items.intent.AttackIntent;
 import io.github.snow.spire.items.intent.Intent;
 import io.github.snow.spire.items.player.Player;
 import io.github.snow.spire.items.power.Power;
-import io.github.snow.spire.temp.RunContext;
 import io.github.snow.spire.tool.Output;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Deque;
+import java.util.List;
 
 import static io.github.snow.spire.tool.FormatUtil.*;
 
@@ -34,21 +35,7 @@ import static io.github.snow.spire.tool.FormatUtil.*;
  */
 @Component
 public class FightManager {
-
-    /**
-     * 战斗随机数 - 战斗内的随机数1 - 己方
-     */
-    private Random fightRandom1;
-    /**
-     * 战斗随机数 - 战斗内的随机数2 - 敌方
-     */
-    private Random fightRandom2;
-    /**
-     * 战斗随机数 - 战斗内的随机数3 - 其它
-     */
-    private Random fightRandom3;
-
-    private RunSupport runSupport;
+    private FightContext ctx;
 
     final static String DIVIDER = "-".repeat(140) + "\n";
 
@@ -60,19 +47,20 @@ public class FightManager {
      * 开始战斗
      */
     public void startFight(FightContext ctx) {
+        this.ctx = ctx;
         // 战斗开始
         Output.println("战斗开始！");
         ctx.getPlayer().onFightStart(ctx);
         ctx.shuffle();
 
         // 回合开始
-        playerRoundStart(ctx);
+        playerRoundStart();
     }
 
     /**
      * 玩家回合开始 -> 抽牌 -> 打牌 -> 玩家回合结束
      */
-    public void playerRoundStart(FightContext ctx) {
+    public void playerRoundStart() {
         Output.printf("\n【第 %d 回合】 - 玩家回合阶段\n", ctx.getRound());
         ctx.getPlayer().onRoundStart(ctx);
 
@@ -83,13 +71,13 @@ public class FightManager {
         ValueWrapper energyNum = ValueWrapper.of(3);
         ctx.setEnergy(energyNum.getValue());
         // 3. 当前战斗内概述信息 => 等待玩家打牌
-        overview(ctx);
+        overview();
     }
 
     /**
      * 打出卡牌
      */
-    public void playCard(FightCard card, PlayRule playRule, FightContext ctx) {
+    public void playCard(FightCard card, PlayRule playRule) {
         if (!card.isPlayable(playRule, ctx)) {
             // 0. 卡牌不可打出
             return;
@@ -137,13 +125,13 @@ public class FightManager {
 
         // 5. 剩余手牌
         Output.println("done.\n");
-        Output.println(handFormat(ctx));
+        Output.println(handFormat());
     }
 
     /**
      * 结束玩家回合
      */
-    public void endPlayerRound(FightContext ctx) {
+    public void endPlayerRound() {
         // 1. 剩余手牌的去向
         List<FightCard> handCopy = new ArrayList<>(ctx.getHand());
         List<FightCard> discard = new ArrayList<>();
@@ -165,13 +153,13 @@ public class FightManager {
 
         ctx.roundAdd();
         // 2. 敌方回合开始
-        enemyRoundStart(ctx);
+        enemyRoundStart();
     }
 
     /**
      * 敌方回合开始
      */
-    public void enemyRoundStart(FightContext ctx) {
+    public void enemyRoundStart() {
         Output.printf("\n【第 %d 回合】 - 敌方回合阶段\n", ctx.getRound2());
         ctx.getEnemies().forEach(enemy -> enemy.onRoundStart(ctx));
 
@@ -205,10 +193,10 @@ public class FightManager {
         ctx.round2Add();
 
         // 3. 玩家下一回开始
-        playerRoundStart(ctx);
+        playerRoundStart();
     }
 
-    public void overview(FightContext ctx) {
+    public void overview() {
         /*
         ---------------------------------------------------------------------------------------------------
         【机甲战士】 hp: 70/70  block: 0  power: 0  |  【邪教徒 e1】 hp: 40/40  block: 0  power: 0  意图：攻势(6*6) + 强化 + 其它
@@ -243,14 +231,14 @@ public class FightManager {
         for (Enemy enemy : enemies) {
             buf.append("  ").append(left(kw(enemy.displayName()), 18));
             buf.append(" hp: %d/%d  block: %d  power: %d  意图：%s"
-                    .formatted(enemy.hp(), enemy.maxHp(), enemy.block(), enemy.powers().size(), intentFormat(enemy, ctx, false)));
+                    .formatted(enemy.hp(), enemy.maxHp(), enemy.block(), enemy.powers().size(), intentFormat(enemy, false)));
             buf.append("\n");
             buf.append(" ".repeat(leftPadding)).append("|");
         }
         buf.append("\n").append(DIVIDER);
 
         // 手牌区
-        buf.append(handFormat(ctx));
+        buf.append(handFormat());
         buf.append(DIVIDER);
 
         // 其它区
@@ -263,7 +251,7 @@ public class FightManager {
         Output.println(buf.toString());
     }
 
-    private String intentFormat(Enemy enemy, FightContext ctx, boolean verbose) {
+    private String intentFormat(Enemy enemy, boolean verbose) {
         Intent intent = enemy.intent(ctx);
         RoughEffect<?> roughEffect = intent.getRoughEffect(enemy).getFirst();
         if (roughEffect instanceof DamageGroup damageGroup) {
@@ -276,7 +264,7 @@ public class FightManager {
         return "%s：%s".formatted(intent.displayName(), intent.description());
     }
 
-    public String handFormat(FightContext ctx) {
+    public String handFormat() {
         StringBuilder buf = new StringBuilder();
         List<FightCard> hand = ctx.getHand();
         buf.append("你的手牌：").append(hand.size()).append("    ")
@@ -290,7 +278,7 @@ public class FightManager {
         return buf.toString();
     }
 
-    public String powerInfo(Fighter fighter, FightContext ctx) {
+    public String powerInfo(Fighter fighter) {
         StringBuilder buf = new StringBuilder();
         buf.append(left(kw(fighter.displayName()), 18));
         String playerInfo = "  hp: %2d/%2d  block: %d  power: %d".formatted(fighter.hp(), fighter.maxHp(), fighter.block(), fighter.powers().size());
@@ -299,7 +287,7 @@ public class FightManager {
         // intent
         if (fighter instanceof Enemy enemy) {
             buf.append("意图：\n");
-            buf.append("    ").append(intentFormat(enemy, ctx, true));
+            buf.append("    ").append(intentFormat(enemy, true));
             buf.append("\n");
         }
 
@@ -336,16 +324,16 @@ public class FightManager {
     }
 
 
-    public void drawPile(FightContext fightContext) {
-        showPile("抽牌堆", fightContext.getDrawPile());
+    public void drawPile() {
+        showPile("抽牌堆", ctx.getDrawPile());
     }
 
-    public void discardPile(FightContext fightContext) {
-        showPile("弃牌堆", fightContext.getDiscardPile());
+    public void discardPile() {
+        showPile("弃牌堆", ctx.getDiscardPile());
     }
 
-    public void exhaustPile(FightContext fightContext) {
-        showPile("消耗堆", fightContext.getExhaustPile());
+    public void exhaustPile() {
+        showPile("消耗堆", ctx.getExhaustPile());
     }
 
     public void showPile(String title, Deque<FightCard> pile) {
@@ -420,9 +408,6 @@ d03  【打击+】  <手牌>
 
     @EventListener(GameStartEvent.class)
     public void onGameStart(GameStartEvent event) {
-        RunContext source = (RunContext) event.getSource();
-        this.fightRandom1 = source.getRandomManage().getFightRandom1();
-        this.fightRandom2 = source.getRandomManage().getFightRandom2();
-        this.fightRandom3 = source.getRandomManage().getFightRandom3();
+//        RunSupport source = (RunSupport) event.getSource();
     }
 }

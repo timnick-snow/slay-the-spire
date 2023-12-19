@@ -37,6 +37,7 @@ public class FightContext {
 
     // 当前回合数
     private int round;
+    private int round2;
 
     // 剩余能量
     private int energy;
@@ -162,7 +163,13 @@ public class FightContext {
      * 回合增加
      */
     public int roundAdd() {
-        return ++round;
+        ++round;
+        return round;
+    }
+
+    public int round2Add() {
+        ++round2;
+        return round2;
     }
 
     public void setEnergy(int energy) {
@@ -204,6 +211,7 @@ public class FightContext {
             case EXHAUST_PILE -> exhaustPile.remove(card);
             case PLAY_ZONE -> playZone.remove(card);
         }
+        card.position(dest);
         switch (dest) {
             case HAND -> hand.add(card);
             case DRAW_PILE -> drawPile.add(card);

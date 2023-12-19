@@ -31,6 +31,13 @@ public class RedDefend extends RedCard {
     }
 
     @Override
+    public Card copy(String id) {
+        RedDefend copy = (RedDefend) super.copy(id);
+        copy.block = this.block;
+        return copy;
+    }
+
+    @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
         BlockAdder adder = new BlockAdder();
         adder.setBlock(block);

@@ -53,6 +53,12 @@ public class RedStrike extends RedCard {
         super.upgrade();
         this.damage = 9;
     }
+    @Override
+    public Card copy(String id) {
+        RedStrike copy = (RedStrike) super.copy(id);
+        copy.damage = this.damage;
+        return copy;
+    }
 
     @Override
     public String description() {

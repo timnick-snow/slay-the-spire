@@ -30,8 +30,11 @@ public abstract class BaseFighter implements Fighter {
 
     @Override
     public AttackResult beAttacked(DamageGroup damageGroup, FightContext ctx) {
-        // 被攻击
+        // 攻击方效果
+        damageGroup.getSource().getFighter().powers().forEach(power -> power.onAttack(damageGroup, ctx));
+        // 被攻击状态效果
         powers.values().forEach(power -> power.onBeAttacked(damageGroup, ctx));
+
         // 伤害是一段一段触发的
         int num = damageGroup.getNum();
         int base = damageGroup.getBase();
@@ -59,7 +62,7 @@ public abstract class BaseFighter implements Fighter {
             }
             // [1/2] 对 【邪教徒 e1】 造成 5 伤害，格挡 5 伤害，损失 0 点生命值。 当前状态 { hp: 40/40, block: 1 }
             // [2/2] 对 【邪教徒 e1】 造成 5 伤害，格挡 1 伤害，损失 4 点生命值。 当前状态 { hp: 36/40, block: 0 }
-            String log = "[%d/%d] 对 【%s】 造成 %d 伤害，格挡 %d 伤害，损失 %d 点生命值。 当前状态 { hp: %d/%d, block: %d }"
+            String log = "  [%d/%d] 对 【%s】 造成 %d 伤害，格挡 %d 伤害，损失 %d 点生命值。 当前状态 { hp: %d/%d, block: %d }"
                     .formatted(i + 1, num, displayName(), base, block0, realInjured, hp(), maxHp(), block());
             Output.println(log);
             if (this.hp <= 0) {

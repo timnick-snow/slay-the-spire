@@ -55,12 +55,12 @@ public class RoomManager {
     /**
      * 进入房间
      */
-    public EnterRoomResult enter(RoomNode roomNode) {
+    public EnterRoomResult enter(RoomNode roomNode, RunContext runContext) {
         Output.printf("你进入了 %d 房间。\n", roomNode.getId());
         if (roomNode.getRoomType() == RoomType.MONSTER) {
             Output.println("【触发普通战斗！】");
             FightContext ctx = new FightContext();
-            ctx.addEnemy(new Cultist("e1"));
+            ctx.addEnemy(new Cultist("e1", runContext.getDifficulty()));
             ctx.setCombatType(CombatType.NORMAL);
             return new RoomFight(ctx);
         }

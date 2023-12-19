@@ -17,11 +17,13 @@ import java.util.Map;
  */
 @Slf4j
 public abstract class BaseEnemy extends BaseFighter implements Enemy {
+    protected final int difficulty;
 
-    public BaseEnemy(String number) {
+    public BaseEnemy(String number, int difficulty) {
         super(number);
         this.maxHp = maxHpRange()[0];
         this.hp = this.maxHp;
+        this.difficulty = difficulty;
     }
 
     protected abstract int[] maxHpRange();

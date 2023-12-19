@@ -31,7 +31,7 @@ public class PowerAdder extends BaseRoughEffect<Fighter> {
     @Override
     @SuppressWarnings("unchecked")
     public PowerEffect process(List<? extends DisplayAble> targets) {
-        targets.forEach(power::setHost);
+        targets.forEach(t-> power.setHost((Fighter) t));
         PowerEffect effect = new PowerEffect((List<Fighter>) targets, this);
         source.setEffect(effect);
         return effect;

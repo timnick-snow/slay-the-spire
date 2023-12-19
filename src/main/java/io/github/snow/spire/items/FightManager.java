@@ -13,6 +13,7 @@ import io.github.snow.spire.items.core.ValueWrapper;
 import io.github.snow.spire.items.effect.Effect;
 import io.github.snow.spire.items.effect.RoughEffect;
 import io.github.snow.spire.items.enemy.Enemy;
+import io.github.snow.spire.items.intent.Intent;
 import io.github.snow.spire.items.player.Player;
 import io.github.snow.spire.items.power.Power;
 import io.github.snow.spire.temp.RunContext;
@@ -162,12 +163,30 @@ public class FightManager {
      * 敌方回合开始
      */
     public void enemyRoundStart(FightContext ctx) {
-        Output.printf("\n【第 %d 回合】 - 敌方回合阶段\n", ctx.getRound());
+        int round2 = ctx.round2Add();
+        Output.printf("\n【第 %d 回合】 - 敌方回合阶段\n", round2);
         ctx.getEnemies().forEach(enemy -> enemy.onRoundStart(ctx));
 
-        // 1. 获取意图的效果
-        Output.println("todo 敌军行动");
-        // 2. 执行效果
+        // 1. 获取意图的效果 执行效果
+        for (Enemy enemy : ctx.getEnemies()) {
+            Output.printf("【%s】开始行动\n", enemy.displayName());
+            Intent intent = enemy.intent(ctx);
+            List<RoughEffect<?>> roughEffects = intent.getRoughEffect(enemy);
+            for (RoughEffect<?> roughEffect : roughEffects) {
+                EffectTarget effectTarget = roughEffect.effectTarget();
+                List<Fighter> targets = new ArrayList<>();
+                switch (effectTarget) {
+                    case SELF -> targets.add(enemy);
+                    case SINGLE_OPPONENT -> targets.add(ctx.getPlayer());
+                    default -> {
+                    }
+                }
+                roughEffect.process(targets).work(ctx);
+            }
+        }
+
+        // 2. 敌军回合结束
+        ctx.getEnemies().forEach(enemy -> enemy.onRoundEnd(ctx));
 
         // 3. 玩家下一回开始
         playerRoundStart(ctx);

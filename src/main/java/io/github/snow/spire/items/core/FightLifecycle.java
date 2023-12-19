@@ -30,9 +30,9 @@ public interface FightLifecycle {
     }
 
     /**
-     * 攻击前
+     * 发起进攻
      */
-    default void onBeforeAttack(DamageGroup damageGroup, FightContext ctx) {
+    default void onAttack(DamageGroup damageGroup, FightContext ctx) {
     }
 
     /**
@@ -55,4 +55,5 @@ public interface FightLifecycle {
 
     default void onBeforeAddPower(PowerAdder powerAdder, FightContext ctx) {
     }
+
 }

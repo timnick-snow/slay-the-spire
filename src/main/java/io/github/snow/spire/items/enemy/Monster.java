@@ -10,8 +10,8 @@ import io.github.snow.spire.enums.EnemyType;
  */
 public abstract class Monster extends BaseEnemy {
 
-    protected Monster(String id) {
-        super(id);
+    protected Monster(String id, int difficulty) {
+        super(id, difficulty);
     }
 
     @Override

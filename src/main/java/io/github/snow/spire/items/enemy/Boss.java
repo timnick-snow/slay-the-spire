@@ -8,8 +8,8 @@ import io.github.snow.spire.enums.EnemyType;
  */
 public abstract class Boss extends BaseEnemy {
 
-    public Boss(String id) {
-        super(id);
+    public Boss(String id, int difficulty) {
+        super(id, difficulty);
     }
 
     @Override

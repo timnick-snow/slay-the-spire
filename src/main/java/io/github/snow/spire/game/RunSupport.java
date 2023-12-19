@@ -304,7 +304,7 @@ public class RunSupport {
         }
 
         if (res) {
-            EnterRoomResult roomResult = roomManager.enter(roomNode);
+            EnterRoomResult roomResult = roomManager.enter(roomNode,runContext);
             runContext.setStair(roomNode.getStair());
             runContext.setRoomId(roomNode.getId());
 

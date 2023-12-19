@@ -1,15 +1,18 @@
 package io.github.snow.spire.items.enemy;
 
 import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.items.intent.AttackIntent;
+import io.github.snow.spire.items.intent.BuffStrategic;
 import io.github.snow.spire.items.intent.Intent;
+import io.github.snow.spire.items.power.buff.Ritual;
 
 /**
  * @author snow
  * @since 2023/12/14
  */
 public class Cultist extends Monster {
-    public Cultist(String id) {
-        super(id);
+    public Cultist(String id, int difficulty) {
+        super(id, difficulty);
     }
 
     @Override
@@ -24,6 +27,11 @@ public class Cultist extends Monster {
 
     @Override
     public Intent intent(FightContext ctx) {
-        return null;
+        if (ctx.getRound2() == 1) {
+            Ritual ritual = new Ritual(3);
+            return new BuffStrategic(ritual);
+        } else {
+            return new AttackIntent(6, 1);
+        }
     }
 }

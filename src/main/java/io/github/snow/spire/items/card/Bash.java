@@ -35,6 +35,14 @@ public class Bash extends RedCard {
     }
 
     @Override
+    public Card copy(String id) {
+        Bash copy = (Bash) super.copy(id);
+        copy.damage = this.damage;
+        copy.vulnerable = this.vulnerable;
+        return copy;
+    }
+
+    @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
         // 伤害
         DamageGroup damageGroup = new DamageGroup(EffectTarget.SINGLE_OPPONENT, damage, 1);

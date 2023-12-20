@@ -15,6 +15,7 @@ import io.github.snow.spire.tool.Convert;
 import io.github.snow.spire.tool.FormatUtil;
 import io.github.snow.spire.tool.Output;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.util.ObjectUtils;
 
 import java.util.*;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
  * @since 2023/12/14
  */
 @Getter
+@Setter
 public class FightContext {
     // 你
     private Player player;

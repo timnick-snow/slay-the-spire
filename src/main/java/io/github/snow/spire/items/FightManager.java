@@ -49,6 +49,7 @@ public class FightManager {
         // 战斗开始
         Output.println("战斗开始！");
         ctx.getPlayer().onFightStart(ctx);
+        ctx.getEnemies().forEach(enemy -> enemy.onFightStart(ctx));
         ctx.shuffle();
 
         // 回合开始

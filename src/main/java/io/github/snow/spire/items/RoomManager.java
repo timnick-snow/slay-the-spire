@@ -11,6 +11,7 @@ import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.enemy.monster.Cultist;
 import io.github.snow.spire.items.enemy.monster.JawWorm;
+import io.github.snow.spire.items.enemy.monster.RedLouse;
 import io.github.snow.spire.items.map.RoomNode;
 import io.github.snow.spire.temp.RunContext;
 import io.github.snow.spire.tool.Output;
@@ -78,12 +79,12 @@ public class RoomManager {
         int act = runContext.getAct();
         int difficulty = runContext.getDifficulty();
         if (act == 0) {
-            punyEnemies.add(List.of(new Cultist("e1", difficulty)));
+            punyEnemies.add(List.of(new RedLouse("e1", difficulty)));
             punyEnemies.add(List.of(new JawWorm("e1", difficulty)));
             punyEnemies.add(List.of(new Cultist("e1", difficulty)));
         }
-
-        Collections.shuffle(punyEnemies);
+        // todo 临时取消打乱
+//        Collections.shuffle(punyEnemies);
     }
 
     @EventListener(GameStartEvent.class)

@@ -12,11 +12,6 @@ public class Watcher extends BasePlayer {
     }
 
     @Override
-    public String displayName() {
-        return name() + " " + number;
-    }
-
-    @Override
     public String name() {
         return "观者";
     }

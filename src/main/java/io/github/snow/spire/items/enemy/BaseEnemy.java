@@ -9,9 +9,7 @@ import io.github.snow.spire.tool.Output;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -62,19 +60,25 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
     }
 
     @Override
-    public void onRoundEnd(FightContext ctx) {
-        powers().forEach(power -> power.onRoundEnd(ctx));
+    public void onPlayerRoundStart(FightContext ctx) {
+        powers().forEach(power -> power.onPlayerRoundStart(ctx));
         powerRefresh();
     }
 
     @Override
-    public void onRoundStart(FightContext ctx) {
+    public void onEnemyRoundEnd(FightContext ctx) {
+        powers().forEach(power -> power.onEnemyRoundEnd(ctx));
+        powerRefresh();
+    }
+
+    @Override
+    public void onEnemyRoundStart(FightContext ctx) {
         // 失去格挡
         ValueWrapper blockWrapper = ValueWrapper.of(block);
         powers().forEach(power -> power.onBlockAutoLose(blockWrapper, ctx));
         loseBlock(blockWrapper.getValue());
 
-        powers().forEach(power -> power.onRoundStart(ctx));
+        powers().forEach(power -> power.onEnemyRoundStart(ctx));
         powerRefresh();
     }
 
@@ -89,7 +93,7 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
 
     @Override
     public String displayName() {
-        return "%s %s".formatted(name(), number);
+        return STR."\{name()} \{number}";
     }
 
     @Override

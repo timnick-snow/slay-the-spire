@@ -34,10 +34,9 @@ public abstract class IntentDecideEnemy extends BaseEnemy {
         this.intentDecide = new IntentDecide(intentCandidate());
     }
 
-
     @Override
-    public void onRoundEnd(FightContext ctx) {
-        super.onRoundEnd(ctx);
+    public void onEnemyRoundEnd(FightContext ctx) {
+        super.onEnemyRoundEnd(ctx);
         intentDecide.finish();
     }
 }

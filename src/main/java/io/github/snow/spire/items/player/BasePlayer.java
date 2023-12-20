@@ -31,15 +31,22 @@ public abstract class BasePlayer extends BaseFighter implements Player {
     }
 
     @Override
-    public void onRoundStart(FightContext ctx) {
+    public void onPlayerRoundEnd(FightContext ctx) {
+        // lifecycle
+        ctx.getRelics().forEach(relic -> relic.onPlayerRoundEnd(ctx));
+        powers().forEach(power -> power.onPlayerRoundEnd(ctx));
+    }
+
+    @Override
+    public void onPlayerRoundStart(FightContext ctx) {
         // 失去格挡
         ValueWrapper blockWrapper = ValueWrapper.of(block);
         ctx.getRelics().forEach(relic -> relic.onBlockAutoLose(blockWrapper, ctx));
         powers().forEach(power -> power.onBlockAutoLose(blockWrapper, ctx));
         loseBlock(blockWrapper.getValue());
         // lifecycle
-        ctx.getRelics().forEach(relic -> relic.onRoundStart(ctx));
-        powers().forEach(power -> power.onRoundStart(ctx));
+        ctx.getRelics().forEach(relic -> relic.onPlayerRoundStart(ctx));
+        powers().forEach(power -> power.onPlayerRoundStart(ctx));
     }
 
     private void loseBlock(int value) {
@@ -59,5 +66,10 @@ public abstract class BasePlayer extends BaseFighter implements Player {
             this.hp += value;
             Output.println(STR."你回复了 \{value} 生命，hp: \{oldHp} -> \{hp}");
         }
+    }
+
+    @Override
+    public String displayName() {
+        return STR."\{name()} \{number}";
     }
 }

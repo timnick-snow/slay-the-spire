@@ -77,6 +77,8 @@ public class FightContext {
     private boolean completed;
     // 效果队列
     private final Deque<Effect<?>> effectDeque;
+    // 回合标识
+    private boolean playerRound;
 
     public FightContext(CombatType combatType) {
         this.combatType = combatType;
@@ -88,6 +90,7 @@ public class FightContext {
         exhaustPile = new ArrayDeque<>();
         playZone = new ArrayDeque<>();
         effectDeque = new ArrayDeque<>();
+        playerRound = true;
     }
 
     public void init(RunSupport runSupport) {
@@ -289,6 +292,10 @@ public class FightContext {
                 break;
             }
         }
+    }
+
+    public void roundChange() {
+        this.playerRound = !playerRound;
     }
 
     private void fightEnd() {

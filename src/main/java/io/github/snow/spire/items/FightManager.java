@@ -63,7 +63,8 @@ public class FightManager {
      */
     public void playerRoundStart() {
         Output.println(STR."\n【第 \{ctx.getRound()} 回合】 - 玩家回合阶段\n");
-        ctx.getPlayer().onRoundStart(ctx);
+        ctx.getPlayer().onPlayerRoundStart(ctx);
+        ctx.getEnemies().forEach(enemy -> enemy.onPlayerRoundStart(ctx));
 
         // 1. 抽牌
         ValueWrapper drawNum = ValueWrapper.of(5);
@@ -152,8 +153,10 @@ public class FightManager {
             Output.println(buf.toString());
         }
 
+        ctx.getPlayer().onPlayerRoundEnd(ctx);
         ctx.roundAdd();
         // 2. 敌方回合开始
+        ctx.roundChange();
         enemyRoundStart();
     }
 
@@ -162,7 +165,7 @@ public class FightManager {
      */
     public void enemyRoundStart() {
         Output.println(STR."\n【第 \{ctx.getRound2()} 回合】 - 敌方回合阶段");
-        ctx.getEnemies().forEach(enemy -> enemy.onRoundStart(ctx));
+        ctx.getEnemies().forEach(enemy -> enemy.onEnemyRoundStart(ctx));
 
         // 1. 获取意图的效果 执行效果
         for (Enemy enemy : ctx.getEnemies()) {
@@ -190,10 +193,11 @@ public class FightManager {
         }
 
         // 2. 敌军回合结束
-        ctx.getEnemies().forEach(enemy -> enemy.onRoundEnd(ctx));
+        ctx.getEnemies().forEach(enemy -> enemy.onEnemyRoundEnd(ctx));
         ctx.round2Add();
 
         // 3. 玩家下一回开始
+        ctx.roundChange();
         playerRoundStart();
     }
 

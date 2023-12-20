@@ -30,15 +30,27 @@ public interface FightLifecycle {
     }
 
     /**
-     * 回合开始
+     * 玩家回合开始
      */
-    default void onRoundStart(FightContext ctx) {
+    default void onPlayerRoundStart(FightContext ctx) {
     }
 
     /**
-     * 回合结束
+     * 玩家回合结束
      */
-    default void onRoundEnd(FightContext ctx) {
+    default void onPlayerRoundEnd(FightContext ctx) {
+    }
+
+    /**
+     * 敌方回合开始
+     */
+    default void onEnemyRoundStart(FightContext ctx) {
+    }
+
+    /**
+     * 敌方回合结束
+     */
+    default void onEnemyRoundEnd(FightContext ctx) {
     }
 
     default void simulateAttack(DamageGroup damageGroup, FightContext ctx) {

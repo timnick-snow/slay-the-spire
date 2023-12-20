@@ -12,11 +12,6 @@ public class Ironclad extends BasePlayer {
     }
 
     @Override
-    public String displayName() {
-        return name() + " " + number;
-    }
-
-    @Override
     public String name() {
         return "机甲战士";
     }

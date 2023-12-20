@@ -12,11 +12,6 @@ public class Defect extends BasePlayer {
     }
 
     @Override
-    public String displayName() {
-        return name() + " " + number;
-    }
-
-    @Override
     public String name() {
         return "故障机器人";
     }

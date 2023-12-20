@@ -59,7 +59,7 @@ public class GameContext implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         Output.setTerminal(terminal);
         this.terminal.writer().println("""
-                欢迎来到杀戮尖塔：
+                欢迎来到杀戮尖塔 0.0.1-alpha
                     game start -> 开始游戏
                     game continue -> 继续游戏
                     game give up -> 放弃当前游戏

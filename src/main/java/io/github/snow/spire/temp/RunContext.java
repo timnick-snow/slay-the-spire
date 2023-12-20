@@ -147,12 +147,12 @@ public class RunContext {
         if (stair < 0) {
             throw new IllegalStateException("Haven't entered any rooms yet");
         }
-        return this.map[act][stair];
+        return this.map[act][stair % 17];
     }
 
     @JsonIgnore
     public FloorRooms getNextFloor() {
-        return this.map[act][stair + 1];
+        return this.map[act][(stair + 1) % 17];
     }
 
     public int incrementItemId() {

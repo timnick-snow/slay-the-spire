@@ -28,7 +28,7 @@ public class CatalogService {
         // 职业选择
         var select = flowService.startSelect();
         if (select.getLeft().isPresent()) {
-            return select.getLeft().get() + "\n";
+            return STR."\{select.getLeft().get()}\n";
         }
         StartFlowResult result = select.getRight().get();
         runSupport.startRun(result.role(), result.level());
@@ -39,7 +39,7 @@ public class CatalogService {
         // 祝福
         if (runSupport.takeBless()) {
             runSupport.goHint();
-            return "\n" + runSupport.tips() + "\n";
+            return STR."\n\{runSupport.tips()}\n";
         }
         return null;
     }

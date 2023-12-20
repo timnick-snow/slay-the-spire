@@ -1,5 +1,8 @@
 package io.github.snow.spire.items.relic;
 
+import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.tool.Output;
+
 /**
  * 燃烧之血
  *
@@ -17,4 +20,9 @@ public class BurningBlood extends StarterRelic {
         return "在战斗结束时，回复 6 点生命。";
     }
 
+    @Override
+    public void onFightEnd(FightContext ctx) {
+        Output.println(STR."【\{name()}】触发。");
+        ctx.getPlayer().heal(6);
+    }
 }

@@ -30,4 +30,6 @@ public interface Enemy extends Fighter {
      * @param ctx 战斗上下文
      */
     Intent intent(FightContext ctx);
+
+    void setHp(int hp);
 }

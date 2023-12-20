@@ -1,6 +1,8 @@
 package io.github.snow.spire.items.relic;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.enums.Characters;
+import io.github.snow.spire.tool.Output;
 
 /**
  * @author snow
@@ -20,5 +22,12 @@ public class BlackBlood extends BossRelic {
     @Override
     public Characters classSpecific() {
         return Characters.IRONCLAD;
+    }
+
+
+    @Override
+    public void onFightEnd(FightContext ctx) {
+        Output.println(STR."【\{name()}】触发。");
+        ctx.getPlayer().heal(12);
     }
 }

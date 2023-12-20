@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.snow"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1-alpha"
 
 graalvmNative {
     metadataRepository {
@@ -19,6 +19,8 @@ graalvmNative {
         }
     }
 }
+
+var enablePreview = "--enable-preview"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -48,6 +50,15 @@ dependencyManagement {
     }
 }
 
-tasks.withType<Test> {
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.add(enablePreview)
+}
+
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+    jvmArgs(enablePreview)
+}
+
+tasks.withType<JavaExec>().configureEach {
+    jvmArgs(enablePreview)
 }

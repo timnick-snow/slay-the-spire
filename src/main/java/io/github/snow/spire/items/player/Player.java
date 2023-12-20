@@ -11,4 +11,5 @@ public interface Player extends Fighter {
 
     Characters characters();
 
+    void heal(int value);
 }

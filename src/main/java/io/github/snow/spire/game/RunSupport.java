@@ -11,8 +11,8 @@ import io.github.snow.spire.items.*;
 import io.github.snow.spire.items.bless.Bless;
 import io.github.snow.spire.items.bless.ExchangeBossRelic;
 import io.github.snow.spire.items.card.Card;
-import io.github.snow.spire.items.map.FloorRooms;
 import io.github.snow.spire.items.map.RoomNode;
+import io.github.snow.spire.items.player.Player;
 import io.github.snow.spire.items.potion.Potion;
 import io.github.snow.spire.items.relic.Relic;
 import io.github.snow.spire.items.reward.CardReward;
@@ -106,12 +106,18 @@ public class RunSupport {
 
 
     public void goHint() {
-        // todo 能否前进？
         // tips
-        String tips = roleInfo() + "\n";
-        FloorRooms floorRooms = runContext.getNextFloor();
-        tips += "前方有" + floorRooms.getRooms().size() + "个房间，请选择一个进入\n";
-        tips += mapManager.format(floorRooms);
+        List<RoomNode> rooms;
+        if ((runContext.getStair() + 17) % 17 == 16) {
+            rooms = runContext.getNextFloor().getRooms();
+        }else {
+            rooms = runContext.getCurRoom().getNext();
+        }
+        String tips = STR."""
+                \{roleInfo()}
+                前方有\{rooms.size()}个房间，请选择一个进入
+                \{mapManager.format(rooms)}
+                """;
         runContext.setLastTips(tips);
     }
 
@@ -128,10 +134,9 @@ public class RunSupport {
         if (addValue == 0) {
             return;
         }
-        String action = addValue > 0 ? "增加" : "减少";
         int maxHp = runContext.getMaxHp();
         runContext.setMaxHp(maxHp + addValue);
-        writeAndFlush("你的最大生命值%s了：%d -> %d".formatted(action, maxHp, runContext.getMaxHp()));
+        writeAndFlush(STR."你的最大生命值\{addValue > 0 ? "增加" : "减少"}了：\{maxHp} -> \{runContext.getMap()}");
 
         // 处理hp
         int hp = runContext.getHp();
@@ -325,6 +330,11 @@ public class RunSupport {
 
     // 战斗胜利
     public void fightVictory(FightContext fightContext) {
+        // 同步生命状态
+        Player player = fightContext.getPlayer();
+        runContext.setHp(player.hp());
+        runContext.setMaxHp(player.maxHp());
+
         List<Reward> list = rewardManager.fightReward(fightContext.getCombatType());
         addAndShowRewards(list);
     }
@@ -341,6 +351,7 @@ public class RunSupport {
             case RoomChoose roomChoose -> false;
             case RoomFight roomFight -> roomFight.fightContext().isCompleted();
             case RoomFree roomFree -> true;
+            case null -> true;
         };
     }
 

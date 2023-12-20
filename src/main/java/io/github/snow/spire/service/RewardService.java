@@ -24,9 +24,13 @@ public class RewardService {
             return "当前奖励列表为空。\n";
         }
         runSupport.clearRewards();
-        String skipLog = "你跳过了%d项奖励\n".formatted(rewards.size());
-        runSupport.goHint();
-        return "%s\n%s\n".formatted(skipLog, runSupport.tips());
+        String res = "你跳过了%d项奖励\n".formatted(rewards.size());
+        if (runSupport.canLeaveRoom()) {
+            runSupport.leaveRoom();
+            runSupport.goHint();
+            res += runSupport.tips();
+        }
+        return res;
     }
 
     public String take(int[] ids) {

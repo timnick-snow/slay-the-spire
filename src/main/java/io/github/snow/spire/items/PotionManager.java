@@ -40,12 +40,12 @@ public class PotionManager {
                 case 0 -> PotionRarity.COMMON;
                 case 1 -> PotionRarity.UNCOMMON;
                 case 2 -> PotionRarity.RARE;
-                default -> throw new IllegalStateException("Unexpected value: " + idx);
+                default -> throw new IllegalStateException(STR."Unexpected value: \{idx}");
             };
 
             List<Potion> potions = potionMap.get(rarity);
             Potion potion = potions.get(b % potions.size());
-            potion.copy(id);
+            res.add(potion.copy(id));
         }
         return res;
     }

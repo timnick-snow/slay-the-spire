@@ -47,4 +47,8 @@ public class Output {
     public static void setSpeed(int speed) {
         Output.SPEED = speed;
     }
+
+    public static void println() {
+        terminal.writer().println();
+    }
 }

@@ -79,4 +79,12 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
             return null;
         }
     }
+
+    @Override
+    public void setHp(int hp) {
+        if (hp > maxHp) {
+            throw new IllegalArgumentException(STR."Unexpected hp value '\{hp}', the maxHp is \{maxHp}");
+        }
+        this.hp = hp;
+    }
 }

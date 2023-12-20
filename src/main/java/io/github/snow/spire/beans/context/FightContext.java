@@ -267,11 +267,19 @@ public class FightContext {
             }
             enemies.removeIf(Fighter::isDie);
             if (enemies.isEmpty()) {
-                Output.println("\n战斗胜利！\n");
-                this.completed = true;
-                runSupport.fightVictory(this);
+                fightEnd();
                 break;
             }
         }
+    }
+
+    private void fightEnd() {
+        Output.println("\n战斗胜利！\n");
+        this.completed = true;
+        // lifecycle 战斗结束
+        this.player.onFightEnd(this);
+        // 战斗奖励
+        Output.println();
+        runSupport.fightVictory(this);
     }
 }

@@ -2,6 +2,7 @@ package io.github.snow.spire.items.relic;
 
 import io.github.snow.spire.enums.Characters;
 import io.github.snow.spire.enums.RelicRarity;
+import io.github.snow.spire.items.core.FightLifecycle;
 
 /**
  * 遗物
@@ -9,7 +10,7 @@ import io.github.snow.spire.enums.RelicRarity;
  * @author snow
  * @since 2023/12/7
  */
-public interface Relic {
+public interface Relic extends FightLifecycle {
     /**
      * 名称
      */

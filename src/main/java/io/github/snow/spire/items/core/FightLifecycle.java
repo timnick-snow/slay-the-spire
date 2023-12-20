@@ -18,6 +18,12 @@ public interface FightLifecycle {
     }
 
     /**
+     * 战斗结束
+     */
+    default void onFightEnd(FightContext ctx) {
+    }
+
+    /**
      * 回合开始
      */
     default void onRoundStart(FightContext ctx) {
@@ -59,4 +65,9 @@ public interface FightLifecycle {
     default void onBeforeAddPower(PowerAdder powerAdder, FightContext ctx) {
     }
 
+    /**
+     * 护甲回合开始时自动失去
+     */
+    default void onBlockAutoLose(ValueWrapper loseValue, FightContext ctx) {
+    }
 }

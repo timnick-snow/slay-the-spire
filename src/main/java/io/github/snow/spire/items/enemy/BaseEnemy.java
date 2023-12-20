@@ -2,6 +2,7 @@ package io.github.snow.spire.items.enemy;
 
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.items.core.BaseFighter;
+import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.ValueWrapper;
 import io.github.snow.spire.items.power.Power;
 import io.github.snow.spire.tool.Output;
@@ -9,7 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * 敌军
@@ -36,16 +40,31 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
     }
 
     @Override
-    public void onRoundEnd(FightContext ctx) {
-        Iterator<Map.Entry<String, Power>> it = powers.entrySet().iterator();
-        while (it.hasNext()) {
-            var entry = it.next();
-            var power = entry.getValue();
-            power.onRoundEnd(ctx);
-            if (power.isDead()) {
-                it.remove();
-            }
+    public void onFightStart(FightContext ctx) {
+        super.onFightStart(ctx);
+
+        Random enemyRandom = ctx.getEnemyRandom();
+        int[] range = maxHpRange();
+        int min = range[0], max = range[1];
+        int maxHp = enemyRandom.nextInt(min, max + 1);
+        this.initMaxHp(maxHp);
+    }
+
+    @Override
+    public void onAfterFightStart(FightContext ctx) {
+        List<Power> inbornPowers = powers();
+        if (!inbornPowers.isEmpty()) {
+            Output.println(STR."注意了！【\{displayName()}】具有天生能力：\{
+                    inbornPowers.stream().map(DisplayAble::displayName)
+                            .collect(Collectors.joining("，"))
+                    }");
         }
+    }
+
+    @Override
+    public void onRoundEnd(FightContext ctx) {
+        powers().forEach(power -> power.onRoundEnd(ctx));
+        powerRefresh();
     }
 
     @Override
@@ -55,15 +74,8 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
         powers().forEach(power -> power.onBlockAutoLose(blockWrapper, ctx));
         loseBlock(blockWrapper.getValue());
 
-        Iterator<Map.Entry<String, Power>> it = powers.entrySet().iterator();
-        while (it.hasNext()) {
-            var entry = it.next();
-            var power = entry.getValue();
-            power.onRoundStart(ctx);
-            if (power.isDead()) {
-                it.remove();
-            }
-        }
+        powers().forEach(power -> power.onRoundStart(ctx));
+        powerRefresh();
     }
 
     private void loseBlock(int value) {
@@ -81,15 +93,10 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
     }
 
     @Override
-    public Enemy copy(String number, int a, int b) {
+    public Enemy copy(String number) {
         try {
             Constructor<? extends BaseEnemy> constructor = this.getClass().getDeclaredConstructor(String.class);
-            BaseEnemy baseEnemy = constructor.newInstance(number);
-            int[] range = maxHpRange();
-            int max = range[0], min = range[1];
-            int maxHp = min + a % (max - min + 1);
-            baseEnemy.initMaxHp(maxHp);
-            return baseEnemy;
+            return constructor.newInstance(number);
         } catch (Exception e) {
             log.error("Enemy copy error", e);
             return null;

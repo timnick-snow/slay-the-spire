@@ -30,6 +30,7 @@ public abstract class IntentDecideEnemy extends BaseEnemy {
 
     @Override
     public void onFightStart(FightContext ctx) {
+        super.onFightStart(ctx);
         this.intentDecide = new IntentDecide(intentCandidate());
     }
 

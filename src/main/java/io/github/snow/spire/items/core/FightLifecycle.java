@@ -18,6 +18,12 @@ public interface FightLifecycle {
     }
 
     /**
+     * 战斗开始后
+     */
+    default void onAfterFightStart(FightContext ctx) {
+    }
+
+    /**
      * 战斗结束
      */
     default void onFightEnd(FightContext ctx) {
@@ -60,6 +66,12 @@ public interface FightLifecycle {
      * 受到真实伤害
      */
     default void onGetInjured(ValueWrapper real, FightContext ctx) {
+    }
+
+    /**
+     * 被攻击后
+     */
+    default void onAfterBeAttacked(AttackResult attackResult, FightContext ctx) {
     }
 
     default void onBeforeAddPower(PowerAdder powerAdder, FightContext ctx) {

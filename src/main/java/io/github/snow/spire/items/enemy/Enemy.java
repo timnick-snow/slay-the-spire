@@ -2,7 +2,6 @@ package io.github.snow.spire.items.enemy;
 
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.enums.EnemyType;
-import io.github.snow.spire.items.core.FightLifecycle;
 import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.intent.Intent;
 
@@ -22,7 +21,7 @@ public interface Enemy extends Fighter {
     /**
      * copy instance
      */
-    Enemy copy(String number, int a, int b);
+    Enemy copy(String number);
 
     /**
      * 意图

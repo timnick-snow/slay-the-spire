@@ -2,7 +2,7 @@ package io.github.snow.spire.items.power;
 
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.Fighter;
-import io.github.snow.spire.items.potion.BasePotion;
+import io.github.snow.spire.tool.Output;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +24,10 @@ public abstract class BasePower implements Power {
 
     public BasePower() {
         this.num = 1;
+    }
+
+    protected void trigger() {
+        Output.printf(STR."【\{name()}】 触发\n");
     }
 
     @Override

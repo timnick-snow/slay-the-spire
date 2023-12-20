@@ -32,7 +32,7 @@ public class AttackResult {
     /**
      * 真实hp伤害
      */
-    private int getRealDamage() {
+    public int getRealDamage() {
         return totalDamage - blockDamage;
     }
 }

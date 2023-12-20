@@ -51,6 +51,8 @@ public class FightManager {
         ctx.getPlayer().onFightStart(ctx);
         ctx.getEnemies().forEach(enemy -> enemy.onFightStart(ctx));
         ctx.shuffle();
+        // 战斗开始后
+        ctx.getEnemies().forEach(enemy -> enemy.onAfterFightStart(ctx));
 
         // 回合开始
         playerRoundStart();

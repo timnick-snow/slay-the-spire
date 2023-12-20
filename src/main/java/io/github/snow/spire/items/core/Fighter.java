@@ -61,7 +61,18 @@ public interface Fighter extends DisplayAble, FightLifecycle {
      */
     PowerResult addPower(PowerAdder powerAdder, FightContext ctx);
 
+    /**
+     * 增加格挡
+     */
     void addBlock(BlockAdder blockAdder);
 
+    /**
+     * 是否死亡
+     */
     boolean isDie();
+
+    /**
+     * 能力刷新
+     */
+    void powerRefresh();
 }

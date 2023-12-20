@@ -19,7 +19,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -65,6 +64,7 @@ public class RoomManager {
         if (roomNode.getRoomType() == RoomType.MONSTER) {
             Output.println("【触发普通战斗！】");
             FightContext ctx = new FightContext(CombatType.NORMAL);
+            // todo copy enemy
             ctx.addEnemies(punyEnemies.get(fightCount++));
             return new RoomFight(ctx);
         }
@@ -74,8 +74,10 @@ public class RoomManager {
     @EventListener(ActStartEvent.class)
     public void onActStart(ActStartEvent event) {
         RunContext runContext = ((RunSupport) event.getSource()).getRunContext();
-        // 弱怪池
+        // 清空旧数据
         punyEnemies.clear();
+        fightCount = 0;
+        // 弱怪池
         int act = runContext.getAct();
         int difficulty = runContext.getDifficulty();
         if (act == 0) {

@@ -73,6 +73,11 @@ public abstract class BaseFighter implements Fighter {
     }
 
     @Override
+    public void onAfterBeAttacked(AttackResult attackResult, FightContext ctx) {
+        powers().forEach(power -> power.onAfterBeAttacked(attackResult, ctx));
+    }
+
+    @Override
     public PowerResult addPower(PowerAdder powerAdder, FightContext ctx) {
         Power power = powerAdder.getPower();
         if (power.isDead()) {
@@ -101,6 +106,11 @@ public abstract class BaseFighter implements Fighter {
         String log = "【%s】 增加了 %d 格挡。 当前状态 { hp: %d/%d, block: %d }"
                 .formatted(displayName(), add, hp(), maxHp(), block());
         Output.println(log);
+    }
+
+    @Override
+    public void powerRefresh() {
+        powers.entrySet().removeIf(entry -> entry.getValue().isDead());
     }
 
     @Override

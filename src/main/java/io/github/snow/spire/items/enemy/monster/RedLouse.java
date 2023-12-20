@@ -8,6 +8,7 @@ import io.github.snow.spire.items.intent.AttackIntent;
 import io.github.snow.spire.items.intent.BuffStrategic;
 import io.github.snow.spire.items.intent.Intent;
 import io.github.snow.spire.items.power.Strength;
+import io.github.snow.spire.items.power.buff.CurlUp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +66,22 @@ public class RedLouse extends IntentDecideEnemy {
         }
         super.onFightStart(ctx);
 
-        // 初始能力 todo
+        /*
+         * 初始能力 - 蜷身
+         * 3-7
+         * 4-8   lv7+
+         * 9-12  lv17+
+         */
+        int curlUpBlock;
+        if (difficulty < 7) {
+            curlUpBlock = enemyRandom.nextInt(3, 7);
+        } else if (difficulty < 17) {
+            curlUpBlock = enemyRandom.nextInt(4, 8);
+        } else {
+            curlUpBlock = enemyRandom.nextInt(9, 12);
+        }
+        CurlUp curlUp = new CurlUp(curlUpBlock, this);
+        powers.put(curlUp.id(), curlUp);
     }
 
     @Override

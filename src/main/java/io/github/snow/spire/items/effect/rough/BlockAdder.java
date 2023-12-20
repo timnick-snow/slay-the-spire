@@ -19,8 +19,9 @@ import java.util.List;
 public class BlockAdder extends BaseRoughEffect<Fighter> {
     private int block;
 
-    public BlockAdder() {
+    public BlockAdder(int block) {
         super(EffectTarget.SELF);
+        this.block = block;
     }
 
     public BlockAdder(EffectTarget effectTarget) {

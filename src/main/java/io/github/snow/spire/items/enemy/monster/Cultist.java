@@ -1,6 +1,7 @@
-package io.github.snow.spire.items.enemy;
+package io.github.snow.spire.items.enemy.monster;
 
 import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.items.enemy.Monster;
 import io.github.snow.spire.items.intent.AttackIntent;
 import io.github.snow.spire.items.intent.BuffStrategic;
 import io.github.snow.spire.items.intent.Intent;

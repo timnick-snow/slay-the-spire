@@ -32,4 +32,6 @@ public interface Power extends DisplayAble, FightLifecycle {
     int amount();
 
     void stack(int amount);
+
+    Power copy();
 }

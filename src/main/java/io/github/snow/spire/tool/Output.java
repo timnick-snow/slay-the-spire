@@ -16,17 +16,18 @@ public class Output {
     private static final int[] DELAY_TIME = {1000, 900, 800, 700, 600, 500, 400, 300, 200, 100, 0};
     private static int SPEED = 6;
 
-
-    public static void println(String x) {
+    public static void println(String x, long delay) {
         terminal.writer().println(x);
         terminal.flush();
-        delay(DELAY_TIME[SPEED]);
+        delay(delay);
+    }
+
+    public static void println(String x) {
+        println(x, DELAY_TIME[SPEED]);
     }
 
     public static void printf(String format, Object... args) {
         terminal.writer().printf(format, args);
-        terminal.flush();
-        delay(DELAY_TIME[SPEED]);
     }
 
     public static void delay(long time) {

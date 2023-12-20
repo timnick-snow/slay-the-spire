@@ -39,8 +39,7 @@ public class RedDefend extends RedCard {
 
     @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
-        BlockAdder adder = new BlockAdder();
-        adder.setBlock(block);
+        BlockAdder adder = new BlockAdder(block);
         adder.setSource(new SourceChain().setFighter(fighter).setProducer(this));
         return Collections.singletonList(adder);
     }

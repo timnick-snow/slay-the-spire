@@ -4,6 +4,7 @@ import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.enums.CombatType;
 import io.github.snow.spire.game.Deck;
 import io.github.snow.spire.game.RunSupport;
+import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightCard;
 import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.effect.Effect;
@@ -11,12 +12,13 @@ import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.*;
 import io.github.snow.spire.items.relic.Relic;
 import io.github.snow.spire.tool.Convert;
+import io.github.snow.spire.tool.FormatUtil;
 import io.github.snow.spire.tool.Output;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.util.ObjectUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 战斗上下文
@@ -25,13 +27,12 @@ import java.util.*;
  * @since 2023/12/14
  */
 @Getter
-@Setter
 public class FightContext {
     // 你
     private Player player;
 
     // 敌人
-    private List<Enemy> enemies;
+    private final List<Enemy> enemies;
 
     // 你的遗物
     private List<Relic> relics;
@@ -44,36 +45,39 @@ public class FightContext {
     private int energy;
 
     // 手牌
-    private List<FightCard> hand;
+    private final List<FightCard> hand;
 
     // 抽牌堆
-    private Deque<FightCard> drawPile;
+    private final Deque<FightCard> drawPile;
 
     // 弃牌堆
-    private Deque<FightCard> discardPile;
+    private final Deque<FightCard> discardPile;
 
     // 消耗堆
-    private Deque<FightCard> exhaustPile;
+    private final Deque<FightCard> exhaustPile;
 
     // 待打出区
-    private Deque<FightCard> playZone;
+    private final Deque<FightCard> playZone;
 
     // 其它。。。
     private RunSupport runSupport;
 
     // 战斗类型
-    private CombatType combatType;
+    private final CombatType combatType;
 
     // 洗牌随机数
     private Random shuffleRandom;
+    // 敌人行动随机数
+    private Random enemyRandom;
 
     private int cid;
 
     private boolean completed;
     // 效果队列
-    private Deque<Effect<?>> effectDeque;
+    private final Deque<Effect<?>> effectDeque;
 
-    public FightContext() {
+    public FightContext(CombatType combatType) {
+        this.combatType = combatType;
         enemies = new ArrayList<>();
 
         hand = new ArrayList<>();
@@ -100,6 +104,7 @@ public class FightContext {
                 .toList();
         this.drawPile.addAll(initCards);
         this.shuffleRandom = runSupport.getRunContext().getRandomManage().getFightRandom1();
+        this.enemyRandom = runSupport.getRunContext().getRandomManage().getFightRandom2();
     }
 
     /**
@@ -155,7 +160,7 @@ public class FightContext {
             hand.add(fightCard);
             num--;
         }
-        Output.printf("你抽取了 %d 张牌\n", res.size());
+        Output.println(STR."你抽取了 \{res.size()} 张牌");
         return res;
     }
 
@@ -163,8 +168,19 @@ public class FightContext {
      * 敌人增加
      */
     public void addEnemy(Enemy enemy) {
-        Output.printf("敌人 【%s】 出现了\n", enemy.displayName());
+        Output.println(STR."敌人 【\{enemy.displayName()}】 出现了");
         this.enemies.add(enemy);
+    }
+
+
+    public void addEnemies(List<Enemy> enemies) {
+        Output.println(STR."敌人 \{
+                enemies.stream()
+                        .map(DisplayAble::displayName)
+                        .map(FormatUtil::kw)
+                        .collect(Collectors.joining(" "))
+                } 出现了");
+        this.enemies.addAll(enemies);
     }
 
     /**
@@ -179,7 +195,7 @@ public class FightContext {
     }
 
     public void setEnergy(int energy) {
-        Output.printf("你的能量变为：%d\n", energy);
+        Output.println(STR."你的能量变为：\{energy}");
         this.energy = energy;
     }
 
@@ -202,7 +218,7 @@ public class FightContext {
 
     public void consumeEnergy(int cost) {
         this.energy = Math.max(0, energy - cost);
-        Output.printf("你消耗了 %d 能量，剩余能量 %d\n", cost, energy);
+        Output.println(STR."你消耗了 \{cost} 能量，剩余能量 \{energy}");
     }
 
     public void moveCard(FightCard card, CardPosition dest) {

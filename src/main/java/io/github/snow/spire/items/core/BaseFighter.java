@@ -82,13 +82,13 @@ public abstract class BaseFighter implements Fighter {
         if (origin == null) {
             powers.put(power.id(), power);
             // 【邪教徒 e1】 获得了 【易伤(3)】
-            Output.printf("【%s】 获得了 【%s】\n", displayName(), power.displayName());
+            Output.println(STR."【\{displayName()}】 获得了 【\{power.displayName()}】");
         } else {
             if (origin.isStackable()) {
                 // 【邪教徒 e1】 身上的 【易伤】 增加了：2 -> 5
                 int old = origin.amount();
                 origin.stack(power.amount());
-                Output.printf("【%s】 身上的 【%s】 增加了：%d -> %d\n", displayName(), power.name(), old, origin.amount());
+                Output.println(STR."【\{displayName()}】 身上的 【\{power.name()}】 增加了：\{old} -> \{origin.amount()}");
             }
         }
         return new PowerResult();

@@ -1,7 +1,9 @@
 package io.github.snow.spire.items.intent;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.EffectProducer;
+import io.github.snow.spire.items.enemy.Enemy;
 
 /**
  * @author snow
@@ -15,4 +17,9 @@ public interface Intent extends DisplayAble, EffectProducer {
      * @return 意图的详细描述
      */
     String description();
+
+    Intent simulate(Enemy enemy, FightContext ctx);
+
+    Intent copy();
+
 }

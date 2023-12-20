@@ -1,5 +1,6 @@
 package io.github.snow.spire.game;
 
+import io.github.snow.spire.beans.context.ActStartEvent;
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.beans.pojo.EnterRoomResult;
@@ -79,6 +80,8 @@ public class RunSupport {
         applicationContext.publishEvent(new GameStartEvent(this));
         // 生成地图
         runContext.setMap(mapManager.gen());
+        // 进入新的一幕事件
+        applicationContext.publishEvent(new ActStartEvent(this));
     }
 
     public String roleInfo() {
@@ -136,7 +139,7 @@ public class RunSupport {
         }
         int maxHp = runContext.getMaxHp();
         runContext.setMaxHp(maxHp + addValue);
-        writeAndFlush(STR."你的最大生命值\{addValue > 0 ? "增加" : "减少"}了：\{maxHp} -> \{runContext.getMap()}");
+        writeAndFlush(STR."你的最大生命值\{addValue > 0 ? "增加" : "减少"}了：\{maxHp} -> \{runContext.getMaxHp()}");
 
         // 处理hp
         int hp = runContext.getHp();
@@ -223,7 +226,7 @@ public class RunSupport {
 
 
     public void clearRewards() {
-        runContext.setRewards(Collections.emptyList());
+        runContext.getRewards().clear();
     }
 
     public void addCard(Card card) {

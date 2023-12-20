@@ -34,7 +34,7 @@ public class CatalogService {
         runSupport.startRun(result.role(), result.level());
 
         // brief
-        terminal.writer().println("游戏开始..." + runSupport.brief());
+        terminal.writer().println(STR."游戏开始...\{runSupport.brief()}");
         terminal.flush();
         // 祝福
         if (runSupport.takeBless()) {

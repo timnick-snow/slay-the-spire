@@ -2,7 +2,9 @@ package io.github.snow.spire.items.enemy;
 
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.items.core.BaseFighter;
+import io.github.snow.spire.items.core.ValueWrapper;
 import io.github.snow.spire.items.power.Power;
+import io.github.snow.spire.tool.Output;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Constructor;
@@ -48,6 +50,11 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
 
     @Override
     public void onRoundStart(FightContext ctx) {
+        // 失去格挡
+        ValueWrapper blockWrapper = ValueWrapper.of(block);
+        powers().forEach(power -> power.onBlockAutoLose(blockWrapper, ctx));
+        loseBlock(blockWrapper.getValue());
+
         Iterator<Map.Entry<String, Power>> it = powers.entrySet().iterator();
         while (it.hasNext()) {
             var entry = it.next();
@@ -56,6 +63,15 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
             if (power.isDead()) {
                 it.remove();
             }
+        }
+    }
+
+    private void loseBlock(int value) {
+        value = Math.min(value, block);
+        if (value > 0) {
+            int oldBlock = block;
+            this.block -= value;
+            Output.println(STR."【\{displayName()}】失去了 \{value} 格挡，block: \{oldBlock} -> \{block}");
         }
     }
 

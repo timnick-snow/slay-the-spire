@@ -1,5 +1,6 @@
 package io.github.snow.spire.items;
 
+import io.github.snow.spire.beans.context.ActStartEvent;
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.beans.context.GameStartEvent;
 import io.github.snow.spire.beans.pojo.EnterRoomResult;
@@ -7,13 +8,18 @@ import io.github.snow.spire.beans.pojo.RoomFight;
 import io.github.snow.spire.enums.CombatType;
 import io.github.snow.spire.enums.RoomType;
 import io.github.snow.spire.game.RunSupport;
-import io.github.snow.spire.items.enemy.Cultist;
+import io.github.snow.spire.items.enemy.Enemy;
+import io.github.snow.spire.items.enemy.monster.Cultist;
+import io.github.snow.spire.items.enemy.monster.JawWorm;
 import io.github.snow.spire.items.map.RoomNode;
 import io.github.snow.spire.temp.RunContext;
 import io.github.snow.spire.tool.Output;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -38,14 +44,11 @@ public class RoomManager {
      */
     private Random eventRandom;
 
-
-    @EventListener(GameStartEvent.class)
-    public void onGameStart(GameStartEvent event) {
-        RunContext runContext = ((RunSupport) event.getSource()).getRunContext();
-        this.roomRandom1 = runContext.getRandomManage().getRoomRandom1();
-        this.roomRandom2 = runContext.getRandomManage().getRoomRandom2();
-        this.eventRandom = runContext.getRandomManage().getEventRandom();
-    }
+    /**
+     * 弱怪池
+     */
+    private List<List<Enemy>> punyEnemies = new ArrayList<>();
+    private int fightCount;
 
     /*
     战斗(普通/精英/BOSS) -> 战斗上下文，进入战斗
@@ -57,14 +60,37 @@ public class RoomManager {
      * 进入房间
      */
     public EnterRoomResult enter(RoomNode roomNode, RunContext runContext) {
-        Output.printf("你进入了 %d 房间。\n", roomNode.getId());
+        Output.printf(STR."你进入了 \{roomNode.getId()} 房间。\n");
         if (roomNode.getRoomType() == RoomType.MONSTER) {
             Output.println("【触发普通战斗！】");
-            FightContext ctx = new FightContext();
-            ctx.addEnemy(new Cultist("e1", runContext.getDifficulty()));
-            ctx.setCombatType(CombatType.NORMAL);
+            FightContext ctx = new FightContext(CombatType.NORMAL);
+            ctx.addEnemies(punyEnemies.get(fightCount++));
             return new RoomFight(ctx);
         }
         return null;
+    }
+
+    @EventListener(ActStartEvent.class)
+    public void onActStart(ActStartEvent event) {
+        RunContext runContext = ((RunSupport) event.getSource()).getRunContext();
+        // 弱怪池
+        punyEnemies.clear();
+        int act = runContext.getAct();
+        int difficulty = runContext.getDifficulty();
+        if (act == 0) {
+            punyEnemies.add(List.of(new Cultist("e1", difficulty)));
+            punyEnemies.add(List.of(new JawWorm("e1", difficulty)));
+            punyEnemies.add(List.of(new Cultist("e1", difficulty)));
+        }
+
+        Collections.shuffle(punyEnemies);
+    }
+
+    @EventListener(GameStartEvent.class)
+    public void onGameStart(GameStartEvent event) {
+        RunContext runContext = ((RunSupport) event.getSource()).getRunContext();
+        this.roomRandom1 = runContext.getRandomManage().getRoomRandom1();
+        this.roomRandom2 = runContext.getRandomManage().getRoomRandom2();
+        this.eventRandom = runContext.getRandomManage().getEventRandom();
     }
 }

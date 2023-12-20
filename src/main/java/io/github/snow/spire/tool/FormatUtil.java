@@ -32,7 +32,7 @@ public class FormatUtil {
     }
 
     public static String kw(String text) {
-        return "【" + text + "】";
+        return STR."【\{text}】";
     }
 
 

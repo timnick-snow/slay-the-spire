@@ -12,9 +12,7 @@ import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.core.ValueWrapper;
 import io.github.snow.spire.items.effect.Effect;
 import io.github.snow.spire.items.effect.RoughEffect;
-import io.github.snow.spire.items.effect.rough.DamageGroup;
 import io.github.snow.spire.items.enemy.Enemy;
-import io.github.snow.spire.items.intent.AttackIntent;
 import io.github.snow.spire.items.intent.Intent;
 import io.github.snow.spire.items.player.Player;
 import io.github.snow.spire.items.power.Power;
@@ -37,7 +35,7 @@ import static io.github.snow.spire.tool.FormatUtil.*;
 public class FightManager {
     private FightContext ctx;
 
-    final static String DIVIDER = "-".repeat(140) + "\n";
+    final static String DIVIDER = STR."\{"-".repeat(140)}\n";
 
 /*
 战斗开始 -> 第X回合开始 -> 玩家回合开始 -> 玩家回合结束 -> 敌人回合开始 -> 敌人回合结束 ->  第X回合结束
@@ -61,7 +59,7 @@ public class FightManager {
      * 玩家回合开始 -> 抽牌 -> 打牌 -> 玩家回合结束
      */
     public void playerRoundStart() {
-        Output.printf("\n【第 %d 回合】 - 玩家回合阶段\n", ctx.getRound());
+        Output.println(STR."\n【第 \{ctx.getRound()} 回合】 - 玩家回合阶段\n");
         ctx.getPlayer().onRoundStart(ctx);
 
         // 1. 抽牌
@@ -109,7 +107,7 @@ public class FightManager {
         }
 
         // 2. 打出消耗能量
-        Output.printf("你打出卡牌 【%s】\n", card.displayName());
+        Output.println(STR."你打出卡牌 【\{card.displayName()}】");
         ctx.consumeEnergy(card.cost());
         ctx.moveCard(card, CardPosition.PLAY_ZONE);
         ctx.addEffectTail(effects);
@@ -144,7 +142,7 @@ public class FightManager {
         }
         if (!discard.isEmpty()) {
             StringBuilder buf = new StringBuilder();
-            buf.append("手牌中的 %d 张卡牌进入弃牌堆：".formatted(discard.size()));
+            buf.append(STR."手牌中的 \{discard.size()} 张卡牌进入弃牌堆：");
             for (FightCard card : discard) {
                 buf.append(kw(card.displayName())).append("  ");
             }
@@ -160,12 +158,12 @@ public class FightManager {
      * 敌方回合开始
      */
     public void enemyRoundStart() {
-        Output.printf("\n【第 %d 回合】 - 敌方回合阶段\n", ctx.getRound2());
+        Output.println(STR."\n【第 \{ctx.getRound2()} 回合】 - 敌方回合阶段");
         ctx.getEnemies().forEach(enemy -> enemy.onRoundStart(ctx));
 
         // 1. 获取意图的效果 执行效果
         for (Enemy enemy : ctx.getEnemies()) {
-            Output.printf("【%s】开始行动\n", enemy.displayName());
+            Output.println(STR."【\{enemy.displayName()}】开始行动");
             Intent intent = enemy.intent(ctx);
             List<RoughEffect<?>> roughEffects = intent.getRoughEffect(enemy);
             List<Effect<?>> effects = new ArrayList<>();
@@ -253,15 +251,11 @@ public class FightManager {
 
     private String intentFormat(Enemy enemy, boolean verbose) {
         Intent intent = enemy.intent(ctx);
-        RoughEffect<?> roughEffect = intent.getRoughEffect(enemy).getFirst();
-        if (roughEffect instanceof DamageGroup damageGroup) {
-            enemy.powers().forEach(power -> power.simulateAttack(damageGroup, ctx));
-            intent = new AttackIntent(damageGroup.getBase(), damageGroup.getNum());
-        }
+        Intent simulateIntent = intent.simulate(enemy, ctx);
         if (!verbose) {
-            return intent.displayName();
+            return simulateIntent.displayName();
         }
-        return "%s：%s".formatted(intent.displayName(), intent.description());
+        return simulateIntent.toString();
     }
 
     public String handFormat() {
@@ -287,7 +281,7 @@ public class FightManager {
         // intent
         if (fighter instanceof Enemy enemy) {
             buf.append("意图：\n");
-            buf.append("    ").append(intentFormat(enemy, true));
+            buf.append(intentFormat(enemy, true));
             buf.append("\n");
         }
 

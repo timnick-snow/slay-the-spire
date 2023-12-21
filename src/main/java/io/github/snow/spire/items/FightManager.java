@@ -115,7 +115,10 @@ public class FightManager {
                     }
                 }
                 case ALL_OPPONENT -> targets.addAll(ctx.getEnemies());
-                case RANDOM_OPPONENT -> targets.add(ctx.getEnemies().getFirst());
+                case RANDOM_OPPONENT -> {
+                    int idx = ctx.getOtherRandom().nextInt(0, ctx.getEnemies().size());
+                    targets.add(ctx.getEnemies().get(idx));
+                }
                 default -> Output.println("目标参数待完善，卡牌部分功能可能无法生效！");
 
             }
@@ -134,10 +137,8 @@ public class FightManager {
             return;
         }
 
-        // 4. 卡牌使用完成后 如果其没有被效果移动 则进入弃牌堆
-        if (card.position() == CardPosition.PLAY_ZONE) {
-            ctx.moveCardToLast(card, CardPosition.DISCARD_PILE);
-        }
+        // 4. 卡牌使用完成后 进入弃牌堆
+        ctx.finishPlay();
 
         // 5. 剩余手牌
         Output.println("done.\n");

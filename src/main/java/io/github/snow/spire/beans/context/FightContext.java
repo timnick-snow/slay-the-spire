@@ -82,6 +82,7 @@ public class FightContext {
     private final Deque<Effect<?>> effectDeque;
     // 回合标识
     private boolean playerRound;
+    private Random otherRandom;
 
     public FightContext(CombatType combatType) {
         this.combatType = combatType;
@@ -113,6 +114,7 @@ public class FightContext {
         this.drawPile.addAll(initCards);
         this.shuffleRandom = runSupport.getRunContext().getRandomManage().getFightRandom1();
         this.enemyRandom = runSupport.getRunContext().getRandomManage().getFightRandom2();
+        this.otherRandom = runSupport.getRunContext().getRandomManage().getFightRandom3();
     }
 
     /**
@@ -383,5 +385,12 @@ public class FightContext {
                 uc.upgrade();
             }
         });
+    }
+
+    public void finishPlay() {
+        while (!playZone.isEmpty()) {
+            FightCard card = playZone.pollFirst();
+            moveCardToLast(card, CardPosition.DISCARD_PILE);
+        }
     }
 }

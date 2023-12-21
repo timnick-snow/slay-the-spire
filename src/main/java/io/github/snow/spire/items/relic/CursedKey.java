@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class CursedKey extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "诅咒钥匙";
     }
 

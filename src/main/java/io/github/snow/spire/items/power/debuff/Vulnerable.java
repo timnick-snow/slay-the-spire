@@ -21,7 +21,7 @@ public class Vulnerable extends AutoLossPower {
     @Override
     public void onBeAttacked(DamageGroup damageGroup, FightContext ctx) {
         // todo 和遗物的互动
-        Output.println("【易伤】 触发");
+        trigger();
         int base = damageGroup.getBase();
         damageGroup.setBase((int) (base * (1 + percent)));
     }

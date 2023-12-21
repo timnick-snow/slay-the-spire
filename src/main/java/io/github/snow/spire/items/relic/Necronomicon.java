@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class Necronomicon extends EventRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "死灵之书";
     }
 

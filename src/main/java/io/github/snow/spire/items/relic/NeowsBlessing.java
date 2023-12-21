@@ -11,7 +11,7 @@ public class NeowsBlessing extends EventRelic {
     private int rest = 3;
 
     @Override
-    public String name() {
+    public String displayName() {
         return "涅奥的悲恸";
     }
 

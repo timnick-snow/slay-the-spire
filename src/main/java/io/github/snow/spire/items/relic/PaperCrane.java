@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class PaperCrane extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "纸鹤";
     }
 

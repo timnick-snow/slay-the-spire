@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class PureWater extends StarterRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "至纯之水";
     }
 

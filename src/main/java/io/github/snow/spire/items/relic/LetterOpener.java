@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class LetterOpener extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "开信刀";
     }
 

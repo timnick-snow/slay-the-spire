@@ -6,6 +6,7 @@ import io.github.snow.spire.items.effect.BaseEffect;
 import io.github.snow.spire.items.effect.rough.PowerAdder;
 import io.github.snow.spire.items.power.AutoLossPower;
 import io.github.snow.spire.items.power.BasePower;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -13,20 +14,20 @@ import java.util.List;
  * @author snow
  * @since 2023/12/18
  */
-public class PowerEffect extends BaseEffect<Fighter> {
-    private final PowerAdder adder;
-
-    public PowerEffect(List<Fighter> targets, PowerAdder adder) {
-        super(targets);
-        this.adder = adder;
+@Slf4j
+public class PowerEffect extends BaseEffect<Fighter, PowerAdder> {
+    public PowerEffect(List<Fighter> targets, PowerAdder roughEffect) {
+        super(targets, roughEffect);
     }
 
     @Override
     public void work(FightContext ctx) {
-        BasePower basePower = adder.getPower();
+        super.work(ctx);
+        BasePower basePower = roughEffect.getPower();
         if (!ctx.isPlayerRound() && basePower instanceof AutoLossPower lossPower) {
+            log.info("power effect work on enemy round.");
             lossPower.setKeep(true);
         }
-        getTargets().forEach(fighter -> fighter.addPower(adder, ctx));
+        getTargets().forEach(fighter -> fighter.addPower(roughEffect, ctx));
     }
 }

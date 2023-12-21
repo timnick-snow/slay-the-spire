@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class CallingBell extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "召唤铃铛";
     }
 

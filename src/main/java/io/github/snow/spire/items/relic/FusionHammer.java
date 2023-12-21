@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class FusionHammer extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "融合之锤";
     }
 

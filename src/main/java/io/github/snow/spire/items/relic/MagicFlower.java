@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class MagicFlower extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "魔法花";
     }
 

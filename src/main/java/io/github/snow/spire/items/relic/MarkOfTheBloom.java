@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class MarkOfTheBloom extends EventRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "绽放印记";
     }
 

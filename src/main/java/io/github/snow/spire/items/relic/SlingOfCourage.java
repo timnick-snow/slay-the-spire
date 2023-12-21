@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class SlingOfCourage extends ShopRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "勇气投石索";
     }
 

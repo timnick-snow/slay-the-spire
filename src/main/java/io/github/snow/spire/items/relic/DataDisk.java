@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class DataDisk extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "数据磁盘";
     }
 

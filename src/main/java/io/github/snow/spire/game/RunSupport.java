@@ -175,7 +175,7 @@ public class RunSupport {
 
     public void addRelic(Relic relic) {
         runContext.getRelicGroup().addRelic(relic);
-        writeAndFlush("你获得了【%s】！".formatted(relic.name()));
+        writeAndFlush("你获得了【%s】！".formatted(relic.displayName()));
     }
 
     public void addRandomRelic(RelicRarity rarity) {
@@ -186,7 +186,7 @@ public class RunSupport {
     public void lossRelic(Predicate<Relic> predicate) {
         List<Relic> loss = runContext.getRelicGroup().lossRelic(predicate);
         if (!loss.isEmpty()) {
-            writeAndFlush("你失去了【%s】！".formatted(loss.getFirst().name()));
+            writeAndFlush("你失去了【%s】！".formatted(loss.getFirst().displayName()));
         }
     }
 

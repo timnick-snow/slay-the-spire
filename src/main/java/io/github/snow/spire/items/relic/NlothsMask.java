@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class NlothsMask extends EventRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "恩洛斯的饥饿的脸";
     }
 

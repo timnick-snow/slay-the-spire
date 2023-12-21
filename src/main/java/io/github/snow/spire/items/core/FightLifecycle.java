@@ -1,6 +1,7 @@
 package io.github.snow.spire.items.core;
 
 import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.items.effect.rough.BlockChanger;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
 import io.github.snow.spire.items.effect.rough.PowerAdder;
 
@@ -92,6 +93,6 @@ public interface FightLifecycle {
     /**
      * 护甲回合开始时自动失去
      */
-    default void onBlockAutoLose(ValueWrapper loseValue, FightContext ctx) {
+    default void onBlockAutoLose(BlockChanger blockChanger, FightContext ctx) {
     }
 }

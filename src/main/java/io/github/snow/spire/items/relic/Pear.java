@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class Pear extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "梨子";
     }
 

@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class SmilingMask extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "微笑面具";
     }
 

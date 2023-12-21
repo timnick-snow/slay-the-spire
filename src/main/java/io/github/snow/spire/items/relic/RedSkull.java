@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class RedSkull extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "红头骨";
     }
 

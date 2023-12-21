@@ -294,10 +294,6 @@ public class FightContext {
         }
     }
 
-    public void roundChange() {
-        this.playerRound = !playerRound;
-    }
-
     private void fightEnd() {
         Output.println("\n战斗胜利！\n");
         this.completed = true;

@@ -27,8 +27,8 @@ public class BuffStrategic extends BaseIntent {
 
     @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
-        PowerAdder adder = new PowerAdder(EffectTarget.SELF, power);
-        adder.setSource(new SourceChain().setFighter(fighter).setProducer(this));
+        SourceChain source = new SourceChain().setFighter(fighter).setProducer(this);
+        PowerAdder adder = new PowerAdder(EffectTarget.SELF, source, power);
         return Collections.singletonList(adder);
     }
 

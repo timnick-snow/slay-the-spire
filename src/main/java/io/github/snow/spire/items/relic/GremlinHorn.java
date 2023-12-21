@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class GremlinHorn extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "地精之角";
     }
 

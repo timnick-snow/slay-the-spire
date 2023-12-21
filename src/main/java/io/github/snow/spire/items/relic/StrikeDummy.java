@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class StrikeDummy extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "打击木偶";
     }
 

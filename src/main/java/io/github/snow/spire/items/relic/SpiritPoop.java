@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class SpiritPoop extends EventRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "精灵便便";
     }
 

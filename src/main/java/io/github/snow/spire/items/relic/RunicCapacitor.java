@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class RunicCapacitor extends ShopRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "符文电容器";
     }
 

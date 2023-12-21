@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class LeeWaffle extends ShopRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "李家华夫饼";
     }
 

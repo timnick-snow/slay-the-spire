@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class BottledTornado extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "瓶装旋风";
     }
 

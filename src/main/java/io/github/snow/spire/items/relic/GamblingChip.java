@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class GamblingChip extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "赌博筹码";
     }
 

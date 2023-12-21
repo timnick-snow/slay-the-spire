@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class TwistedFunnel extends ShopRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "扭曲漏斗";
     }
 

@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class RegalPillow extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "皇家枕头";
     }
 

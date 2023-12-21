@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class OddlySmoothStone extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "意外光滑的石头";
     }
 

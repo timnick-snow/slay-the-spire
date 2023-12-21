@@ -2,8 +2,9 @@ package io.github.snow.spire.items.core;
 
 
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.items.effect.rough.BlockAdder;
+import io.github.snow.spire.items.effect.rough.BlockChanger;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
+import io.github.snow.spire.items.effect.rough.Heal;
 import io.github.snow.spire.items.effect.rough.PowerAdder;
 import io.github.snow.spire.items.power.Power;
 
@@ -62,9 +63,14 @@ public interface Fighter extends DisplayAble, FightLifecycle {
     PowerResult addPower(PowerAdder powerAdder, FightContext ctx);
 
     /**
-     * 增加格挡
+     * 增加/失去格挡
      */
-    void addBlock(BlockAdder blockAdder);
+    void changeBlock(BlockChanger blockChanger, FightContext ctx);
+
+    /**
+     * 治疗
+     */
+    void heal(Heal heal, FightContext ctx);
 
     /**
      * 是否死亡

@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class Anchor extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "锚";
     }
 

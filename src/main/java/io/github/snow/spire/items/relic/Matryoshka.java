@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class Matryoshka extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "套娃";
     }
 

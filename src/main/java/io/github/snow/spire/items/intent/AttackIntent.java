@@ -29,8 +29,8 @@ public class AttackIntent extends BaseIntent {
 
     @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
-        DamageGroup damageGroup = new DamageGroup(EffectTarget.SINGLE_OPPONENT, base, num);
-        damageGroup.setSource(new SourceChain().setProducer(this).setFighter(fighter));
+        SourceChain source = new SourceChain().setProducer(this).setFighter(fighter);
+        DamageGroup damageGroup = new DamageGroup(EffectTarget.SINGLE_OPPONENT, source, base, num);
         return Collections.singletonList(damageGroup);
     }
 

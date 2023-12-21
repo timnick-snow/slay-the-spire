@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class PandoraBox extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "潘多拉魔盒";
     }
 

@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class MawBank extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "巨口储蓄罐";
     }
 

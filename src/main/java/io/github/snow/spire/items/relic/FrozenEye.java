@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class FrozenEye extends ShopRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "冻结之眼";
     }
 

@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class BagOfPreparation extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "准备背包";
     }
 

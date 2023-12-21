@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class NuclearBattery extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "核能电池";
     }
 

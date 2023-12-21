@@ -42,7 +42,7 @@ public class RelicGroup {
         if (verbose) {
             // 详细的
             for (Relic relic : relics) {
-                buf.append(relic.name())
+                buf.append(relic.displayName())
                         .append(": ")
                         .append(relic.description())
                         .append("\n");
@@ -50,7 +50,7 @@ public class RelicGroup {
         } else {
             // 简要的
             for (int i = 0; i < relics.size(); i++) {
-                buf.append(relics.get(i).name());
+                buf.append(relics.get(i).displayName());
                 if (i == relics.size() - 1) {
                     break;
                 }

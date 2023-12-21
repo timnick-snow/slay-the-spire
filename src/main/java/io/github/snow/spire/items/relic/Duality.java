@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class Duality extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "两仪";
     }
 

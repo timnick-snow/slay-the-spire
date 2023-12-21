@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class GremlinMask extends EventRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "地精容貌";
     }
 

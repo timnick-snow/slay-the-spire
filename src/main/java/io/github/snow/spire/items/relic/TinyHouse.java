@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class TinyHouse extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "小屋子";
     }
 

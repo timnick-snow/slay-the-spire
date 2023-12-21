@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class StoneCalendar extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "历石";
     }
 

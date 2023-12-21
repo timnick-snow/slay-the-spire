@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class RingOfTheSnake extends StarterRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "蛇之戒指";
     }
 

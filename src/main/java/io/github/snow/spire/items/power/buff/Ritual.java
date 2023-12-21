@@ -8,7 +8,6 @@ import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.core.SourceChain;
 import io.github.snow.spire.items.effect.Effect;
 import io.github.snow.spire.items.effect.RoughEffect;
-import io.github.snow.spire.items.effect.finished.PowerEffect;
 import io.github.snow.spire.items.effect.rough.PowerAdder;
 import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.Player;
@@ -43,8 +42,6 @@ public class Ritual extends BasePower implements EffectProducer {
     }
 
     private void work(FightContext ctx) {
-        trigger();
-
         // 增加力量
         Effect<?> effect = getRoughEffect(host).getFirst()
                 .process(Collections.singletonList(host));
@@ -54,8 +51,7 @@ public class Ritual extends BasePower implements EffectProducer {
     @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
         SourceChain source = new SourceChain().setFighter(host).setProducer(this);
-        PowerAdder roughEffect = new PowerAdder(EffectTarget.SELF, new Strength(amount()));
-        roughEffect.setSource(source);
+        PowerAdder roughEffect = new PowerAdder(EffectTarget.SELF, source, new Strength(amount()));
         return Collections.singletonList(roughEffect);
     }
 

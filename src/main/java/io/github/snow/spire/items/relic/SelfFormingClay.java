@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class SelfFormingClay extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "自成型黏土";
     }
 

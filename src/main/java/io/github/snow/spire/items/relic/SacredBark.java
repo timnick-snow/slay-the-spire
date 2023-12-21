@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class SacredBark extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "神圣树皮";
     }
 

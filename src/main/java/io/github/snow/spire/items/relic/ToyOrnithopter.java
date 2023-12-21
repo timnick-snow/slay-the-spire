@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class ToyOrnithopter extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "玩具扑翼飞机";
     }
 

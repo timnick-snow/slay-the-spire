@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class WristBlade extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "袖剑";
     }
 

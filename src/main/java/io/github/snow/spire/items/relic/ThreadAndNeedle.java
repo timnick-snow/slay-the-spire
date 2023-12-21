@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class ThreadAndNeedle extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "针线";
     }
 

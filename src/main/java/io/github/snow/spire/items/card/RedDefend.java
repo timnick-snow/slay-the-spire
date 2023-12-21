@@ -5,7 +5,7 @@ import io.github.snow.spire.enums.CardType;
 import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.core.SourceChain;
 import io.github.snow.spire.items.effect.RoughEffect;
-import io.github.snow.spire.items.effect.rough.BlockAdder;
+import io.github.snow.spire.items.effect.rough.BlockChanger;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,8 +39,8 @@ public class RedDefend extends RedCard {
 
     @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
-        BlockAdder adder = new BlockAdder(block);
-        adder.setSource(new SourceChain().setFighter(fighter).setProducer(this));
+        SourceChain source = new SourceChain().setFighter(fighter).setProducer(this);
+        BlockChanger adder = new BlockChanger(block, source);
         return Collections.singletonList(adder);
     }
 

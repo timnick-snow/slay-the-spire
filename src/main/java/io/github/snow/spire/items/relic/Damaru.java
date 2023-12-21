@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class Damaru extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "手摇鼓";
     }
 

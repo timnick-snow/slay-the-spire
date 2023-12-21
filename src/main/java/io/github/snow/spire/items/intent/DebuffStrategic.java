@@ -27,8 +27,8 @@ public class DebuffStrategic extends BaseIntent {
 
     @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
-        PowerAdder adder = new PowerAdder(EffectTarget.SINGLE_OPPONENT, power);
-        adder.setSource(new SourceChain().setFighter(fighter).setProducer(this));
+        SourceChain source = new SourceChain().setFighter(fighter).setProducer(this);
+        PowerAdder adder = new PowerAdder(EffectTarget.SINGLE_OPPONENT, source, power);
         return Collections.singletonList(adder);
     }
 

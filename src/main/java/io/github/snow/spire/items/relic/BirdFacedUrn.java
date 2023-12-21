@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class BirdFacedUrn extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "鸟面瓮";
     }
 

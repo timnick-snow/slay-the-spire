@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class Ginger extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "生姜";
     }
 

@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class TeardropLocket extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "泪滴吊坠盒";
     }
 

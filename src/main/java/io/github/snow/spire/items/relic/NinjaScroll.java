@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class NinjaScroll extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "忍术卷轴";
     }
 

@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class Brimstone extends ShopRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "硫磺";
     }
 

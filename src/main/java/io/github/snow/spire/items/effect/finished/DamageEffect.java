@@ -5,7 +5,6 @@ import io.github.snow.spire.items.core.AttackResult;
 import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.effect.BaseEffect;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
-import lombok.Getter;
 
 import java.util.List;
 
@@ -13,21 +12,17 @@ import java.util.List;
  * @author snow
  * @since 2023/12/17
  */
-@Getter
-public class DamageEffect extends BaseEffect<Fighter> {
-    private final DamageGroup damageGroup;
-
-
-    public DamageEffect(List<Fighter> targets, DamageGroup damageGroup) {
-        super(targets);
-        this.damageGroup = damageGroup;
+//@Getter
+public class DamageEffect extends BaseEffect<Fighter, DamageGroup> {
+    public DamageEffect(List<Fighter> targets, DamageGroup roughEffect) {
+        super(targets, roughEffect);
     }
-
     @Override
     public void work(FightContext ctx) {
+        super.work(ctx);
         for (Fighter fighter : getTargets()) {
             if (!fighter.isDie()) {
-                AttackResult attackResult = fighter.beAttacked(damageGroup, ctx);
+                AttackResult attackResult = fighter.beAttacked(roughEffect, ctx);
                 if (!fighter.isDie()) {
                     fighter.onAfterBeAttacked(attackResult, ctx);
                 }

@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class StrangeSpoon extends ShopRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "奇怪的勺子";
     }
 

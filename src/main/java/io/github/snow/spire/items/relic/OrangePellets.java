@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class OrangePellets extends ShopRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "橙色药丸";
     }
 

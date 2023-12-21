@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class Turnip extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "萝卜";
     }
 

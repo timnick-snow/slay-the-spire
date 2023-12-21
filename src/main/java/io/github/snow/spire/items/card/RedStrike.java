@@ -53,6 +53,7 @@ public class RedStrike extends RedCard {
         super.upgrade();
         this.damage = 9;
     }
+
     @Override
     public Card copy(String id) {
         RedStrike copy = (RedStrike) super.copy(id);
@@ -72,8 +73,8 @@ public class RedStrike extends RedCard {
 
     @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
-        DamageGroup damageGroup = new DamageGroup(EffectTarget.SINGLE_OPPONENT, damage, 1);
-        damageGroup.setSource(new SourceChain().setFighter(fighter).setProducer(this));
+        SourceChain source = new SourceChain().setFighter(fighter).setProducer(this);
+        DamageGroup damageGroup = new DamageGroup(EffectTarget.SINGLE_OPPONENT, source, damage, 1);
         return Collections.singletonList(damageGroup);
     }
 }

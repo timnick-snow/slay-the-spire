@@ -3,7 +3,6 @@ package io.github.snow.spire.items.enemy;
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.items.core.BaseFighter;
 import io.github.snow.spire.items.core.DisplayAble;
-import io.github.snow.spire.items.core.ValueWrapper;
 import io.github.snow.spire.items.power.Power;
 import io.github.snow.spire.tool.Output;
 import lombok.extern.slf4j.Slf4j;
@@ -61,34 +60,18 @@ public abstract class BaseEnemy extends BaseFighter implements Enemy {
 
     @Override
     public void onPlayerRoundStart(FightContext ctx) {
+        super.onPlayerRoundStart(ctx);
         powers().forEach(power -> power.onPlayerRoundStart(ctx));
-        powerRefresh();
     }
 
     @Override
     public void onEnemyRoundEnd(FightContext ctx) {
         powers().forEach(power -> power.onEnemyRoundEnd(ctx));
-        powerRefresh();
     }
 
     @Override
     public void onEnemyRoundStart(FightContext ctx) {
-        // 失去格挡
-        ValueWrapper blockWrapper = ValueWrapper.of(block);
-        powers().forEach(power -> power.onBlockAutoLose(blockWrapper, ctx));
-        loseBlock(blockWrapper.getValue());
-
         powers().forEach(power -> power.onEnemyRoundStart(ctx));
-        powerRefresh();
-    }
-
-    private void loseBlock(int value) {
-        value = Math.min(value, block);
-        if (value > 0) {
-            int oldBlock = block;
-            this.block -= value;
-            Output.println(STR."【\{displayName()}】失去了 \{value} 格挡，block: \{oldBlock} -> \{block}");
-        }
     }
 
     @Override

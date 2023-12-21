@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class VioletLotus extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "紫色莲花";
     }
 

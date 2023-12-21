@@ -1,16 +1,16 @@
 package io.github.snow.spire.items.core;
 
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.items.effect.rough.BlockAdder;
+import io.github.snow.spire.items.effect.finished.BlockEffect;
+import io.github.snow.spire.items.effect.rough.BlockChanger;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
+import io.github.snow.spire.items.effect.rough.Heal;
 import io.github.snow.spire.items.effect.rough.PowerAdder;
+import io.github.snow.spire.items.player.Player;
 import io.github.snow.spire.items.power.Power;
 import io.github.snow.spire.tool.Output;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author snow
@@ -62,8 +62,7 @@ public abstract class BaseFighter implements Fighter {
             }
             // [1/2] 对 【邪教徒 e1】 造成 5 伤害，格挡 5 伤害，损失 0 点生命值。 当前状态 { hp: 40/40, block: 1 }
             // [2/2] 对 【邪教徒 e1】 造成 5 伤害，格挡 1 伤害，损失 4 点生命值。 当前状态 { hp: 36/40, block: 0 }
-            String log = "  [%d/%d] 对 【%s】 造成 %d 伤害，格挡 %d 伤害，损失 %d 点生命值。 当前状态 { hp: %d/%d, block: %d }"
-                    .formatted(i + 1, num, displayName(), base, block0, realInjured, hp(), maxHp(), block());
+            String log = STR."  [\{i + 1}/\{num}] 对 \{call()} 造成 \{base} 伤害，格挡 \{block0} 伤害，损失 \{realInjured} 点生命值。\{statusFormat()}";
             Output.println(log);
             if (this.hp <= 0) {
                 break;
@@ -87,25 +86,56 @@ public abstract class BaseFighter implements Fighter {
         if (origin == null) {
             powers.put(power.id(), power);
             // 【邪教徒 e1】 获得了 【易伤(3)】
-            Output.println(STR."【\{displayName()}】 获得了 【\{power.displayName()}】");
+            Output.println(STR."\{call()} 获得了 【\{power.displayName()}】");
         } else {
             if (origin.isStackable()) {
                 // 【邪教徒 e1】 身上的 【易伤】 增加了：2 -> 5
                 int old = origin.amount();
                 origin.stack(power.amount());
-                Output.println(STR."【\{displayName()}】 身上的 【\{power.name()}】 增加了：\{old} -> \{origin.amount()}");
+                Output.println(STR."\{call()} 身上的 【\{power.name()}】 增加了：\{old} -> \{origin.amount()}");
             }
         }
         return new PowerResult();
     }
 
     @Override
-    public void addBlock(BlockAdder blockAdder) {
-        int add = blockAdder.getBlock();
+    public void changeBlock(BlockChanger blockChanger, FightContext ctx) {
+        int add = blockChanger.getBlock();
+        if (add < 0) {
+            onBlockAutoLose(blockChanger, ctx);
+        }
+        if (add == 0) {
+            return;
+        }
         this.block += add;
-        String log = "【%s】 增加了 %d 格挡。 当前状态 { hp: %d/%d, block: %d }"
-                .formatted(displayName(), add, hp(), maxHp(), block());
+        String log = STR."\{call()} \{add > 0 ? "增加" : "失去"}了 \{Math.abs(add)} 格挡。\{statusFormat()}";
         Output.println(log);
+    }
+
+    @Override
+    public void heal(Heal heal, FightContext ctx) {
+        int value = heal.getValue();
+        value = Math.min(maxHp - hp, value);
+        if (value > 0) {
+            int oldHp = this.hp;
+            this.hp += value;
+            Output.println(STR."\{call()} 回复了 \{value} 生命，hp: \{oldHp} -> \{hp}");
+        }
+    }
+
+    @Override
+    public void onPlayerRoundStart(FightContext ctx) {
+        // 失去格挡
+        SourceChain source = new SourceChain().setFighter(this).setProducer(EffectProducer.GAME_MECHANICS);
+        BlockChanger roughEffect = new BlockChanger(-block, source);
+
+        BlockEffect effect = roughEffect.process(Collections.singletonList(this));
+        ctx.addEffectTail(effect);
+    }
+
+    @Override
+    public void onBlockAutoLose(BlockChanger blockChanger, FightContext ctx) {
+        powers().forEach(power -> power.onBlockAutoLose(blockChanger, ctx));
     }
 
     @Override
@@ -146,5 +176,16 @@ public abstract class BaseFighter implements Fighter {
     @Override
     public boolean isDie() {
         return this.hp <= 0;
+    }
+
+    protected String statusFormat() {
+        return STR."当前状态 { hp: \{hp()}/\{maxHp()}, block: \{block()} }";
+    }
+
+    protected String call() {
+        if (this instanceof Player) {
+            return "你";
+        }
+        return STR."【\{displayName()}】";
     }
 }

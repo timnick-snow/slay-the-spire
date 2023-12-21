@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class ChampionBelt extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "冠军腰带";
     }
 

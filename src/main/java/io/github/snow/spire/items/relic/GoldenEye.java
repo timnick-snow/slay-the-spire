@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class GoldenEye extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "黄金眼";
     }
 

@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class RunicPyramid extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "符文金字塔";
     }
 

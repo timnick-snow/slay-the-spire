@@ -46,6 +46,7 @@ public class FightManager {
      */
     public void startFight(FightContext ctx) {
         this.ctx = ctx;
+        ctx.setPlayerRound(true);
         // 战斗开始
         Output.println("战斗开始！");
         ctx.getPlayer().onFightStart(ctx);
@@ -53,6 +54,8 @@ public class FightManager {
         ctx.shuffle();
         // 战斗开始后
         ctx.getEnemies().forEach(enemy -> enemy.onAfterFightStart(ctx));
+        // run
+        ctx.runEffect();
 
         // 回合开始
         playerRoundStart();
@@ -72,6 +75,13 @@ public class FightManager {
         // 2. 重置能量
         ValueWrapper energyNum = ValueWrapper.of(3);
         ctx.setEnergy(energyNum.getValue());
+
+        // run
+        ctx.runEffect();
+        if (ctx.isCompleted()) {
+            return;
+        }
+
         // 3. 当前战斗内概述信息 => 等待玩家打牌
         overview();
     }
@@ -154,9 +164,14 @@ public class FightManager {
         }
 
         ctx.getPlayer().onPlayerRoundEnd(ctx);
+        // run
+        ctx.runEffect();
+        if (ctx.isCompleted()) {
+            return;
+        }
         ctx.roundAdd();
         // 2. 敌方回合开始
-        ctx.roundChange();
+        ctx.setPlayerRound(false);
         enemyRoundStart();
     }
 
@@ -166,6 +181,11 @@ public class FightManager {
     public void enemyRoundStart() {
         Output.println(STR."\n【第 \{ctx.getRound2()} 回合】 - 敌方回合阶段");
         ctx.getEnemies().forEach(enemy -> enemy.onEnemyRoundStart(ctx));
+        // run
+        ctx.runEffect();
+        if (ctx.isCompleted()) {
+            return;
+        }
 
         // 1. 获取意图的效果 执行效果
         for (Enemy enemy : ctx.getEnemies()) {
@@ -194,10 +214,15 @@ public class FightManager {
 
         // 2. 敌军回合结束
         ctx.getEnemies().forEach(enemy -> enemy.onEnemyRoundEnd(ctx));
+        // run
+        ctx.runEffect();
+        if (ctx.isCompleted()) {
+            return;
+        }
         ctx.round2Add();
 
         // 3. 玩家下一回开始
-        ctx.roundChange();
+        ctx.setPlayerRound(true);
         playerRoundStart();
     }
 

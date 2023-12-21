@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class VelvetChoker extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "天鹅绒颈圈";
     }
 

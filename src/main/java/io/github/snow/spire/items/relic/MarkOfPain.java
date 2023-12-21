@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class MarkOfPain extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "痛楚印记";
     }
 

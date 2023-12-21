@@ -3,6 +3,7 @@ package io.github.snow.spire.items.effect.rough;
 import io.github.snow.spire.enums.EffectTarget;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.Fighter;
+import io.github.snow.spire.items.core.SourceChain;
 import io.github.snow.spire.items.effect.BaseRoughEffect;
 import io.github.snow.spire.items.effect.finished.DamageEffect;
 import lombok.Getter;
@@ -26,8 +27,8 @@ public class DamageGroup extends BaseRoughEffect<Fighter> {
      */
     private int num;
 
-    public DamageGroup(EffectTarget effectTarget, int base, int num) {
-        super(effectTarget);
+    public DamageGroup(EffectTarget effectTarget, SourceChain source, int base, int num) {
+        super(effectTarget, source);
         this.base = base;
         this.num = num;
     }
@@ -35,8 +36,6 @@ public class DamageGroup extends BaseRoughEffect<Fighter> {
     @Override
     @SuppressWarnings("unchecked")
     public DamageEffect process(List<? extends DisplayAble> targets) {
-        DamageEffect effect = new DamageEffect((List<Fighter>) targets, this);
-        source.setEffect(effect);
-        return effect;
+        return new DamageEffect((List<Fighter>) targets, this);
     }
 }

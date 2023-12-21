@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class TheSpecimen extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "生物样本";
     }
 

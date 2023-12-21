@@ -1,18 +1,17 @@
 package io.github.snow.spire.items.relic;
 
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.items.core.ValueWrapper;
-import io.github.snow.spire.tool.Output;
+import io.github.snow.spire.items.effect.rough.BlockChanger;
 
 /**
  * @author snow
  * @since 2023-12-10
  */
 public class Calipers extends RareRelic {
-    private static final int LOSE_VALUE = 15;
+    private static final int LOSE_VALUE = -15;
 
     @Override
-    public String name() {
+    public String displayName() {
         return "外卡钳";
     }
 
@@ -22,11 +21,11 @@ public class Calipers extends RareRelic {
     }
 
     @Override
-    public void onBlockAutoLose(ValueWrapper loseValue, FightContext ctx) {
-        int value = loseValue.getValue();
-        if (value > LOSE_VALUE) {
-            Output.println(STR."【\{name()}】 触发");
-            loseValue.setValue(LOSE_VALUE);
+    public void onBlockAutoLose(BlockChanger blockChanger, FightContext ctx) {
+        int value = blockChanger.getBlock();
+        if (value < LOSE_VALUE) {
+            trigger();
+            blockChanger.setBlock(LOSE_VALUE);
         }
     }
 }

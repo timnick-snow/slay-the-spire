@@ -9,6 +9,6 @@ import io.github.snow.spire.tool.Output;
 public abstract class BaseRelic implements Relic {
 
     protected void trigger() {
-        Output.printf(STR."【\{name()}】 触发\n");
+        Output.printf(STR."【\{displayName()}】 触发\n");
     }
 }

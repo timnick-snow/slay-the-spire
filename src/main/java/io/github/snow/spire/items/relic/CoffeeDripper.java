@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class CoffeeDripper extends BossRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "咖啡滤杯";
     }
 

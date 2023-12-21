@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class ArtOfWar extends CommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "孙子兵法";
     }
 

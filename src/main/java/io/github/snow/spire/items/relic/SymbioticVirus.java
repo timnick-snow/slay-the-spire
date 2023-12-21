@@ -8,7 +8,7 @@ import io.github.snow.spire.enums.Characters;
  */
 public class SymbioticVirus extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "共生病毒";
     }
 

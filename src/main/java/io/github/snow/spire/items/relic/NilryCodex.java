@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class NilryCodex extends EventRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "尼利的宝典";
     }
 

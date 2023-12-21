@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class ClockworkSouvenir extends ShopRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "齿轮工艺品";
     }
 

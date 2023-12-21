@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class PeacePipe extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "宁静烟斗";
     }
 

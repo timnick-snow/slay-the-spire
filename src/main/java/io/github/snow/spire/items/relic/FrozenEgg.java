@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class FrozenEgg extends UncommonRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "冻结之蛋";
     }
 

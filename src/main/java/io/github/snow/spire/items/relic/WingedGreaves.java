@@ -6,7 +6,7 @@ package io.github.snow.spire.items.relic;
  */
 public class WingedGreaves extends RareRelic {
     @Override
-    public String name() {
+    public String displayName() {
         return "羽翼之靴";
     }
 

@@ -45,11 +45,11 @@ public class Bash extends RedCard {
     @Override
     public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
         // 伤害
-        DamageGroup damageGroup = new DamageGroup(EffectTarget.SINGLE_OPPONENT, damage, 1);
-        damageGroup.setSource(new SourceChain().setFighter(fighter).setProducer(this));
+        SourceChain source = new SourceChain().setFighter(fighter).setProducer(this);
+        DamageGroup damageGroup = new DamageGroup(EffectTarget.SINGLE_OPPONENT, source, damage, 1);
         // 易伤
-        PowerAdder powerAdder = new PowerAdder(EffectTarget.SINGLE_OPPONENT, new Vulnerable(vulnerable));
-        powerAdder.setSource(new SourceChain().setFighter(fighter).setProducer(this));
+        SourceChain source2 = new SourceChain().setFighter(fighter).setProducer(this);
+        PowerAdder powerAdder = new PowerAdder(EffectTarget.SINGLE_OPPONENT, source2, new Vulnerable(vulnerable));
         return List.of(damageGroup, powerAdder);
     }
 

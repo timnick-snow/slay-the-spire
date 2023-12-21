@@ -4,6 +4,7 @@ import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.enums.CombatType;
 import io.github.snow.spire.game.Deck;
 import io.github.snow.spire.game.RunSupport;
+import io.github.snow.spire.items.card.UpgradableCard;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightCard;
 import io.github.snow.spire.items.core.Fighter;
@@ -294,6 +295,10 @@ public class FightContext {
         }
     }
 
+    public String nextCid() {
+        return String.format("d%02d", ++cid);
+    }
+
     private void fightEnd() {
         Output.println("\n战斗胜利！\n");
         this.completed = true;
@@ -302,5 +307,33 @@ public class FightContext {
         // 战斗奖励
         Output.println();
         runSupport.fightVictory(this);
+    }
+
+    public boolean isHandFull() {
+        return hand.size() >= 10;
+    }
+
+    public void addFightCard(FightCard fightCard, CardPosition dest) {
+        switch (dest) {
+            case HAND -> {
+                if (isHandFull()) {
+                    Output.printf("手牌数已满！\n");
+                    drawPile.addLast(fightCard);
+                } else {
+                    hand.add(fightCard);
+                }
+            }
+            case DRAW_PILE -> drawPile.addLast(fightCard);
+            case DISCARD_PILE -> discardPile.addLast(fightCard);
+            default -> throw new IllegalArgumentException(STR."Add fight card not support dest: \{dest}");
+        }
+    }
+
+    public void upgradeCards(List<FightCard> targets) {
+        targets.forEach(card -> {
+            if (card instanceof UpgradableCard uc && uc.isUpgradable()) {
+                uc.upgrade();
+            }
+        });
     }
 }

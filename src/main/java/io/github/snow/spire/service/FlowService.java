@@ -137,7 +137,7 @@ public class FlowService extends AbstractShellComponent {
                 return false;
             }
         }).toList();
-        writeAndFlush(cardManager.format(list, true) + "\n");
+        writeAndFlush(STR."\{cardManager.format(list, true)}\n");
 
         String cardId;
         while (true) {

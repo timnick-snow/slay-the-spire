@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.card;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.enums.*;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.EffectProducer;
@@ -39,7 +40,7 @@ public interface Card extends DisplayAble, EffectProducer {
 
     Card copy(String id);
 
-    boolean isPlayable();
+    boolean isPlayable(FightContext ctx);
 
     default CardPosition positionOnEnd() {
         return CardPosition.DISCARD_PILE;

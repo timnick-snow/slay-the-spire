@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.card;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.enums.CardColor;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
@@ -49,7 +50,7 @@ public abstract class CurseCard implements Card {
     }
 
     @Override
-    public boolean isPlayable() {
+    public boolean isPlayable(FightContext ctx) {
         return false;
     }
 

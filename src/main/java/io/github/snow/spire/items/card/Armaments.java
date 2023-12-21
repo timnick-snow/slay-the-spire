@@ -2,6 +2,14 @@ package io.github.snow.spire.items.card;
 
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
+import io.github.snow.spire.enums.EffectTarget;
+import io.github.snow.spire.items.core.Fighter;
+import io.github.snow.spire.items.core.SourceChain;
+import io.github.snow.spire.items.effect.RoughEffect;
+import io.github.snow.spire.items.effect.rough.BlockChanger;
+import io.github.snow.spire.items.effect.rough.CardUpgrade;
+
+import java.util.List;
 
 /**
  * @author snow
@@ -13,6 +21,18 @@ public class Armaments extends RedCard {
 
     public Armaments(String id, int level) {
         super(id, level);
+    }
+
+    @Override
+    public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
+        // 格挡
+        int block = 5;
+        SourceChain source = new SourceChain().setFighter(fighter).setProducer(this);
+        BlockChanger blockAdd = new BlockChanger(block, source);
+        // 升级手牌
+        EffectTarget effectTarget = level == 0 ? EffectTarget.SINGLE_HAND_CARD : EffectTarget.ALL_HAND_CARD;
+        CardUpgrade cardUpgrade = new CardUpgrade(effectTarget, source.copy());
+        return List.of(blockAdd, cardUpgrade);
     }
 
     @Override

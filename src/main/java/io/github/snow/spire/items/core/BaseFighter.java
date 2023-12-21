@@ -6,6 +6,7 @@ import io.github.snow.spire.items.effect.rough.BlockChanger;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
 import io.github.snow.spire.items.effect.rough.Heal;
 import io.github.snow.spire.items.effect.rough.PowerAdder;
+import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.Player;
 import io.github.snow.spire.items.power.Power;
 import io.github.snow.spire.tool.Output;
@@ -67,6 +68,10 @@ public abstract class BaseFighter implements Fighter {
             if (this.hp <= 0) {
                 break;
             }
+        }
+        if (this instanceof Enemy && isDie()) {
+            // 死亡处理 todo 提取到生命周期中
+            Output.println(STR."\{call()} 已阵亡！");
         }
         return new AttackResult(total, blockDamage, isDie());
     }

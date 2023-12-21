@@ -55,7 +55,7 @@ public class FightCard implements Card {
     }
 
     public boolean isPlayable(PlayRule playRule, FightContext ctx) {
-        if (!isPlayable()) {
+        if (!isPlayable(ctx)) {
             Output.println("这张卡牌 【不能打出】 ！");
             return false;
         }
@@ -112,8 +112,8 @@ public class FightCard implements Card {
     }
 
     @Override
-    public boolean isPlayable() {
-        return card.isPlayable();
+    public boolean isPlayable(FightContext ctx) {
+        return card.isPlayable(ctx);
     }
 
     @Override

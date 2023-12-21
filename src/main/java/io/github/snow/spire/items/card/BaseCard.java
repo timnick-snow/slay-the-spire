@@ -1,5 +1,6 @@
 package io.github.snow.spire.items.card;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.items.core.Fighter;
 import io.github.snow.spire.items.effect.RoughEffect;
 import lombok.Getter;
@@ -36,14 +37,14 @@ public abstract class BaseCard implements UpgradableCard {
         if (level == 0) {
             return name;
         } else if (level == 1) {
-            return name + "+";
+            return STR."\{name}+";
         } else {
-            return name + "+" + level;
+            return STR."\{name}+\{level}";
         }
     }
 
     @Override
-    public boolean isPlayable() {
+    public boolean isPlayable(FightContext ctx) {
         return true;
     }
 

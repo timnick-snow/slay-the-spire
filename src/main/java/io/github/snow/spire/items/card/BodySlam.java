@@ -1,7 +1,16 @@
 package io.github.snow.spire.items.card;
 
+import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
+import io.github.snow.spire.enums.EffectTarget;
+import io.github.snow.spire.items.core.Fighter;
+import io.github.snow.spire.items.core.SourceChain;
+import io.github.snow.spire.items.effect.RoughEffect;
+import io.github.snow.spire.items.effect.rough.CardAdder;
+import io.github.snow.spire.items.effect.rough.DamageGroup;
+
+import java.util.List;
 
 /**
  * @author snow
@@ -13,6 +22,15 @@ public class BodySlam extends RedCard {
 
     public BodySlam(String id, int level) {
         super(id, level);
+    }
+
+
+    @Override
+    public List<RoughEffect<?>> getRoughEffect(Fighter fighter) {
+        // 伤害
+        SourceChain source = new SourceChain().setFighter(fighter).setProducer(this);
+        DamageGroup damageGroup = new DamageGroup(EffectTarget.SINGLE_OPPONENT, source, fighter.block(), 1);
+        return List.of(damageGroup);
     }
 
     @Override

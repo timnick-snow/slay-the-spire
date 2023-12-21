@@ -116,6 +116,8 @@ public class FightManager {
                 }
                 case ALL_OPPONENT -> targets.addAll(ctx.getEnemies());
                 case RANDOM_OPPONENT -> targets.add(ctx.getEnemies().getFirst());
+                default -> Output.println("目标参数待完善，卡牌部分功能可能无法生效！");
+
             }
             effects.add(roughEffect.process(targets));
         }

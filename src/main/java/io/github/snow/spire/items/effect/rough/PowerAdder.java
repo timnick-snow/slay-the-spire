@@ -8,7 +8,6 @@ import io.github.snow.spire.items.effect.BaseRoughEffect;
 import io.github.snow.spire.items.effect.finished.PowerEffect;
 import io.github.snow.spire.items.power.BasePower;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -17,7 +16,6 @@ import java.util.List;
  * @since 2023/12/15
  */
 @Getter
-@Setter
 public class PowerAdder extends BaseRoughEffect<Fighter> {
     private final BasePower power;
 

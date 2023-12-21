@@ -3,10 +3,7 @@ package io.github.snow.spire.items.core;
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.effect.finished.BlockEffect;
-import io.github.snow.spire.items.effect.rough.BlockChanger;
-import io.github.snow.spire.items.effect.rough.DamageGroup;
-import io.github.snow.spire.items.effect.rough.Heal;
-import io.github.snow.spire.items.effect.rough.PowerAdder;
+import io.github.snow.spire.items.effect.rough.*;
 import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.Player;
 import io.github.snow.spire.items.power.Power;
@@ -132,6 +129,28 @@ public abstract class BaseFighter implements Fighter {
             this.hp += value;
             Output.println(STR."\{call()} 回复了 \{value} 生命，hp: \{oldHp} -> \{hp}");
         }
+    }
+
+    @Override
+    public void lossHp(HpLoss loss, FightContext ctx) {
+        this.onLossHp(loss, ctx);
+
+        int value = loss.getValue();
+        value = Math.min(value, hp);
+        this.hp -= value;
+    }
+
+    @Override
+    public void addMaxHp(MaxHpAdd add, FightContext ctx) {
+        this.maxHp += add.getValue();
+        if (this instanceof Player) {
+            ctx.getRunSupport().addMaxHp(add.getValue());
+        }
+    }
+
+    @Override
+    public void onLossHp(HpLoss loss, FightContext ctx) {
+        powers().forEach(power -> power.onLossHp(loss, ctx));
     }
 
     @Override

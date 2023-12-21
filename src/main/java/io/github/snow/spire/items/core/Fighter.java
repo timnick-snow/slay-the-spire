@@ -2,10 +2,7 @@ package io.github.snow.spire.items.core;
 
 
 import io.github.snow.spire.beans.context.FightContext;
-import io.github.snow.spire.items.effect.rough.BlockChanger;
-import io.github.snow.spire.items.effect.rough.DamageGroup;
-import io.github.snow.spire.items.effect.rough.Heal;
-import io.github.snow.spire.items.effect.rough.PowerAdder;
+import io.github.snow.spire.items.effect.rough.*;
 import io.github.snow.spire.items.power.Power;
 
 import java.util.List;
@@ -81,4 +78,14 @@ public interface Fighter extends DisplayAble, FightLifecycle {
      * 能力刷新
      */
     void powerRefresh();
+
+    /**
+     * 失去生命
+     */
+    void lossHp(HpLoss loss, FightContext ctx);
+
+    /**
+     * 增加最大生命
+     */
+    void addMaxHp(MaxHpAdd add, FightContext ctx);
 }

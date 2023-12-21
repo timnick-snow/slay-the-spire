@@ -3,6 +3,7 @@ package io.github.snow.spire.items.player;
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.items.core.BaseFighter;
 import io.github.snow.spire.items.effect.rough.BlockChanger;
+import io.github.snow.spire.items.effect.rough.HpLoss;
 
 /**
  * @author snow
@@ -48,6 +49,12 @@ public abstract class BasePlayer extends BaseFighter implements Player {
     public void onBlockAutoLose(BlockChanger blockChanger, FightContext ctx) {
         ctx.getRelics().forEach(relic -> relic.onBlockAutoLose(blockChanger, ctx));
         super.onBlockAutoLose(blockChanger, ctx);
+    }
+
+    @Override
+    public void onLossHp(HpLoss loss, FightContext ctx) {
+        ctx.getRelics().forEach(relic -> relic.onLossHp(loss, ctx));
+        super.onLossHp(loss, ctx);
     }
 
     @Override

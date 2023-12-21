@@ -95,4 +95,7 @@ public interface FightLifecycle {
      */
     default void onBlockAutoLose(BlockChanger blockChanger, FightContext ctx) {
     }
+
+    default void onStrengthEffect(ValueWrapper strength, FightContext ctx) {
+    }
 }

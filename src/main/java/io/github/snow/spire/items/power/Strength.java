@@ -2,6 +2,9 @@ package io.github.snow.spire.items.power;
 
 import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.enums.PowerType;
+import io.github.snow.spire.items.card.Card;
+import io.github.snow.spire.items.core.EffectProducer;
+import io.github.snow.spire.items.core.ValueWrapper;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
 
 /**
@@ -16,7 +19,12 @@ public class Strength extends BasePower {
 
     @Override
     public void onAttack(DamageGroup damageGroup, FightContext ctx) {
-        damageGroup.setBase(damageGroup.getBase() + amount());
+        ValueWrapper valueWrapper = ValueWrapper.of(num);
+        EffectProducer producer = damageGroup.getSource().getProducer();
+        if (producer instanceof Card card) {
+            card.onStrengthEffect(valueWrapper, ctx);
+        }
+        damageGroup.setBase(damageGroup.getBase() + valueWrapper.getValue());
     }
 
     @Override

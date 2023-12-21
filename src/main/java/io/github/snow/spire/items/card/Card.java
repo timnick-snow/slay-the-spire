@@ -4,8 +4,9 @@ import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.enums.*;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.EffectProducer;
+import io.github.snow.spire.items.core.FightLifecycle;
 
-public interface Card extends DisplayAble, EffectProducer {
+public interface Card extends DisplayAble, EffectProducer, FightLifecycle {
 
     CardColor color();
 

@@ -30,7 +30,7 @@ public class Armaments extends RedCard {
         SourceChain source = new SourceChain().setFighter(fighter).setProducer(this);
         BlockChanger blockAdd = new BlockChanger(block, source);
         // 升级手牌
-        EffectTarget effectTarget = level == 0 ? EffectTarget.SINGLE_HAND_CARD : EffectTarget.ALL_HAND_CARD;
+        EffectTarget effectTarget = level == 0 ? EffectTarget.HAND_CARD : EffectTarget.ALL_HAND_CARD;
         CardUpgrade cardUpgrade = new CardUpgrade(effectTarget, source.copy());
         return List.of(blockAdd, cardUpgrade);
     }

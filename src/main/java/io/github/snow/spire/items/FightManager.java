@@ -134,8 +134,10 @@ public class FightManager {
             return;
         }
 
-        // 4. 卡牌使用完成进入弃牌堆
-        ctx.moveCard(card, CardPosition.DISCARD_PILE);
+        // 4. 卡牌使用完成后 如果其没有被效果移动 则进入弃牌堆
+        if (card.position() == CardPosition.PLAY_ZONE) {
+            ctx.moveCard(card, CardPosition.DISCARD_PILE);
+        }
 
         // 5. 剩余手牌
         Output.println("done.\n");

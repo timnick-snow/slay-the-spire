@@ -31,7 +31,7 @@ public enum EffectTarget {
     /**
      * 单张手牌
      */
-    SINGLE_HAND_CARD,
+    HAND_CARD,
     /**
      * 所有手牌
      */
@@ -40,4 +40,19 @@ public enum EffectTarget {
      * 所有牌
      */
     ALL_CARD,
+
+    /**
+     * 单张抽牌堆的牌
+     */
+    DRAW_PILE_CARD,
+
+    /**
+     * 单张弃牌堆的牌
+     */
+    DISCARD_PILE_CARD,
+
+    /**
+     * 单张消耗堆的牌
+     */
+    EXHAUST_PILE_CARD,
 }

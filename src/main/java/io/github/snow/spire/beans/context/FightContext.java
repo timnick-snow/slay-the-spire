@@ -205,6 +205,17 @@ public class FightContext {
         this.energy = energy;
     }
 
+    public void addEnergy(int add) {
+        if (add == 0) {
+            return;
+        }
+        if (add < 0) {
+            add = Math.max(add, -energy);
+        }
+        Output.println(STR."你的能量\{add < 0 ? "减少了" : "增加了"} \{add} E");
+        this.energy += add;
+    }
+
     public Optional<FightCard> findCardById(String id) {
         if (ObjectUtils.isEmpty(id)) {
             return Optional.empty();

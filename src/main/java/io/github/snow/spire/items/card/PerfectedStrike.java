@@ -1,7 +1,9 @@
 package io.github.snow.spire.items.card;
 
+import io.github.snow.spire.beans.context.FightContext;
 import io.github.snow.spire.enums.CardRarity;
 import io.github.snow.spire.enums.CardType;
+import io.github.snow.spire.items.effect.rough.DamageGroup;
 
 /**
  * @author snow
@@ -13,6 +15,11 @@ public class PerfectedStrike extends RedCard {
 
     public PerfectedStrike(String id, int level) {
         super(id, level);
+    }
+
+    @Override
+    public void onAttack(DamageGroup damageGroup, FightContext ctx) {
+        super.onAttack(damageGroup, ctx);
     }
 
     @Override

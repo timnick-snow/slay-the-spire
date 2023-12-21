@@ -1,6 +1,7 @@
 package io.github.snow.spire.items.core;
 
 import io.github.snow.spire.beans.context.FightContext;
+import io.github.snow.spire.items.card.Card;
 import io.github.snow.spire.items.effect.finished.BlockEffect;
 import io.github.snow.spire.items.effect.rough.BlockChanger;
 import io.github.snow.spire.items.effect.rough.DamageGroup;
@@ -32,7 +33,12 @@ public abstract class BaseFighter implements Fighter {
     @Override
     public AttackResult beAttacked(DamageGroup damageGroup, FightContext ctx) {
         // 攻击方效果
+        EffectProducer producer = damageGroup.getSource().getProducer();
+        if (producer instanceof Card card) {
+            card.onAttack(damageGroup, ctx);
+        }
         damageGroup.getSource().getFighter().powers().forEach(power -> power.onAttack(damageGroup, ctx));
+
         // 被攻击状态效果
         powers.values().forEach(power -> power.onBeAttacked(damageGroup, ctx));
 

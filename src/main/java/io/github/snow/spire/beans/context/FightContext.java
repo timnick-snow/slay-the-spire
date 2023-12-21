@@ -2,12 +2,14 @@ package io.github.snow.spire.beans.context;
 
 import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.enums.CombatType;
+import io.github.snow.spire.enums.MoveStrategy;
 import io.github.snow.spire.game.Deck;
 import io.github.snow.spire.game.RunSupport;
 import io.github.snow.spire.items.card.UpgradableCard;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightCard;
 import io.github.snow.spire.items.core.Fighter;
+import io.github.snow.spire.items.core.MoveDestination;
 import io.github.snow.spire.items.effect.Effect;
 import io.github.snow.spire.items.enemy.Enemy;
 import io.github.snow.spire.items.player.*;
@@ -238,8 +240,13 @@ public class FightContext {
         Output.println(STR."你消耗了 \{cost} 能量，剩余能量 \{energy}");
     }
 
-    public void moveCard(FightCard card, CardPosition dest) {
+    public void moveCardToLast(FightCard card, CardPosition dest) {
+        moveCard(card, new MoveDestination(dest, MoveStrategy.LAST));
+    }
+
+    public void moveCard(FightCard card, MoveDestination md) {
         CardPosition src = card.position();
+        CardPosition dest = md.position();
         if (src == dest) {
             return;
         }
@@ -250,13 +257,43 @@ public class FightContext {
             case EXHAUST_PILE -> exhaustPile.remove(card);
             case PLAY_ZONE -> playZone.remove(card);
         }
+
+        SequencedCollection<FightCard> destPile = switch (dest) {
+            case HAND -> hand;
+            case DRAW_PILE -> drawPile;
+            case DISCARD_PILE -> discardPile;
+            case EXHAUST_PILE -> exhaustPile;
+            case PLAY_ZONE -> playZone;
+        };
+
         card.position(dest);
-        switch (dest) {
-            case HAND -> hand.add(card);
-            case DRAW_PILE -> drawPile.add(card);
-            case DISCARD_PILE -> discardPile.add(card);
-            case EXHAUST_PILE -> exhaustPile.add(card);
-            case PLAY_ZONE -> playZone.add(card);
+        MoveStrategy strategy = md.strategy();
+        switch (strategy) {
+            case FIRST -> destPile.addFirst(card);
+            case LAST -> destPile.addLast(card);
+            case RANDOM -> {
+                int value = shuffleRandom.nextInt(0, destPile.size() + 1);
+                List<FightCard> temp = new ArrayList<>();
+                Iterator<FightCard> it = destPile.iterator();
+                int i = 0;
+                while (it.hasNext() && i < value) {
+                    temp.add(it.next());
+                    i++;
+                }
+                temp.add(card);
+                while (it.hasNext()) {
+                    temp.add(it.next());
+                }
+                destPile.clear();
+                destPile.addAll(temp);
+            }
+            case SHUFFLE -> {
+                destPile.addLast(card);
+                List<FightCard> temp = new ArrayList<>(destPile);
+                Collections.shuffle(temp, shuffleRandom);
+                destPile.clear();
+                destPile.addAll(temp);
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import io.github.snow.spire.enums.CardPosition;
 import io.github.snow.spire.enums.EffectTarget;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightCard;
+import io.github.snow.spire.items.core.MoveDestination;
 import io.github.snow.spire.items.core.SourceChain;
 import io.github.snow.spire.items.effect.BaseRoughEffect;
 import io.github.snow.spire.items.effect.Effect;
@@ -19,9 +20,9 @@ import java.util.List;
 @Getter
 public class CardMove extends BaseRoughEffect<FightCard> {
 
-    private final CardPosition dest;
+    private final MoveDestination dest;
 
-    public CardMove(EffectTarget effectTarget, SourceChain source, CardPosition dest) {
+    public CardMove(EffectTarget effectTarget, SourceChain source, MoveDestination dest) {
         super(effectTarget, source);
         this.dest = dest;
     }

@@ -45,8 +45,7 @@ public class Anger extends RedCard {
         SourceChain source = new SourceChain().setFighter(fighter).setProducer(this);
         DamageGroup damageGroup = new DamageGroup(EffectTarget.SINGLE_OPPONENT, source, damage, 1);
         // 增加卡牌
-        SourceChain source2 = new SourceChain().setFighter(fighter).setProducer(this);
-        CardAdder cardAdder = new CardAdder(source2, this.copy("tmp"), CardPosition.DISCARD_PILE);
+        CardAdder cardAdder = new CardAdder(source.copy(), this.copy("tmp"), CardPosition.DISCARD_PILE);
         return List.of(damageGroup, cardAdder);
     }
 

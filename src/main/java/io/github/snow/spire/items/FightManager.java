@@ -125,7 +125,7 @@ public class FightManager {
         // 2. 打出消耗能量
         Output.println(STR."你打出卡牌 【\{card.displayName()}】");
         ctx.consumeEnergy(card.cost());
-        ctx.moveCard(card, CardPosition.PLAY_ZONE);
+        ctx.moveCardToLast(card, CardPosition.PLAY_ZONE);
         ctx.addEffectTail(effects);
 
         // 3. 执行卡牌效果
@@ -136,7 +136,7 @@ public class FightManager {
 
         // 4. 卡牌使用完成后 如果其没有被效果移动 则进入弃牌堆
         if (card.position() == CardPosition.PLAY_ZONE) {
-            ctx.moveCard(card, CardPosition.DISCARD_PILE);
+            ctx.moveCardToLast(card, CardPosition.DISCARD_PILE);
         }
 
         // 5. 剩余手牌
@@ -156,7 +156,7 @@ public class FightManager {
             if (position == CardPosition.DISCARD_PILE) {
                 discard.add(card);
             }
-            ctx.moveCard(card, position);
+            ctx.moveCardToLast(card, position);
         }
         if (!discard.isEmpty()) {
             StringBuilder buf = new StringBuilder();

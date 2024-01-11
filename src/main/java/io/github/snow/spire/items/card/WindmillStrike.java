@@ -7,7 +7,7 @@ import io.github.snow.spire.enums.CardType;
  * @author snow
  * @since 2023/12/12
  */
-public class WindmillStrike extends PurpleCard {
+public class WindmillStrike extends PurpleCard implements StrikeAware {
     private static final String DESC = " 【保留】 。造成7点伤害。每当这张牌被 【保留】 时，将其在本场战斗的伤害增加4点。";
     private static final String DESC1 = " 【保留】 。造成10点伤害。每当这张牌被 【保留】 时，将其在本场战斗的伤害增加5点。";
 

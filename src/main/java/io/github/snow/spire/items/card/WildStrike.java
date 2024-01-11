@@ -7,7 +7,7 @@ import io.github.snow.spire.enums.CardType;
  * @author snow
  * @since 2023/12/12
  */
-public class WildStrike extends RedCard {
+public class WildStrike extends RedCard implements StrikeAware {
     private static final String DESC = "造成12点伤害。将一张 【伤口】 放入你的抽牌堆中。";
     private static final String DESC1 = "造成17点伤害。将一张 【伤口】 放入你的抽牌堆中。";
 

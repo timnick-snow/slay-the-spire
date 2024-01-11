@@ -7,7 +7,7 @@ import io.github.snow.spire.enums.CardType;
  * @author snow
  * @since 2023/12/12
  */
-public class MeteorStrike extends BlueCard {
+public class MeteorStrike extends BlueCard implements StrikeAware {
     private static final String DESC = "造成24点伤害。 【生成】 3个 【等离子】 充能球。";
     private static final String DESC1 = "造成30点伤害。 【生成】 3个 【等离子】 充能球。";
 

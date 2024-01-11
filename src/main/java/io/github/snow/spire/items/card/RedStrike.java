@@ -17,7 +17,7 @@ import java.util.List;
  * @author snow
  * @since 2023/12/7
  */
-public class RedStrike extends RedCard {
+public class RedStrike extends RedCard implements StrikeAware {
     private static final String DESC = "造成6点伤害。";
     private static final String DESC1 = "造成9点伤害。";
 

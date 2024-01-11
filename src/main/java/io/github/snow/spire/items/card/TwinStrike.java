@@ -7,7 +7,7 @@ import io.github.snow.spire.enums.CardType;
  * @author snow
  * @since 2023/12/12
  */
-public class TwinStrike extends RedCard {
+public class TwinStrike extends RedCard implements StrikeAware {
     private static final String DESC = "造成5点伤害两次。";
     private static final String DESC1 = "造成7点伤害两次。";
 

@@ -7,7 +7,7 @@ import io.github.snow.spire.enums.CardType;
  * @author snow
  * @since 2023/12/12
  */
-public class SwiftStrike extends ColorlessCard {
+public class SwiftStrike extends ColorlessCard implements StrikeAware {
     private static final String DESC = "造成7点伤害。";
     private static final String DESC1 = "造成10点伤害。";
 

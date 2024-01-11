@@ -7,7 +7,7 @@ import io.github.snow.spire.enums.CardType;
  * @author snow
  * @since 2023/12/12
  */
-public class SneakyStrike extends GreenCard {
+public class SneakyStrike extends GreenCard implements StrikeAware {
     private static final String DESC = "造成12点伤害。如果你在这回合丢弃过牌，获得[G][G]。";
     private static final String DESC1 = "造成16点伤害。如果你在这回合丢弃过牌，获得[G][G]。";
 

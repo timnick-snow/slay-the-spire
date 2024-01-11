@@ -5,6 +5,7 @@ import io.github.snow.spire.enums.CombatType;
 import io.github.snow.spire.enums.MoveStrategy;
 import io.github.snow.spire.game.Deck;
 import io.github.snow.spire.game.RunSupport;
+import io.github.snow.spire.items.card.StrikeAware;
 import io.github.snow.spire.items.card.UpgradableCard;
 import io.github.snow.spire.items.core.DisplayAble;
 import io.github.snow.spire.items.core.FightCard;
@@ -392,5 +393,13 @@ public class FightContext {
             FightCard card = playZone.pollFirst();
             moveCardToLast(card, CardPosition.DISCARD_PILE);
         }
+    }
+
+    public int countStrike() {
+        Deck deck = runSupport.getRunContext().getDeck();
+        return (int) deck.getCards()
+                .stream()
+                .filter(card -> card instanceof StrikeAware)
+                .count();
     }
 }
